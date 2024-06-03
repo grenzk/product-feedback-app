@@ -1,7 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <h1>Hello, Vue!</h1>
+  <h1>Home Page</h1>
 </template>
-
-<style></style>
