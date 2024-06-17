@@ -15,7 +15,7 @@ import Tag from 'primevue/tag'
     </Button>
   </header>
 
-  <aside>
+  <div v-if="false">
     <div>
       <img src="@/assets/images/suggestions/icon-suggestions.svg" alt="" />
       <h2>Suggestions</h2>
@@ -27,13 +27,14 @@ import Tag from 'primevue/tag'
         <img src="@/assets/images/shared/icon-arrow-down.svg" alt="" />
       </span>
     </div>
-    <RouterLink to="/feedback">
+
+    <RouterLink to="/feedback/new">
       <Button>
         <img src="../assets/images/shared/icon-plus.svg" alt="" />
         <span>Add feedback</span>
       </Button>
     </RouterLink>
-  </aside>
+  </div>
 
   <aside>
     <div>
