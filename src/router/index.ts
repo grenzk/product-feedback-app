@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@/views/HomePage.vue'
+import NewFeedbackPage from '@/views/NewFeedbackPage.vue'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -8,6 +9,11 @@ export const router = createRouter({
       path: '/',
       name: 'home',
       component: HomePage
+    },
+    {
+      path: '/feedback/new',
+      name: 'new feedback',
+      component: NewFeedbackPage
     }
   ]
 })
