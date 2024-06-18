@@ -48,7 +48,7 @@ import Tag from 'primevue/tag'
     <div>
       <div>
         <h2>Roadmap</h2>
-        <RouterLink to="/">View</RouterLink>
+        <RouterLink to="/roadmap">View</RouterLink>
       </div>
       <ul>
         <li>
