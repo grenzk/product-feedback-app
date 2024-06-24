@@ -22,19 +22,22 @@ body {
   min-height: 100vh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Jost', sans-serif;
+  font-family: var(--font-family-sans);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--color-primary-indigo-dark-2);
+}
+
+p,
+li {
+  color: var(--color-neutral-gray);
 }
 
 img,
 picture {
   max-width: 100%;
   display: block;
-}
-
-input,
-button,
-textarea,
-select {
-  font-family: inherit;
-  font-size: inherit;
 }
