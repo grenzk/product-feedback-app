@@ -13,7 +13,8 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(PrimeVue, {
-  ripple: true
+  ripple: true,
+  inputStyle: 'filled'
 })
 
 app.mount('#app')
