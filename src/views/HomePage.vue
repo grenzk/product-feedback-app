@@ -36,32 +36,45 @@ import Tag from 'primevue/tag'
     </RouterLink>
   </div>
 
-  <aside>
-    <div>
-      <Button label="All" severity="secondary" />
-      <Button label="UI" severity="secondary" />
-      <Button label="UX" severity="secondary" />
-      <Button label="Enhancement" severity="secondary" />
-      <Button label="Bug" severity="secondary" />
+  <aside id="sidebar">
+    <div class="tags">
+      <div class="row l-flex">
+        <Button label="All" severity="secondary" />
+        <Button label="UI" severity="secondary" />
+        <Button label="UX" severity="secondary" />
+      </div>
+
+      <div class="row l-flex">
+        <Button label="Enhancement" severity="secondary" />
+        <Button label="Bug" severity="secondary" />
+      </div>
+
       <Button label="Feature" severity="secondary" />
     </div>
-    <div>
-      <div>
-        <h2>Roadmap</h2>
+
+    <div class="categories">
+      <div class="row l-flex">
+        <h2 class="categories-title">Roadmap</h2>
         <RouterLink to="/roadmap">View</RouterLink>
       </div>
-      <ul>
-        <li>
-          <span></span>
-          Planned
+
+      <ul class="list l-flex">
+        <li class="list-item l-flex">
+          <span class="dot"></span>
+          <span>Planned</span>
+          <span>2</span>
         </li>
-        <li>
-          <span></span>
-          In-progress
+
+        <li class="list-item l-flex">
+          <span class="dot"></span>
+          <span>In-Progress</span>
+          <span>3</span>
         </li>
-        <li>
-          <span></span>
-          Live
+
+        <li class="list-item l-flex">
+          <span class="dot"></span>
+          <span>Live</span>
+          <span>1</span>
         </li>
       </ul>
     </div>
@@ -95,7 +108,7 @@ import Tag from 'primevue/tag'
   background-image: url('../assets/images/suggestions/mobile/background-header.png');
   background-repeat: no-repeat;
   height: 4.5rem;
-  align-items: center;
+  align-list-items: center;
   justify-content: space-between;
   padding: 1rem 1rem 1rem 1.5rem;
 
@@ -119,6 +132,95 @@ import Tag from 'primevue/tag'
 
   .p-button {
     padding: 0.5rem;
+  }
+}
+
+#sidebar {
+  position: absolute;
+  background-color: var(--color-neutral-white-2);
+  height: 100vh;
+  width: 16.938rem;
+  right: 0;
+  padding: 1.5rem;
+
+  .tags {
+    background-color: var(--color-neutral-white-1);
+    border-radius: var(--border-radius-m);
+    padding: 1.5rem 1.125rem 2.25rem 1.5rem;
+
+    .row {
+      column-gap: 0.5rem;
+      margin-bottom: 0.875rem;
+
+      &:nth-child(2) {
+        column-gap: 0.875rem;
+      }
+    }
+
+    .p-button {
+      font-size: var(--font-size-xxs);
+      padding: 0.375rem 1rem;
+    }
+  }
+
+  .categories {
+    background-color: var(--color-neutral-white-1);
+    padding: 1.188rem 1.5rem 1.5rem 1.5rem;
+    border-radius: var(--border-radius-m);
+    margin-top: 1.5rem;
+
+    .row {
+      justify-content: space-between;
+      align-items: center;
+
+      &:nth-child(1) {
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    .categories-title {
+      font-size: var(--font-size-l);
+      letter-spacing: -0.25px;
+    }
+
+    a {
+      color: var(--color-primary-indigo);
+      font-size: var(--font-size-xxs);
+      font-weight: 600;
+    }
+
+    .list {
+      flex-direction: column;
+      row-gap: 0.5rem;
+    }
+
+    .list-item {
+      align-items: center;
+      column-gap: 1rem;
+      font-size: var(--font-size-m);
+
+      .dot {
+        display: inline-block;
+        border-radius: 50%;
+        width: 8px;
+        height: 8px;
+      }
+
+      &:nth-child(1) > .dot {
+        background-color: var(--color-secondary-orange-light);
+      }
+      &:nth-child(2) > .dot {
+        background-color: var(--color-primary-purple);
+      }
+      &:nth-child(3) > .dot {
+        background-color: var(--color-secondary-blue-light);
+      }
+
+      span:last-child {
+        margin-left: auto;
+        font-weight: 700;
+      }
+    }
   }
 }
 </style>
