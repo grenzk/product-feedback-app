@@ -24,7 +24,7 @@
   }
 }
 
-.p-button {
+.p-button:not(.p-button-text) {
   background-color: var(--color-primary-purple);
   border-radius: var(--border-radius-m);
   border: none;

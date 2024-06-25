@@ -4,13 +4,13 @@ import Tag from 'primevue/tag'
 </script>
 
 <template>
-  <header>
-    <div>
-      <h1>Frontend Mentor</h1>
-      <span>Feedback Board</span>
+  <header id="header" class="l-flex">
+    <div class="left-column l-flex">
+      <h1 class="header-title">Frontend Mentor</h1>
+      <span class="header-description">Feedback Board</span>
     </div>
 
-    <Button aria-label="toggle sidebar">
+    <Button text aria-label="toggle sidebar">
       <img src="@/assets/images/shared/mobile/icon-hamburger.svg" alt="" />
     </Button>
   </header>
@@ -90,4 +90,35 @@ import Tag from 'primevue/tag'
   </main>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+#header {
+  background-image: url('../assets/images/suggestions/mobile/background-header.png');
+  background-repeat: no-repeat;
+  height: 4.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem 1rem 1.5rem;
+
+  .left-column {
+    flex-direction: column;
+  }
+
+  .header-title {
+    color: var(--color-neutral-white-1);
+    font-size: var(--font-size-s);
+    font-weight: 700;
+    letter-spacing: -0.19px;
+  }
+
+  .header-description {
+    color: var(--color-neutral-white-1);
+    font-size: var(--font-size-xxs);
+    font-weight: 500;
+    opacity: 75%;
+  }
+
+  .p-button {
+    padding: 0.5rem;
+  }
+}
+</style>
