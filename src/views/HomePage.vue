@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import Button from 'primevue/button'
 import Tag from 'primevue/tag'
+
+const isOpen = ref(false)
 </script>
 
 <template>
@@ -10,8 +12,9 @@ import Tag from 'primevue/tag'
       <span class="header-description">Feedback Board</span>
     </div>
 
-    <Button text aria-label="toggle sidebar">
-      <img src="@/assets/images/shared/mobile/icon-hamburger.svg" alt="" />
+    <Button text aria-label="toggle sidebar" @click="isOpen = !isOpen">
+      <img v-if="isOpen" src="@/assets/images/shared/mobile/icon-close.svg" alt="" />
+      <img v-else src="@/assets/images/shared/mobile/icon-hamburger.svg" alt="" />
     </Button>
   </header>
 
@@ -36,7 +39,7 @@ import Tag from 'primevue/tag'
     </RouterLink>
   </div>
 
-  <aside id="sidebar">
+  <aside id="sidebar" :class="{ 'is-visible': isOpen }">
     <div class="tags">
       <div class="row l-flex">
         <Button label="All" severity="secondary" />
@@ -48,7 +51,6 @@ import Tag from 'primevue/tag'
         <Button label="Enhancement" severity="secondary" />
         <Button label="Bug" severity="secondary" />
       </div>
-
       <Button label="Feature" severity="secondary" />
     </div>
 
@@ -60,19 +62,19 @@ import Tag from 'primevue/tag'
 
       <ul class="list l-flex">
         <li class="list-item l-flex">
-          <span class="dot"></span>
+          <span class="circle"></span>
           <span>Planned</span>
           <span>2</span>
         </li>
 
         <li class="list-item l-flex">
-          <span class="dot"></span>
+          <span class="circle"></span>
           <span>In-Progress</span>
           <span>3</span>
         </li>
 
         <li class="list-item l-flex">
-          <span class="dot"></span>
+          <span class="circle"></span>
           <span>Live</span>
           <span>1</span>
         </li>
@@ -101,16 +103,21 @@ import Tag from 'primevue/tag'
       </div>
     </section>
   </main>
+
+  <Transition name="fade">
+    <div v-show="isOpen" class="dimmed-layer"></div>
+  </Transition>
 </template>
 
 <style lang="scss">
 #header {
+  position: relative;
   background-image: url('../assets/images/suggestions/mobile/background-header.png');
   background-repeat: no-repeat;
   height: 4.5rem;
-  align-list-items: center;
   justify-content: space-between;
   padding: 1rem 1rem 1rem 1.5rem;
+  z-index: 2;
 
   .left-column {
     flex-direction: column;
@@ -136,12 +143,16 @@ import Tag from 'primevue/tag'
 }
 
 #sidebar {
-  position: absolute;
-  background-color: var(--color-neutral-white-2);
-  height: 100vh;
-  width: 16.938rem;
-  right: 0;
-  padding: 1.5rem;
+  @media screen and (max-width: 767px) {
+    background-color: var(--color-neutral-white-2);
+    position: fixed;
+    height: 100%;
+    width: 16.938rem;
+    right: -100%;
+    z-index: 2;
+    padding: 1.5rem;
+    transition: 0.3s ease-in-out;
+  }
 
   .tags {
     background-color: var(--color-neutral-white-1);
@@ -199,20 +210,20 @@ import Tag from 'primevue/tag'
       column-gap: 1rem;
       font-size: var(--font-size-m);
 
-      .dot {
+      .circle {
         display: inline-block;
         border-radius: 50%;
-        width: 8px;
-        height: 8px;
+        width: 0.5rem;
+        height: 0.5rem;
       }
 
-      &:nth-child(1) > .dot {
+      &:nth-child(1) > .circle {
         background-color: var(--color-secondary-orange-light);
       }
-      &:nth-child(2) > .dot {
+      &:nth-child(2) > .circle {
         background-color: var(--color-primary-purple);
       }
-      &:nth-child(3) > .dot {
+      &:nth-child(3) > .circle {
         background-color: var(--color-secondary-blue-light);
       }
 
@@ -221,6 +232,29 @@ import Tag from 'primevue/tag'
         font-weight: 700;
       }
     }
+  }
+
+  &.is-visible {
+    right: 0;
+  }
+}
+
+.dimmed-layer {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+
+  &.fade-enter-active,
+  &.fade-leave-active {
+    transition: opacity 0.3s ease;
+  }
+
+  &.fade-enter-from,
+  &.fade-leave-to {
+    opacity: 0;
   }
 }
 </style>
