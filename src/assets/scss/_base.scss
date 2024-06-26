@@ -25,6 +25,10 @@ body {
   font-family: var(--font-family-sans);
 }
 
+#app {
+  min-height: 100vh;
+}
+
 h1,
 h2,
 h3 {
