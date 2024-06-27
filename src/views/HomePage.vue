@@ -18,27 +18,6 @@ const isOpen = ref(false)
     </Button>
   </header>
 
-  <div v-if="false">
-    <div>
-      <img src="@/assets/images/suggestions/icon-suggestions.svg" alt="" />
-      <h2>Suggestions</h2>
-    </div>
-    <div>
-      Sort by:
-      <span>
-        Most Upvotes
-        <img src="@/assets/images/shared/icon-arrow-down.svg" alt="" />
-      </span>
-    </div>
-
-    <RouterLink to="/feedback/new">
-      <Button>
-        <img src="../assets/images/shared/icon-plus.svg" alt="" />
-        <span>Add feedback</span>
-      </Button>
-    </RouterLink>
-  </div>
-
   <aside id="sidebar" :class="{ 'is-visible': isOpen }">
     <div class="tags">
       <div class="row l-flex">
@@ -81,6 +60,27 @@ const isOpen = ref(false)
       </ul>
     </div>
   </aside>
+
+  <div id="feedback-controls" class="l-flex">
+    <!-- <div>
+      <img src="@/assets/images/suggestions/icon-suggestions.svg" alt="" />
+      <h2>Suggestions</h2>
+    </div> -->
+    <div class="sort-by">
+      <Button text>
+        <span>Sort by :</span>
+        <span>Most Upvotes</span>
+        <img src="@/assets/images/shared/icon-arrow-down.svg" alt="" class="icon" />
+      </Button>
+    </div>
+
+    <RouterLink to="/feedback/new">
+      <Button>
+        <img src="../assets/images/shared/icon-plus.svg" alt="" class="icon" />
+        <span>Add Feedback</span>
+      </Button>
+    </RouterLink>
+  </div>
 
   <main>
     <section>
@@ -236,6 +236,49 @@ const isOpen = ref(false)
 
   &.is-visible {
     right: 0;
+  }
+}
+
+#feedback-controls {
+  background-color: var(--color-primary-indigo-dark-1);
+  justify-content: space-between;
+  align-items: center;
+  height: 3.5rem;
+  padding: 0.5rem 1.5rem;
+
+  .sort-by {
+    .p-button {
+      display: inline-flex;
+      color: hsl(230, 86%, 97%);
+      font-size: var(--font-size-xxs);
+      padding: 0;
+      cursor: pointer;
+      gap: 5px;
+
+      span:first-child {
+        font-weight: 400;
+      }
+
+      .icon {
+        margin-left: 2px;
+        filter: invert(1%) sepia(1%) saturate(1%) hue-rotate(1deg) brightness(1000%) contrast(100%);
+      }
+
+      &:hover {
+        opacity: 75%;
+      }
+    }
+  }
+
+  .p-button {
+    font-size: var(--font-size-xxs);
+    font-weight: 700;
+    color: hsl(230, 86%, 97%);
+    padding: 0.656rem 1.063rem;
+
+    .icon {
+      margin-right: 3px;
+    }
   }
 }
 
