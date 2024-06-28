@@ -82,22 +82,24 @@ const isOpen = ref(false)
     </RouterLink>
   </div>
 
-  <main>
-    <section>
-      <div>
+  <main id="main" class="l-flex">
+    <section class="feedback l-container">
+      <div class="left-column l-flex">
         <div>
-          <h3>Add tags for solutions</h3>
-          <p>Easier to search for solutions based on a specific</p>
+          <h3 class="feedback-title">Add tags for solutions</h3>
+          <p class="feedback-description">
+            Easier to search for solutions based on a specific stack.
+          </p>
           <Tag value="Enhancement"></Tag>
         </div>
 
-        <div>
+        <div class="upvote-counter">
           <img src="@/assets/images/shared/icon-arrow-up.svg" alt="" />
           <span>112</span>
         </div>
       </div>
 
-      <div>
+      <div class="comment-counter">
         <img src="@/assets/images/shared/icon-comments.svg" alt="" />
         <span>2</span>
       </div>
@@ -249,7 +251,7 @@ const isOpen = ref(false)
   .sort-by {
     .p-button {
       display: inline-flex;
-      color: hsl(230, 86%, 97%);
+      color: var(--color-neutral-white-4);
       font-size: var(--font-size-xxs);
       padding: 0;
       cursor: pointer;
@@ -273,11 +275,70 @@ const isOpen = ref(false)
   .p-button {
     font-size: var(--font-size-xxs);
     font-weight: 700;
-    color: hsl(230, 86%, 97%);
+    color: var(--color-neutral-white-4);
     padding: 0.656rem 1.063rem;
 
     .icon {
       margin-right: 3px;
+    }
+  }
+}
+
+#main {
+  padding-top: 1rem;
+  flex-direction: column;
+  gap: 1rem;
+
+  .feedback {
+    --counter-padding: 0.375rem;
+
+    position: relative;
+    background-color: var(--color-neutral-white-1);
+    border-radius: var(--border-radius-m);
+    padding: 1.5rem;
+
+    .left-column {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .feedback-title {
+      font-size: var(--font-size-xxs);
+      font-weight: 700;
+      letter-spacing: -0.18px;
+    }
+
+    .feedback-description {
+      margin: 0.5rem 0 0.563rem 0;
+    }
+
+    .upvote-counter {
+      display: inline-flex;
+      background-color: var(--color-neutral-white-4);
+      color: var(--color-primary-indigo-dark-2);
+      font-size: var(--font-size-xxs);
+      font-weight: 700;
+      align-items: center;
+      padding: var(--counter-padding) 0.813rem var(--counter-padding) 1rem;
+      border-radius: var(--border-radius-m);
+      gap: 10px;
+      letter-spacing: -0.18px;
+      align-self: flex-start;
+    }
+
+    .comment-counter {
+      position: absolute;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      margin-bottom: var(--counter-padding);
+      display: inline-flex;
+      color: var(--color-primary-indigo-dark-2);
+      align-items: center;
+      font-size: var(--font-size-xxs);
+      font-weight: 700;
+      gap: 8px;
+      letter-spacing: -0.18px;
+      align-self: flex-end;
     }
   }
 }
