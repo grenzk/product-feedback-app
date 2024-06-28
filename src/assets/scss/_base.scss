@@ -23,6 +23,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   font-family: var(--font-family-sans);
+  background-color: var(--color-neutral-white-2);
 }
 
 #app {
@@ -38,6 +39,7 @@ h3 {
 p,
 li {
   color: var(--color-neutral-gray);
+  font-size: var(--font-size-xxs);
 }
 
 img,
