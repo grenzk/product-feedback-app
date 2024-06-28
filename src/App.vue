@@ -46,4 +46,15 @@
     }
   }
 }
+
+.p-tag {
+  color: var(--color-primary-indigo);
+  background-color: var(--color-neutral-white-3);
+  border-radius: var(--border-radius-m);
+  padding: 0.375rem 1rem;
+
+  .p-tag-value {
+    font-weight: 600;
+  }
+}
 </style>
