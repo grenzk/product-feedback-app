@@ -34,11 +34,10 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
       </div>
     </section>
 
-    <div class="empty-state">
-      <img src="../assets/images/suggestions/illustration-empty.svg" alt="" />
-
-      <h3>There is no feedback yet.</h3>
-      <p>
+    <div class="empty-state l-container">
+      <img src="@/assets/images/suggestions/illustration-empty.svg" alt="" class="illustration" />
+      <h3 class="empty-state-title">There is no feedback yet.</h3>
+      <p class="empty-state-description">
         Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to
         improve our app.
       </p>
@@ -107,6 +106,28 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
       font-size: var(--font-size-xxs);
       font-weight: 700;
       margin-bottom: var(--counter-padding);
+    }
+  }
+
+  .empty-state {
+    background-color: var(--color-neutral-white-1);
+    border-radius: var(--border-radius-m);
+    height: 28.75rem;
+    padding: 4.75rem 1.5rem;
+    text-align: center;
+
+    .illustration {
+      margin: 0 auto;
+    }
+
+    .empty-state-title {
+      font-size: var(--font-size-l);
+      letter-spacing: -0.25px;
+      margin: 2.438rem 0 0.875rem 0;
+    }
+
+    .empty-state-description {
+      margin-bottom: 1.5rem;
     }
   }
 }
