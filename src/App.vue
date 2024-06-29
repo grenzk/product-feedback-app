@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router';
+import { RouterView } from 'vue-router'
 import { uiStore } from '@/stores/ui'
 
 import SiteHeader from '@/components/SiteHeader.vue'
