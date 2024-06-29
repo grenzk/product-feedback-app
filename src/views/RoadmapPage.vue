@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
+
 import Tag from 'primevue/tag'
+import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
 </script>
 
 <template>
@@ -9,13 +12,7 @@ import Tag from 'primevue/tag'
       <span>Go Back</span>
     </RouterLink>
     <h1>Roadmap</h1>
-
-    <RouterLink to="/feedback/new">
-      <Button>
-        <img src="../assets/images/shared/icon-plus.svg" alt="" />
-        <span>Add feedback</span>
-      </Button>
-    </RouterLink>
+    <NewFeedbackLink />
   </header>
 
   <nav>

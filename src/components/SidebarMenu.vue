@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
 import { uiStore } from '@/stores/ui'
 
 import Button from 'primevue/button'
