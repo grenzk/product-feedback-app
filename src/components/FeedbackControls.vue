@@ -33,6 +33,7 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
       display: inline-flex;
       color: var(--color-neutral-white-4);
       font-size: var(--font-size-xxs);
+      font-weight: 700;
       padding: 0;
       cursor: pointer;
       gap: 5px;
