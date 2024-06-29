@@ -4,6 +4,7 @@ import { uiStore } from '@/stores/ui'
 import Tag from 'primevue/tag'
 import SidebarMenu from '@/components/SidebarMenu.vue'
 import FeedbackControls from '@/components/FeedbackControls.vue'
+import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
 </script>
 
 <template>
@@ -11,7 +12,7 @@ import FeedbackControls from '@/components/FeedbackControls.vue'
   <FeedbackControls />
 
   <main id="main" class="l-flex">
-    <section class="feedback l-container">
+    <section v-if="false" class="feedback l-container">
       <div class="column l-flex">
         <div>
           <h3 class="feedback-title">Add tags for solutions</h3>
@@ -32,6 +33,17 @@ import FeedbackControls from '@/components/FeedbackControls.vue'
         <span>2</span>
       </div>
     </section>
+
+    <div class="empty-state">
+      <img src="../assets/images/suggestions/illustration-empty.svg" alt="" />
+
+      <h3>There is no feedback yet.</h3>
+      <p>
+        Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to
+        improve our app.
+      </p>
+      <NewFeedbackLink />
+    </div>
   </main>
 
   <Transition name="fade">

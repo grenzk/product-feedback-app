@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Button from 'primevue/button'
+import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
 </script>
 
 <template>
@@ -15,13 +16,7 @@ import Button from 'primevue/button'
         <img src="@/assets/images/shared/icon-arrow-down.svg" alt="" class="icon" />
       </Button>
     </div>
-
-    <RouterLink to="/feedback/new">
-      <Button>
-        <img src="../assets/images/shared/icon-plus.svg" alt="" class="icon" />
-        <span>Add Feedback</span>
-      </Button>
-    </RouterLink>
+    <NewFeedbackLink />
   </div>
 </template>
 
@@ -54,17 +49,6 @@ import Button from 'primevue/button'
       &:hover {
         opacity: 75%;
       }
-    }
-  }
-
-  .p-button {
-    font-size: var(--font-size-xxs);
-    font-weight: 700;
-    color: var(--color-neutral-white-4);
-    padding: 0.656rem 1.063rem;
-
-    .icon {
-      margin-right: 3px;
     }
   }
 }
