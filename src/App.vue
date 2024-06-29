@@ -1,6 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { uiStore } from '@/stores/ui'
+
+import SiteHeader from '@/components/SiteHeader.vue'
+</script>
 
 <template>
+  <SiteHeader v-model:sidebar-active="uiStore.isSidebarActive" />
+
   <RouterView />
 </template>
 
