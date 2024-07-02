@@ -6,7 +6,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
 </script>
 
 <template>
-  <SiteHeader v-model:sidebar-active="uiStore.isSidebarActive" />
+  <SiteHeader v-if="$route.name === 'home'" v-model:sidebar-active="uiStore.isSidebarActive" />
 
   <RouterView />
 </template>
@@ -25,6 +25,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
   color: var(--color-primary-indigo-dark-2);
   border-radius: var(--border-radius-s);
   border: none;
+  width: 100%;
 
   &:focus {
     outline-color: var(--color-primary-indigo);
