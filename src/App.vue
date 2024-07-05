@@ -46,7 +46,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
     background-color: var(--color-neutral-white-3);
 
     .p-button-label {
-      font-weight: 600;
+      font-weight: var(--font-weight-semi-bold)
     }
 
     &:hover {
@@ -62,7 +62,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
   padding: 0.375rem 1rem;
 
   .p-tag-value {
-    font-weight: 600;
+    font-weight: var(--font-weight-semi-bold)
   }
 }
 </style>
