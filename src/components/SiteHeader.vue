@@ -5,21 +5,36 @@ import Button from 'primevue/button'
 </script>
 
 <template>
-  <header id="header" class="l-flex">
-    <div class="column l-flex">
-      <h1 class="header-title">Frontend Mentor</h1>
-      <span class="header-description">Feedback Board</span>
+  <header class="l-flex">
+    <div class="column">
+      <h1 class="text-s text-bold">Frontend Mentor</h1>
+      <span class="description | text-medium">Feedback Board</span>
     </div>
 
-    <Button text aria-label="toggle sidebar" @click="uiStore.isSidebarActive = !uiStore.isSidebarActive">
-      <img v-if="uiStore.isSidebarActive" src="@/assets/images/shared/mobile/icon-close.svg" alt="" />
-      <img v-else src="@/assets/images/shared/mobile/icon-hamburger.svg" alt="" />
+    <Button
+      text
+      @click="uiStore.isSidebarActive = !uiStore.isSidebarActive"
+      aria-label="toggle sidebar"
+      :aria-expanded="uiStore.isSidebarActive"
+    >
+      <img
+        v-if="uiStore.isSidebarActive"
+        src="@/assets/images/shared/mobile/icon-close.svg"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        v-else
+        src="@/assets/images/shared/mobile/icon-hamburger.svg"
+        alt=""
+        aria-hidden="true"
+      />
     </Button>
   </header>
 </template>
 
 <style lang="scss">
-#header {
+header {
   position: relative;
   background-image: url('../assets/images/suggestions/mobile/background-header.png');
   background-repeat: no-repeat;
@@ -28,21 +43,13 @@ import Button from 'primevue/button'
   padding: 1rem 1rem 1rem 1.5rem;
   z-index: 2;
 
-  .column {
-    flex-direction: column;
-  }
-
-  .header-title {
+  h1 {
     color: var(--color-neutral-white-1);
-    font-size: var(--font-size-s);
-    font-weight: 700;
     letter-spacing: -0.19px;
   }
 
-  .header-description {
+  .description {
     color: var(--color-neutral-white-1);
-    font-size: var(--font-size-xxs);
-    font-weight: 500;
     opacity: 75%;
   }
 
