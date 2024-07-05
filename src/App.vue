@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import { uiStore } from '@/stores/ui'
 
 import SiteHeader from '@/components/SiteHeader.vue'
 </script>
 
 <template>
-  <SiteHeader v-if="$route.name === 'home'" v-model:sidebar-active="uiStore.isSidebarActive" />
+  <SiteHeader v-if="$route.name === 'home'" />
 
   <RouterView />
 </template>
@@ -46,7 +45,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
     background-color: var(--color-neutral-white-3);
 
     .p-button-label {
-      font-weight: var(--font-weight-semi-bold)
+      font-weight: var(--font-weight-semi-bold);
     }
 
     &:hover {
@@ -62,7 +61,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
   padding: 0.375rem 1rem;
 
   .p-tag-value {
-    font-weight: var(--font-weight-semi-bold)
+    font-weight: var(--font-weight-semi-bold);
   }
 }
 </style>

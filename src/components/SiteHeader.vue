@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Button from 'primevue/button'
+import { uiStore } from '@/stores/ui'
 
-const sidebarActive = defineModel<boolean>('sidebarActive', { required: true })
+import Button from 'primevue/button'
 </script>
 
 <template>
@@ -11,8 +11,8 @@ const sidebarActive = defineModel<boolean>('sidebarActive', { required: true })
       <span class="header-description">Feedback Board</span>
     </div>
 
-    <Button text aria-label="toggle sidebar" @click="sidebarActive = !sidebarActive">
-      <img v-if="sidebarActive" src="@/assets/images/shared/mobile/icon-close.svg" alt="" />
+    <Button text aria-label="toggle sidebar" @click="uiStore.isSidebarActive = !uiStore.isSidebarActive">
+      <img v-if="uiStore.isSidebarActive" src="@/assets/images/shared/mobile/icon-close.svg" alt="" />
       <img v-else src="@/assets/images/shared/mobile/icon-hamburger.svg" alt="" />
     </Button>
   </header>
