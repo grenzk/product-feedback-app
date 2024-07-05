@@ -8,26 +8,17 @@
   padding: 0;
 }
 
-html {
-  -moz-text-size-adjust: none;
-  -webkit-text-size-adjust: none;
-  text-size-adjust: none;
-}
-
-ul {
-  list-style: none;
+html,
+body,
+#app {
+  height: 100%;
 }
 
 body {
-  min-height: 100vh;
   line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
   font-family: var(--font-family-sans);
+  font-size: var(--font-size-xxs);
   background-color: var(--color-neutral-white-2);
-}
-
-#app {
-  min-height: 100vh;
 }
 
 h1,
@@ -36,10 +27,13 @@ h3 {
   color: var(--color-primary-indigo-dark-2);
 }
 
+ul {
+  list-style: none;
+}
+
 p,
 li {
   color: var(--color-neutral-gray);
-  font-size: var(--font-size-xxs);
 }
 
 img,
