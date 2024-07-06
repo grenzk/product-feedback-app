@@ -4,7 +4,7 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
 </script>
 
 <template>
-  <div id="feedback-controls" class="l-flex">
+  <div class="feedback-controls l-flex">
     <!-- <div>
       <img src="@/assets/images/suggestions/icon-suggestions.svg" alt="" />
       <h2>Suggestions</h2>
@@ -12,8 +12,13 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
     <div class="sort-by">
       <Button text>
         <span>Sort by :</span>
-        <span>Most Upvotes</span>
-        <img src="@/assets/images/shared/icon-arrow-down.svg" alt="" class="icon" />
+        <span class="text-bold">Most Upvotes</span>
+        <img
+          src="@/assets/images/shared/icon-arrow-down.svg"
+          alt=""
+          class="icon"
+          aria-hidden="true"
+        />
       </Button>
     </div>
     <NewFeedbackLink />
@@ -21,7 +26,7 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
 </template>
 
 <style lang="scss">
-#feedback-controls {
+.feedback-controls {
   background-color: var(--color-primary-indigo-dark-1);
   justify-content: space-between;
   align-items: center;
@@ -32,15 +37,9 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
     .p-button {
       display: inline-flex;
       color: var(--color-neutral-white-4);
-      font-size: var(--font-size-xxs);
-      font-weight: 700;
       padding: 0;
       cursor: pointer;
-      gap: 5px;
-
-      span:first-child {
-        font-weight: 400;
-      }
+      column-gap: 5px;
 
       .icon {
         margin-left: 2px;

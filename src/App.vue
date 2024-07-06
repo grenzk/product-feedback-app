@@ -31,29 +31,29 @@ import SiteHeader from '@/components/SiteHeader.vue'
   }
 }
 
-.p-button:not(.p-button-text) {
-  background-color: var(--color-primary-purple);
-  border-radius: var(--border-radius-m);
-  border: none;
+.p-button {
+  font-size: var(--font-size-xxs);
 
-  .p-button-label {
-    font-size: var(--font-size-xxs);
-  }
-
-  &:hover {
-    background-color: var(--color-hover-purple);
-  }
-
-  &.p-button-secondary {
-    color: var(--color-primary-indigo);
-    background-color: var(--color-neutral-white-3);
-
-    .p-button-label {
-      font-weight: var(--font-weight-semi-bold);
-    }
+  &:not(.p-button-text) {
+    background-color: var(--color-primary-purple);
+    border-radius: var(--border-radius-m);
+    border: none;
 
     &:hover {
-      background-color: var(--color-hover-indigo-light);
+      background-color: var(--color-hover-purple);
+    }
+
+    &.p-button-secondary {
+      color: var(--color-primary-indigo);
+      background-color: var(--color-neutral-white-3);
+
+      .p-button-label {
+        font-weight: var(--font-weight-semi-bold);
+      }
+
+      &:hover {
+        background-color: var(--color-hover-indigo-light);
+      }
     }
   }
 }
