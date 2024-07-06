@@ -3,55 +3,56 @@ import { RouterLink } from 'vue-router'
 import { uiStore } from '@/stores/ui'
 
 import Button from 'primevue/button'
+import ContentCard from './ContentCard.vue'
 </script>
 
 <template>
-  <aside id="sidebar" :class="{ 'is-active': uiStore.isSidebarActive }">
-    <div class="tags">
-      <div class="row l-flex">
+  <aside :data-state="uiStore.isSidebarActive ? 'is-active' : null">
+    <ContentCard class="tags">
+      <div class="row | l-flex">
         <Button label="All" severity="secondary" />
         <Button label="UI" severity="secondary" />
         <Button label="UX" severity="secondary" />
       </div>
 
-      <div class="row l-flex">
+      <div class="row | l-flex">
         <Button label="Enhancement" severity="secondary" />
         <Button label="Bug" severity="secondary" />
       </div>
       <Button label="Feature" severity="secondary" />
-    </div>
+    </ContentCard>
 
-    <div class="categories">
-      <div class="row l-flex">
-        <h2 class="categories-title">Roadmap</h2>
-        <RouterLink to="/roadmap">View</RouterLink>
+    <ContentCard class="categories">
+      <div class="row | l-flex">
+        <h2 class="text-l">Roadmap</h2>
+        <RouterLink class="text-semi-bold" to="/roadmap">View</RouterLink>
       </div>
 
-      <ul class="list l-flex">
-        <li class="list-item l-flex">
+      <ul class="l-flex">
+        <li class="l-flex | text-m">
           <span class="circle"></span>
           <span>Planned</span>
-          <span>2</span>
+          <span class="text-bold">2</span>
         </li>
 
-        <li class="list-item l-flex">
+        <li class="l-flex | text-m">
           <span class="circle"></span>
           <span>In-Progress</span>
-          <span>3</span>
+          <span class="text-bold">3</span>
         </li>
 
-        <li class="list-item l-flex">
+        <li class="l-flex | text-m">
           <span class="circle"></span>
           <span>Live</span>
-          <span>1</span>
+          <span class="text-bold">1</span>
         </li>
       </ul>
-    </div>
+    </ContentCard>
   </aside>
 </template>
 
 <style lang="scss">
-#sidebar {
+aside {
   @media screen and (max-width: 767px) {
     position: fixed;
     background-color: var(--color-neutral-white-2);
@@ -61,11 +62,17 @@ import Button from 'primevue/button'
     z-index: 2;
     padding: 1.5rem;
     transition: 0.3s ease-in-out;
+
+    > :not(:first-child) {
+      margin-top: 1.5rem;
+    }
+
+    &[data-state='is-active'] {
+      right: 0;
+    }
   }
 
   .tags {
-    background-color: var(--color-neutral-white-1);
-    border-radius: var(--border-radius-m);
     padding: 1.5rem 1.125rem 2.25rem 1.5rem;
 
     .row {
@@ -78,46 +85,46 @@ import Button from 'primevue/button'
     }
 
     .p-button {
-      font-size: var(--font-size-xxs);
       padding: 0.375rem 1rem;
     }
   }
 
   .categories {
-    background-color: var(--color-neutral-white-1);
     padding: 1.188rem 1.5rem 1.5rem 1.5rem;
-    border-radius: var(--border-radius-m);
-    margin-top: 1.5rem;
+
+    > :not(:first-child) {
+      margin-top: 1.5rem;
+    }
 
     .row {
       justify-content: space-between;
       align-items: center;
-
-      &:nth-child(1) {
-        margin-bottom: 1.5rem;
-      }
     }
 
-    .categories-title {
-      font-size: var(--font-size-l);
+    h2 {
       letter-spacing: -0.25px;
     }
 
     a {
       color: var(--color-primary-indigo);
-      font-size: var(--font-size-xxs);
-      font-weight: 600;
+
+      &:hover {
+        color: hsl(230, 89%, 74%)
+      }
     }
 
-    .list {
+    ul {
       flex-direction: column;
       row-gap: 0.5rem;
     }
 
-    .list-item {
+    li {
       align-items: center;
       column-gap: 1rem;
-      font-size: var(--font-size-m);
+
+      > :last-child {
+        margin-left: auto;
+      }
 
       .circle {
         display: inline-block;
@@ -135,16 +142,7 @@ import Button from 'primevue/button'
       &:nth-child(3) > .circle {
         background-color: var(--color-secondary-blue-light);
       }
-
-      span:last-child {
-        margin-left: auto;
-        font-weight: 700;
-      }
     }
-  }
-
-  &.is-active {
-    right: 0;
   }
 }
 </style>

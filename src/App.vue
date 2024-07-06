@@ -36,6 +36,10 @@ import SiteHeader from '@/components/SiteHeader.vue'
   border-radius: var(--border-radius-m);
   border: none;
 
+  .p-button-label {
+    font-size: var(--font-size-xxs);
+  }
+
   &:hover {
     background-color: var(--color-hover-purple);
   }
