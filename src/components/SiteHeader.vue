@@ -7,7 +7,7 @@ import Button from 'primevue/button'
 <template>
   <header class="l-flex">
     <div class="column">
-      <h1 class="text-s text-bold">Frontend Mentor</h1>
+      <h1 class="text-s">Frontend Mentor</h1>
       <span class="description | text-medium">Feedback Board</span>
     </div>
 
