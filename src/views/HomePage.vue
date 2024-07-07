@@ -45,7 +45,7 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
   </main>
 
   <Transition name="fade">
-    <div v-show="uiStore.isSidebarActive" class="dimmed-layer" data-state="is-active"></div>
+    <div v-show="uiStore.isSidebarActive" class="dimmed-layer" data-state="active"></div>
   </Transition>
 </template>
 
@@ -123,7 +123,7 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
   }
 }
 
-.dimmed-layer[data-state="is-active"] {
+.dimmed-layer[data-state='active'] {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   height: 100%;

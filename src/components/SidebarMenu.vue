@@ -7,7 +7,7 @@ import ContentCard from './ContentCard.vue'
 </script>
 
 <template>
-  <aside :data-state="uiStore.isSidebarActive ? 'is-active' : null">
+  <aside :data-state="uiStore.isSidebarActive ? 'active' : null">
     <ContentCard class="tags">
       <div class="row | l-flex">
         <Button label="All" severity="secondary" />
@@ -67,7 +67,7 @@ aside {
       margin-top: 1.5rem;
     }
 
-    &[data-state='is-active'] {
+    &[data-state='active'] {
       right: 0;
     }
   }
