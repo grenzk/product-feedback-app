@@ -109,7 +109,7 @@ aside {
       color: var(--color-primary-indigo);
 
       &:hover {
-        color: hsl(230, 89%, 74%)
+        color: hsl(230, 89%, 74%);
       }
     }
 
