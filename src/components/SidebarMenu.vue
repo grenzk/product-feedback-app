@@ -7,7 +7,7 @@ import ContentCard from './ContentCard.vue'
 </script>
 
 <template>
-  <aside :data-state="uiStore.isSidebarActive ? 'active' : null">
+  <aside class="l-flex" :data-state="uiStore.isSidebarActive ? 'active' : null">
     <ContentCard class="tags">
       <div class="row | l-flex">
         <Button label="All" severity="secondary" />
@@ -24,7 +24,7 @@ import ContentCard from './ContentCard.vue'
 
     <ContentCard class="categories">
       <div class="row | l-flex">
-        <h2 class="text-l">Roadmap</h2>
+        <h2>Roadmap</h2>
         <RouterLink class="text-semi-bold" to="/roadmap">View</RouterLink>
       </div>
 
@@ -52,20 +52,24 @@ import ContentCard from './ContentCard.vue'
 </template>
 
 <style lang="scss">
+body:has(aside[data-state='active']) {
+  overflow-y: hidden;
+}
+
 aside {
+  flex-direction: column;
+  row-gap: 1.5rem;
+
   @media screen and (max-width: 767px) {
     position: fixed;
     background-color: var(--color-neutral-white-2);
     height: 100%;
     width: 16.938rem;
     right: -100%;
+    top: 4.5rem;
     z-index: 2;
     padding: 1.5rem;
     transition: 0.3s ease-in-out;
-
-    > :not(:first-child) {
-      margin-top: 1.5rem;
-    }
 
     &[data-state='active'] {
       right: 0;
@@ -103,6 +107,7 @@ aside {
 
     h2 {
       letter-spacing: -0.25px;
+      font-size: var(--font-size-l);
     }
 
     a {
@@ -142,6 +147,14 @@ aside {
       &:nth-child(3) > .circle {
         background-color: var(--color-secondary-blue-light);
       }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  aside {
+    .tags {
+      padding-bottom: 1.5rem;
     }
   }
 }

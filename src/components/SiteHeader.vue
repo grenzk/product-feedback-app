@@ -38,7 +38,7 @@ header {
   position: relative;
   background-image: url('../assets/images/suggestions/mobile/background-header.png');
   background-repeat: no-repeat;
-  height: 4.5rem;
+  background-size: cover;
   justify-content: space-between;
   padding: 1rem 1rem 1rem 1.5rem;
   z-index: 2;
@@ -55,6 +55,27 @@ header {
 
   .p-button {
     padding: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  header {
+    border-radius: var(--border-radius-m);
+    background-image: url('../assets/images/suggestions/tablet/background-header.png');
+    padding-bottom: 1.5rem;
+    align-items: flex-end;
+
+    h1 {
+      letter-spacing: -0.25px;
+    }
+
+    .description {
+      font-size: var(--font-size-s);
+    }
+
+    .p-button {
+      display: none;
+    }
   }
 }
 </style>

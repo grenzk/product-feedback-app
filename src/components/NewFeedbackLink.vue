@@ -16,9 +16,10 @@ import Button from 'primevue/button'
 .new-feedback-link {
   color: var(--color-neutral-white-4);
   padding: 0.656rem 1.063rem;
+  column-gap: 3px;
 
-  .icon {
-    margin-right: 3px;
+  @media screen and (min-width: 768px) {
+    padding: 0.781rem 1.5rem;
   }
 }
 </style>

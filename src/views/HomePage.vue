@@ -13,9 +13,9 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
   <FeedbackControls />
 
   <main class="home | l-flex">
-    <FeedbackCard />
+    <FeedbackCard v-if="false" />
 
-    <ContentCard v-if="false" class="empty-state | l-container">
+    <ContentCard v-if="true" class="empty-state">
       <img src="@/assets/images/suggestions/illustration-empty.svg" alt="" aria-hidden="true" />
       <h3 class="text-l">There is no feedback yet.</h3>
       <p>
@@ -33,7 +33,6 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
 
 <style lang="scss">
 .home {
-  padding-top: 1rem;
   flex-direction: column;
   row-gap: 1rem;
 
@@ -41,20 +40,20 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
     padding: 4.75rem 1.5rem;
     text-align: center;
 
-    > :nth-child(2) {
-      margin: 2.438rem 0 0.875rem 0;
-    }
-
-    > :nth-child(3) {
-      margin-bottom: 1.5rem;
-    }
-
-    img {
+    > img {
       margin: 0 auto;
     }
 
     h3 {
+      margin: 2.438rem 0 0.875rem 0;
       letter-spacing: -0.25px;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      max-width: 25.625rem;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }
@@ -75,6 +74,34 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
   &.fade-enter-from,
   &.fade-leave-to {
     opacity: 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .home {
+    .empty-state {
+      padding: 6.938rem 0;
+
+      > img {
+        width: 129.64px;
+        height: 136.74px;
+      }
+
+      h3 {
+        margin: 3.329rem 0 1rem 0;
+        letter-spacing: -0.33px;
+      }
+
+      p {
+        margin-bottom: 3rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .home {
+    row-gap: 1.25rem;
   }
 }
 </style>
