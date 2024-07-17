@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { uiStore } from '@/stores/ui'
 
-import Tag from 'primevue/tag'
 import SidebarMenu from '@/components/SidebarMenu.vue'
+import ContentCard from '@/components/ContentCard.vue'
+import FeedbackCard from '@/components/FeedbackCard.vue'
 import FeedbackControls from '@/components/FeedbackControls.vue'
 import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
 </script>
@@ -11,128 +12,53 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
   <SidebarMenu />
   <FeedbackControls />
 
-  <main id="main" class="l-flex">
-    <section v-if="false" class="feedback l-container">
-      <div class="column l-flex">
-        <div>
-          <h3 class="feedback-title">Add tags for solutions</h3>
-          <p class="feedback-description">
-            Easier to search for solutions based on a specific stack.
-          </p>
-          <Tag value="Enhancement"></Tag>
-        </div>
+  <main class="home | l-flex">
+    <FeedbackCard v-if="false" />
 
-        <div class="upvote-counter">
-          <img src="@/assets/images/shared/icon-arrow-up.svg" alt="" />
-          <span>112</span>
-        </div>
-      </div>
-
-      <div class="comment-counter">
-        <img src="@/assets/images/shared/icon-comments.svg" alt="" />
-        <span>2</span>
-      </div>
-    </section>
-
-    <div class="empty-state l-container">
-      <img src="@/assets/images/suggestions/illustration-empty.svg" alt="" class="illustration" />
-      <h3 class="empty-state-title">There is no feedback yet.</h3>
-      <p class="empty-state-description">
+    <ContentCard v-if="true" class="empty-state">
+      <img src="@/assets/images/suggestions/illustration-empty.svg" alt="" aria-hidden="true" />
+      <h3 class="text-l">There is no feedback yet.</h3>
+      <p>
         Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to
         improve our app.
       </p>
       <NewFeedbackLink />
-    </div>
+    </ContentCard>
   </main>
 
   <Transition name="fade">
-    <div v-show="uiStore.isSidebarActive" class="dimmed-layer"></div>
+    <div v-show="uiStore.isSidebarActive" class="dimmed-layer" data-state="active"></div>
   </Transition>
 </template>
 
 <style lang="scss">
-#main {
-  padding-top: 1rem;
+.home {
   flex-direction: column;
-  gap: 1rem;
-
-  .feedback {
-    --counter-padding: 0.375rem;
-
-    position: relative;
-    background-color: var(--color-neutral-white-1);
-    border-radius: var(--border-radius-m);
-    padding: 1.5rem;
-
-    .column {
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .feedback-title {
-      font-size: var(--font-size-xxs);
-      font-weight: 700;
-      letter-spacing: -0.18px;
-    }
-
-    .feedback-description {
-      margin: 0.5rem 0 0.563rem 0;
-    }
-
-    .upvote-counter {
-      display: inline-flex;
-      background-color: var(--color-neutral-white-4);
-      color: var(--color-primary-indigo-dark-2);
-      font-size: var(--font-size-xxs);
-      font-weight: 700;
-      letter-spacing: -0.18px;
-      align-items: center;
-      align-self: flex-start;
-      gap: 10px;
-      padding: var(--counter-padding) 0.813rem var(--counter-padding) 1rem;
-      border-radius: var(--border-radius-m);
-    }
-
-    .comment-counter {
-      display: inline-flex;
-      position: absolute;
-      right: 1.5rem;
-      bottom: 1.5rem;
-      color: var(--color-primary-indigo-dark-2);
-      letter-spacing: -0.18px;
-      align-items: center;
-      align-self: flex-end;
-      gap: 8px;
-      font-size: var(--font-size-xxs);
-      font-weight: 700;
-      margin-bottom: var(--counter-padding);
-    }
-  }
+  row-gap: 1rem;
 
   .empty-state {
-    background-color: var(--color-neutral-white-1);
-    border-radius: var(--border-radius-m);
-    height: 28.75rem;
     padding: 4.75rem 1.5rem;
     text-align: center;
 
-    .illustration {
+    > img {
       margin: 0 auto;
     }
 
-    .empty-state-title {
-      font-size: var(--font-size-l);
-      letter-spacing: -0.25px;
+    h3 {
       margin: 2.438rem 0 0.875rem 0;
+      letter-spacing: -0.25px;
     }
 
-    .empty-state-description {
+    p {
       margin-bottom: 1.5rem;
+      max-width: 25.625rem;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }
 
-.dimmed-layer {
+.dimmed-layer[data-state='active'] {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   height: 100%;
@@ -148,6 +74,34 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
   &.fade-enter-from,
   &.fade-leave-to {
     opacity: 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .home {
+    .empty-state {
+      padding: 6.938rem 0;
+
+      > img {
+        width: 129.64px;
+        height: 136.74px;
+      }
+
+      h3 {
+        margin: 3.329rem 0 1rem 0;
+        letter-spacing: -0.33px;
+      }
+
+      p {
+        margin-bottom: 3rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .home {
+    row-gap: 1.25rem;
   }
 }
 </style>

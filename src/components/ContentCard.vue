@@ -4,7 +4,7 @@
   </article>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 article {
   background-color: var(--color-neutral-white-1);
   border-radius: var(--border-radius-m);
