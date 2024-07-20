@@ -15,8 +15,10 @@ import SiteHeader from '@/components/SiteHeader.vue'
 
 #app {
   --font-family: var(--font-family-sans);
-
   display: grid;
+}
+
+#app:has(.home) {
   grid-template-rows: 4.5rem 3.5rem;
 
   .home {
@@ -88,7 +90,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
     font-size: var(--font-size-m);
   }
 
-  #app {
+  #app:has(.home) {
     grid-template: 11.125rem 2.5rem 4.5rem auto / repeat(3, 1fr);
     column-gap: 0.625rem;
     padding-top: 3.5rem;
@@ -114,7 +116,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
 }
 
 @media screen and (min-width: 1200px) {
-  #app {
+  #app:has(.home) {
     grid-template: 6rem 2.563rem 11.875rem 12.625rem auto / 15.938rem 1fr;
     width: 69.375rem;
     padding-top: 5.875rem;
