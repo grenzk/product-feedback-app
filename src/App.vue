@@ -61,7 +61,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
 
   #app:has(.feedback-submission) {
     grid-template-rows: 9rem;
-    padding: 0;
+    padding: 0 0 4.813rem 0;
   }
 }
 

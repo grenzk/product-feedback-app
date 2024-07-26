@@ -48,7 +48,7 @@ import BackLink from '@/components/BackLink.vue'
 
       <div class="form-buttons l-flex">
         <RouterLink to="/"><Button label="Add feedback" /></RouterLink>
-        <RouterLink to="/"><Button class="cancel-button" label="Cancel" /></RouterLink>
+        <RouterLink to="/"><Button label="Cancel" /></RouterLink>
         <!-- <Button v-if="false" label="Delete" severity="danger" /> -->
       </div>
     </form>
@@ -104,18 +104,16 @@ import BackLink from '@/components/BackLink.vue'
       flex-direction: column;
       row-gap: 1rem;
 
-      .p-button {
+      a > .p-button {
         width: 100%;
         height: 2.5rem;
-        font-size: var(--font-size-xxs);
       }
 
-      .cancel-button {
+      a:nth-child(2) > .p-button {
         background-color: var(--color-primary-indigo-dark-2);
-
-        &:hover {
-          background-color: var(--color-hover-indigo-dark);
-        }
+      }
+      a:nth-child(2) > .p-button:hover {
+        background-color: var(--color-hover-indigo-dark);
       }
     }
   }
@@ -161,12 +159,15 @@ import BackLink from '@/components/BackLink.vue'
         justify-content: flex-start;
         column-gap: 1rem;
 
-        .p-button {
+        a > .p-button {
           height: 2.75rem;
+        }
+
+        a:first-child > .p-button {
           width: 9rem;
         }
 
-        .cancel-button {
+        a:nth-child(2) > .p-button {
           width: 5.813rem;
         }
       }
