@@ -29,19 +29,19 @@ import ContentCard from './ContentCard.vue'
       </div>
 
       <ul class="l-flex">
-        <li class="l-flex | text-m">
+        <li class="l-flex">
           <span class="circle"></span>
           <span>Planned</span>
           <span class="text-bold">2</span>
         </li>
 
-        <li class="l-flex | text-m">
+        <li class="l-flex">
           <span class="circle"></span>
           <span>In-Progress</span>
           <span class="text-bold">3</span>
         </li>
 
-        <li class="l-flex | text-m">
+        <li class="l-flex">
           <span class="circle"></span>
           <span>Live</span>
           <span class="text-bold">1</span>
@@ -126,6 +126,7 @@ aside {
     li {
       align-items: center;
       column-gap: 1rem;
+      font-size: var(--font-size-m);
 
       > :last-child {
         margin-left: auto;

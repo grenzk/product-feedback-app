@@ -117,7 +117,6 @@ import SiteHeader from '@/components/SiteHeader.vue'
   body {
     display: flex;
     justify-content: center;
-    font-size: var(--font-size-m);
   }
 
   #app:has(.home) {

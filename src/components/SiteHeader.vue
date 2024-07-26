@@ -7,7 +7,7 @@ import Button from 'primevue/button'
 <template>
   <header class="l-flex">
     <div class="column">
-      <h1 class="text-s">Frontend Mentor</h1>
+      <h1>Frontend Mentor</h1>
       <span class="description | text-medium">Feedback Board</span>
     </div>
 
@@ -44,6 +44,7 @@ header {
   z-index: 2;
 
   h1 {
+    font-size: var(--font-size-s);
     color: var(--color-neutral-white-1);
     letter-spacing: -0.19px;
   }
@@ -66,6 +67,7 @@ header {
     align-items: flex-end;
 
     h1 {
+      font-size: var(--font-size-xl);
       letter-spacing: -0.25px;
     }
 

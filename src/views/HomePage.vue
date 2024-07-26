@@ -17,7 +17,7 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
 
     <ContentCard v-if="true" class="empty-state">
       <img src="@/assets/images/suggestions/illustration-empty.svg" alt="" aria-hidden="true" />
-      <h3 class="text-l">There is no feedback yet.</h3>
+      <h3>There is no feedback yet.</h3>
       <p>
         Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to
         improve our app.
@@ -45,6 +45,7 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
     }
 
     h3 {
+      font-size: var(--font-size-l);
       margin: 2.438rem 0 0.875rem 0;
       letter-spacing: -0.25px;
     }
@@ -88,6 +89,7 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
       }
 
       h3 {
+        font-size: var(--font-size-xxl);
         margin: 3.329rem 0 1rem 0;
         letter-spacing: -0.33px;
       }

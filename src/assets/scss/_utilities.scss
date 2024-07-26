@@ -1,38 +1,3 @@
-// font sizes
-.text-xs {
-  font-size: var(--font-size-xs);
-}
-
-.text-s {
-  font-size: var(--font-size-s);
-}
-
-.text-m {
-  font-size: var(--font-size-m);
-}
-
-.text-l {
-  font-size: var(--font-size-l);
-}
-
-.text-xl {
-  font-size: var(--font-size-xl);
-}
-
-.text-xxl {
-  font-size: var(--font-size-xxl);
-}
-
-@media screen and (min-width: 768px) {
-  .text-s {
-    font-size: var(--font-size-xl);
-  }
-
-  .text-l {
-    font-size: var(--font-size-xxl);
-  }
-}
-
 // font weights
 .text-medium {
   font-weight: var(--font-weight-medium);

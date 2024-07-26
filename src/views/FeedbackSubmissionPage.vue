@@ -17,7 +17,7 @@ import BackLink from '@/components/BackLink.vue'
         <img src="@/assets/images/shared/form-icon-plus.svg" alt="" aria-hidden="true" />
       </div>
 
-      <h1 class="text-l">Create New Feedback</h1>
+      <h1>Create New Feedback</h1>
       <div>
         <label class="text-bold">Feedback Title</label>
         <p>Add a short, descriptive headline</p>
@@ -82,6 +82,7 @@ import BackLink from '@/components/BackLink.vue'
     }
 
     h1 {
+      font-size: var(--font-size-l);
       letter-spacing: -0.25px;
     }
 
@@ -138,6 +139,7 @@ import BackLink from '@/components/BackLink.vue'
       }
 
       h1 {
+        font-size: var(--font-size-xxl);
         letter-spacing: -0.33px;
         margin-bottom: 1rem;
       }
