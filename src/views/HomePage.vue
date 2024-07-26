@@ -96,6 +96,7 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
 
       p {
         margin-bottom: 3rem;
+        font-size: var(--font-size-m);
       }
     }
   }

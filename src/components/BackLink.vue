@@ -16,4 +16,10 @@ import { RouterLink } from 'vue-router'
   text-decoration: none;
   color: var(--color-neutral-gray);
 }
+
+@media screen and (min-width: 768px) {
+  .back-link {
+    font-size: var(--font-size-xs);
+  }
+}
 </style>

@@ -19,7 +19,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
 #app:has(.home) {
   grid-template-rows: 4.5rem 3.5rem;
 
-  .home {
+  > .home {
     padding: 2rem 1.5rem 3.438rem 1.5rem;
 
     &:has(.empty-state) {

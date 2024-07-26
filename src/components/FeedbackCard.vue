@@ -96,6 +96,7 @@ import ContentCard from './ContentCard.vue'
       }
 
       p {
+        font-size: var(--font-size-m);
         margin: 0.25rem 0 0.75rem 0;
       }
 
@@ -111,6 +112,7 @@ import ContentCard from './ContentCard.vue'
     }
 
     .comment-counter {
+      font-size: var(--font-size-m);
       letter-spacing: -0.22px;
       column-gap: 12px;
       top: 0;
