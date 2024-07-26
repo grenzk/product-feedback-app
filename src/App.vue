@@ -30,18 +30,44 @@ import SiteHeader from '@/components/SiteHeader.vue'
   }
 }
 
+#app:has(.feedback-submission) {
+  grid-template-rows: 6.75rem;
+  padding: 0 1.5rem 4.813rem 1.5rem;
+}
+
 .p-inputtext.p-variant-filled,
 .p-dropdown.p-variant-filled,
 .p-inputtextarea.p-variant-filled {
   background-color: var(--color-neutral-white-2);
   color: var(--color-primary-indigo-dark-2);
   border-radius: var(--border-radius-s);
+  font-size: var(--font-size-xxs);
   border: none;
   width: 100%;
 
   &:focus {
     outline-color: var(--color-primary-indigo);
   }
+}
+
+.p-dropdown-label {
+  font: inherit;
+
+  &.p-inputtext {
+    padding: 0.875rem 1rem;
+  }
+}
+
+.p-dropdown-trigger {
+  background: url('./assets/images/shared/icon-arrow-down.svg') no-repeat center center;
+
+  .p-icon {
+    display: none;
+  }
+}
+
+.p-inputtext.p-variant-filled {
+  padding: 0.875rem 1rem;
 }
 
 .p-button {
@@ -51,6 +77,10 @@ import SiteHeader from '@/components/SiteHeader.vue'
     background-color: var(--color-primary-purple);
     border-radius: var(--border-radius-m);
     border: none;
+
+    .p-button-label {
+      font-weight: var(--font-weight-bold);
+    }
 
     &:hover {
       background-color: var(--color-hover-purple);
@@ -108,6 +138,22 @@ import SiteHeader from '@/components/SiteHeader.vue'
       grid-area: 4 / 1 / -1 / 4;
       padding: 1.5rem 0 7.063rem 0;
     }
+  }
+
+  #app:has(.feedback-submission) {
+    grid-template-rows: 9rem;
+    padding: 0;
+  }
+
+  .p-inputtext.p-variant-filled,
+  .p-dropdown.p-variant-filled,
+  .p-inputtextarea.p-variant-filled {
+    font-size: var(--font-size-s);
+  }
+
+  .p-inputtext.p-variant-filled,
+  .p-dropdown-label.p-inputtext {
+    padding: 0.813rem 1.5rem;
   }
 
   .p-button:not(.p-button-secondary) {
