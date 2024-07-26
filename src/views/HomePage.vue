@@ -13,7 +13,7 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
   <FeedbackControls />
 
   <main class="home | l-flex">
-    <FeedbackCard v-if="false" />
+    <FeedbackCard v-if="true" />
 
     <ContentCard v-if="true" class="empty-state">
       <img src="@/assets/images/suggestions/illustration-empty.svg" alt="" aria-hidden="true" />

@@ -47,10 +47,8 @@ import BackLink from '@/components/BackLink.vue'
       </div>
 
       <div class="form-buttons l-flex">
-        <Button label="Add feedback" />
-        <RouterLink to="/">
-          <Button class="cancel-button" label="Cancel" />
-        </RouterLink>
+        <RouterLink to="/"><Button label="Add feedback" /></RouterLink>
+        <RouterLink to="/"><Button class="cancel-button" label="Cancel" /></RouterLink>
         <!-- <Button v-if="false" label="Delete" severity="danger" /> -->
       </div>
     </form>
@@ -105,19 +103,19 @@ import BackLink from '@/components/BackLink.vue'
       margin-top: 1.5rem;
       flex-direction: column;
       row-gap: 1rem;
-    }
 
-    .p-button {
-      width: 100%;
-      height: 2.5rem;
-      font-size: var(--font-size-xxs);
-    }
+      .p-button {
+        width: 100%;
+        height: 2.5rem;
+        font-size: var(--font-size-xxs);
+      }
 
-    .cancel-button {
-      background-color: var(--color-primary-indigo-dark-2);
+      .cancel-button {
+        background-color: var(--color-primary-indigo-dark-2);
 
-      &:hover {
-        background-color: var(--color-hover-indigo-dark);
+        &:hover {
+          background-color: var(--color-hover-indigo-dark);
+        }
       }
     }
   }
@@ -163,18 +161,14 @@ import BackLink from '@/components/BackLink.vue'
         justify-content: flex-start;
         column-gap: 1rem;
 
-        > button {
+        .p-button {
+          height: 2.75rem;
           width: 9rem;
         }
 
         .cancel-button {
           width: 5.813rem;
         }
-      }
-
-      .p-button {
-        width: auto;
-        height: 2.75rem;
       }
     }
   }

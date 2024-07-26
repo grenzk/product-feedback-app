@@ -4,28 +4,33 @@ import ContentCard from './ContentCard.vue'
 </script>
 
 <template>
-  <ContentCard class="feedback">
-    <div class="column | l-flex">
-      <div>
-        <h3>Add tags for solutions</h3>
-        <p>Easier to search for solutions based on a specific stack.</p>
-        <Tag value="Enhancement"></Tag>
+  <RouterLink to="#">
+    <ContentCard class="feedback">
+      <div class="column | l-flex">
+        <div>
+          <h3>Add tags for solutions</h3>
+          <p>Easier to search for solutions based on a specific stack.</p>
+          <Tag value="Enhancement"></Tag>
+        </div>
+        <button class="upvote-counter | text-bold">
+          <img src="@/assets/images/shared/icon-arrow-up.svg" alt="" aria-hidden="true" />
+          <span>112</span>
+        </button>
       </div>
 
-      <div class="upvote-counter | text-bold">
-        <img src="@/assets/images/shared/icon-arrow-up.svg" alt="" aria-hidden="true" />
-        <span>112</span>
+      <div class="comment-counter | text-bold">
+        <img src="@/assets/images/shared/icon-comments.svg" alt="" aria-hidden="true" />
+        <span>2</span>
       </div>
-    </div>
-
-    <div class="comment-counter | text-bold">
-      <img src="@/assets/images/shared/icon-comments.svg" alt="" aria-hidden="true" />
-      <span>2</span>
-    </div>
-  </ContentCard>
+    </ContentCard>
+  </RouterLink>
 </template>
 
 <style lang="scss">
+a:has(.feedback) {
+  text-decoration: none;
+}
+
 .feedback {
   --counter-padding: 0.375rem;
 
@@ -60,6 +65,7 @@ import ContentCard from './ContentCard.vue'
       column-gap: 10px;
       padding: var(--counter-padding) 0.813rem var(--counter-padding) 1rem;
       border-radius: var(--border-radius-m);
+      border: 0;
       cursor: pointer;
 
       &:hover {

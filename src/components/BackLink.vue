@@ -3,7 +3,7 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <RouterLink class="back-link l-flex" to="/">
+  <RouterLink class="back-link | l-flex" to="/">
     <img src="@/assets/images/shared/icon-arrow-left.svg" alt="" aria-hidden="true" />
     <span class="text-bold">Go Back</span>
   </RouterLink>
@@ -15,6 +15,12 @@ import { RouterLink } from 'vue-router'
   column-gap: 1rem;
   text-decoration: none;
   color: var(--color-neutral-gray);
+  align-self: center;
+  justify-self: start;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 @media screen and (min-width: 768px) {
