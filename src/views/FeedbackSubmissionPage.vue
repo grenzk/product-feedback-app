@@ -5,43 +5,42 @@ import InputText from 'primevue/inputtext'
 import Dropdown from 'primevue/dropdown'
 import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
+import BackLink from '@/components/BackLink.vue'
 </script>
 
 <template>
-  <main id="new-feedback" class="l-container">
-    <RouterLink class="back-link l-flex" to="/">
-      <img src="@/assets/images/shared/icon-arrow-left.svg" alt="" />
-      <span>Go Back</span>
-    </RouterLink>
+  <main class="feedback-submission">
+    <BackLink />
 
-    <form class="feedback-form l-flex">
-      <div class="form-icon">
-        <img src="@/assets/images/shared/form-icon-plus.svg" alt="" />
+    <form class="l-flex">
+      <div class="form-icon | l-flex">
+        <img src="@/assets/images/shared/form-icon-plus.svg" alt="" aria-hidden="true" />
       </div>
-      <h1 class="new-feedback-title">Create New Feedback</h1>
+
+      <h1 class="text-l">Create New Feedback</h1>
       <div>
-        <label>Feedback Title</label>
+        <label class="text-bold">Feedback Title</label>
         <p>Add a short, descriptive headline</p>
         <InputText />
         <small></small>
       </div>
 
       <div>
-        <label>Category</label>
+        <label class="text-bold">Category</label>
         <p>Choose a category for your feedback</p>
-        <Dropdown />
+        <Dropdown placeholder="Feature" />
         <small></small>
       </div>
 
       <div v-if="false">
-        <label>Update Status</label>
+        <label class="text-bold">Update Status</label>
         <p>Change feature state</p>
         <Dropdown />
         <small></small>
       </div>
 
       <div>
-        <label>Feedback Detail</label>
+        <label class="text-bold">Feedback Detail</label>
         <p>Include any specific comments on what should be improved, added, etc.</p>
         <Textarea auto-resize />
         <small></small>
@@ -59,20 +58,10 @@ import Button from 'primevue/button'
 </template>
 
 <style lang="scss">
-#new-feedback {
-  padding-top: 2.125rem;
-  padding-bottom: 4.813rem;
+.feedback-submission {
+  display: contents;
 
-  .back-link {
-    align-items: center;
-    column-gap: 1rem;
-    text-decoration: none;
-    font-weight: 700;
-    color: var(--color-neutral-gray);
-    margin-bottom: 3.438rem;
-  }
-
-  .feedback-form {
+  form {
     position: relative;
     background-color: var(--color-neutral-white-1);
     border-radius: var(--border-radius-m);
@@ -81,16 +70,10 @@ import Button from 'primevue/button'
     row-gap: 1.5rem;
 
     .form-icon {
-      background: linear-gradient(
-        219deg,
-        hsl(347, 77%, 61%) 0%,
-        hsl(274, 91%, 59%) 53%,
-        hsl(201, 84%, 54%) 100%
-      );
-      width: 2.5rem;
-      height: 2.5rem;
+      background: var(--color-gradient);
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      display: flex;
       justify-content: center;
       align-items: center;
       position: absolute;
@@ -98,14 +81,12 @@ import Button from 'primevue/button'
       transform: translateY(-50%);
     }
 
-    .new-feedback-title {
-      font-size: var(--font-size-l);
+    h1 {
       letter-spacing: -0.25px;
     }
 
     label {
       font-size: var(--font-size-xxs);
-      font-weight: 700;
       color: var(--color-primary-indigo-dark-2);
       letter-spacing: -0.18px;
       margin-bottom: 3px;
@@ -120,7 +101,7 @@ import Button from 'primevue/button'
     }
 
     .form-buttons {
-      padding-top: 1.5rem;
+      margin-top: 1.5rem;
       flex-direction: column;
       row-gap: 1rem;
     }
@@ -132,7 +113,67 @@ import Button from 'primevue/button'
     }
 
     .cancel-button {
-      background-color: var(--color-primary-indigo-dark-2)
+      background-color: var(--color-primary-indigo-dark-2);
+
+      &:hover {
+        background-color: var(--color-hover-indigo-dark);
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .feedback-submission {
+    form {
+      width: 33.75rem;
+      padding: 3.25rem 2.625rem 2.5rem 2.625rem;
+
+      .form-icon {
+        width: 56px;
+        height: 56px;
+
+        img {
+          width: 16px;
+        }
+      }
+
+      h1 {
+        letter-spacing: -0.33px;
+        margin-bottom: 1rem;
+      }
+
+      label {
+        letter-spacing: -0.19px;
+        font-size: var(--font-size-xs);
+      }
+
+      p {
+        font-size: var(--font-size-xs);
+      }
+
+      .p-inputtextarea {
+        height: 6rem !important;
+      }
+
+      .form-buttons {
+        margin-top: 0.5rem;
+        flex-direction: row-reverse;
+        justify-content: flex-start;
+        column-gap: 1rem;
+
+        > button {
+          width: 9rem;
+        }
+
+        .cancel-button {
+          width: 5.813rem;
+        }
+      }
+
+      .p-button {
+        width: auto;
+        height: 2.75rem;
+      }
     }
   }
 }
