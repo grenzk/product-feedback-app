@@ -33,6 +33,12 @@ import SiteHeader from '@/components/SiteHeader.vue'
   padding: 0 1.5rem 4.813rem 1.5rem;
 }
 
+#app:has(.feedback-details) {
+  grid-template-rows: 4rem;
+  padding: 0 1.5rem 6.75rem 1.5rem;
+  row-gap: 1.5rem;
+}
+
 @media screen and (min-width: 768px) {
   body {
     display: flex;
