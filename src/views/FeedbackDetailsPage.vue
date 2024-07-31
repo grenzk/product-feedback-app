@@ -17,23 +17,73 @@ import ContentCard from '@/components/ContentCard.vue'
 
     <ContentCard>
       <h3>4 Comments</h3>
-      <div class="comment">
-        <div class="row | l-flex">
-          <img src="../assets/images/user-images/image-elijah.jpg" alt="" aria-hidden="true" />
-          <div class="author">
-            <span class="name | text-bold">Elijah Moss</span> <br />
-            <span class="handle">@hexagon.bestagon</span>
+      <div class="thread">
+        <div class="comment">
+          <div class="row | l-flex">
+            <img src="@/assets/images/user-images/image-elijah.jpg" alt="" aria-hidden="true" />
+            <div class="author">
+              <span class="name | text-bold">Elijah Moss</span> <br />
+              <span class="handle">@hexagon.bestagon</span>
+            </div>
+            <button class="text-semi-bold">Reply</button>
           </div>
-          <button class="text-semi-bold">Reply</button>
+          <p>
+            Also, please allow styles to be applied based on system preferences. I would love to be
+            able to browse Frontend Mentor in the evening after my device’s dark mode turns on
+            without the bright background it currently has.
+          </p>
         </div>
-        <p>
-          Also, please allow styles to be applied based on system preferences. I would love to be
-          able to browse Frontend Mentor in the evening after my device’s dark mode turns on without
-          the bright background it currently has.
-        </p>
       </div>
 
       <hr />
+
+      <div class="thread">
+        <div class="comment">
+          <div class="row | l-flex">
+            <img src="@/assets/images/user-images/image-james.jpg" alt="" aria-hidden="true" />
+            <div class="author">
+              <span class="name | text-bold">James Skinner</span> <br />
+              <span class="handle">@hummingbird1</span>
+            </div>
+            <button class="text-semi-bold">Reply</button>
+          </div>
+          <p>
+            Second this! I do a lot of late night coding and reading. Adding a dark theme can be
+            great for preventing eye strain and the headaches that result. It’s also quite a trend
+            with modern apps and apparently saves battery life.
+          </p>
+        </div>
+        <div class="comment reply">
+          <div class="row | l-flex">
+            <img src="@/assets/images/user-images/image-anne.jpg" alt="" aria-hidden="true" />
+            <div class="author">
+              <span class="name | text-bold">Anne Valentine</span> <br />
+              <span class="handle">@annev1990</span>
+            </div>
+            <button class="text-semi-bold">Reply</button>
+          </div>
+          <p>
+            <span>@hummingbird1</span> While waiting for dark mode, there are browser extensions
+            that will also do the job. Search for "dark theme” followed by your browser. There might
+            be a need to turn off the extension for sites with naturally black backgrounds though.
+          </p>
+        </div>
+        <div class="comment reply">
+          <div class="row | l-flex">
+            <img src="@/assets/images/user-images/image-ryan.jpg" alt="" aria-hidden="true" />
+            <div class="author">
+              <span class="name | text-bold">Ryan Welles</span> <br />
+              <span class="handle">@voyager.344</span>
+            </div>
+            <button class="text-semi-bold">Reply</button>
+          </div>
+          <p>
+            <span>@annev1990</span> Good point! Using any kind of style extension is great and can
+            be highly customizable, like the ability to change contrast and brightness. I'd prefer
+            not to use one of such extensions, however, for security and privacy reasons.
+          </p>
+        </div>
+      </div>
     </ContentCard>
 
     <ContentCard>
@@ -81,9 +131,32 @@ import ContentCard from '@/components/ContentCard.vue'
   }
 
   article:nth-child(3) {
-    .comment {
-      // margin-bottom: 1.5rem;
+    .thread {
+      .comment:not(:last-child) {
+        padding-bottom: 1.5rem;
+      }
 
+      .comment.reply {
+        position: relative;
+        padding-left: 1.5rem;
+      }
+
+      .comment.reply:not(:last-child) {
+        border-left: 1px solid hsla(224, 20%, 49%, 0.1);
+      }
+
+      .comment.reply:last-child:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 20px;
+        width: 1px;
+        background-color: hsla(224, 20%, 49%, 0.1);
+      }
+    }
+
+    .comment {
       .row {
         justify-content: flex-start;
         column-gap: 1rem;
@@ -110,15 +183,15 @@ import ContentCard from '@/components/ContentCard.vue'
         color: var(--color-primary-indigo);
         margin-left: auto;
         cursor: pointer;
+      }
 
-        &:hover {
-          text-decoration: underline;
-        }
+      button:hover {
+        text-decoration: underline;
       }
     }
 
     hr {
-      display: none;
+      margin: 1.5rem 0;
       border: none;
       height: 1px;
       background-color: hsla(231, 20%, 63%, 0.25);
