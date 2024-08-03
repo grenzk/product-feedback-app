@@ -37,6 +37,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
   grid-template-rows: 4rem;
   padding: 0 1.5rem 6.75rem 1.5rem;
   row-gap: 1.5rem;
+  max-width: 45.625rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -68,6 +69,11 @@ import SiteHeader from '@/components/SiteHeader.vue'
   #app:has(.feedback-submission) {
     grid-template-rows: 9rem;
     padding: 0 0 4.813rem 0;
+  }
+
+  #app:has(.feedback-details) {
+    grid-template-rows: 6.25rem;
+    padding: 0 2.5rem 6.75rem 2.5rem;
   }
 }
 

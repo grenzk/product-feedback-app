@@ -53,35 +53,41 @@ import ContentCard from '@/components/ContentCard.vue'
             with modern apps and apparently saves battery life.
           </p>
         </div>
-        <div class="comment reply">
-          <div class="row | l-flex">
-            <img src="@/assets/images/user-images/image-anne.jpg" alt="" aria-hidden="true" />
-            <div class="author">
-              <span class="name | text-bold">Anne Valentine</span> <br />
-              <span class="handle">@annev1990</span>
+        <div class="thread">
+          <div class="comment reply">
+            <div class="row | l-flex">
+              <img src="@/assets/images/user-images/image-anne.jpg" alt="" aria-hidden="true" />
+              <div class="author">
+                <span class="name | text-bold">Anne Valentine</span> <br />
+                <span class="handle">@annev1990</span>
+              </div>
+              <button class="text-semi-bold">Reply</button>
             </div>
-            <button class="text-semi-bold">Reply</button>
+            <p>
+              <span class="mentioned-handle | text-bold">@hummingbird1</span> While waiting for dark
+              mode, there are browser extensions that will also do the job. Search for "dark theme”
+              followed by your browser. There might be a need to turn off the extension for sites
+              with naturally black backgrounds though.
+            </p>
           </div>
-          <p>
-            <span>@hummingbird1</span> While waiting for dark mode, there are browser extensions
-            that will also do the job. Search for "dark theme” followed by your browser. There might
-            be a need to turn off the extension for sites with naturally black backgrounds though.
-          </p>
         </div>
-        <div class="comment reply">
-          <div class="row | l-flex">
-            <img src="@/assets/images/user-images/image-ryan.jpg" alt="" aria-hidden="true" />
-            <div class="author">
-              <span class="name | text-bold">Ryan Welles</span> <br />
-              <span class="handle">@voyager.344</span>
+        <div class="thread">
+          <div class="comment reply">
+            <div class="row | l-flex">
+              <img src="@/assets/images/user-images/image-ryan.jpg" alt="" aria-hidden="true" />
+              <div class="author">
+                <span class="name | text-bold">Ryan Welles</span> <br />
+                <span class="handle">@voyager.344</span>
+              </div>
+              <button class="text-semi-bold">Reply</button>
             </div>
-            <button class="text-semi-bold">Reply</button>
+            <p>
+              <span class="mentioned-handle | text-bold">@annev1990 </span> Good point! Using any
+              kind of style extension is great and can be highly customizable, like the ability to
+              change contrast and brightness. I'd prefer not to use one of such extensions, however,
+              for security and privacy reasons.
+            </p>
           </div>
-          <p>
-            <span>@annev1990</span> Good point! Using any kind of style extension is great and can
-            be highly customizable, like the ability to change contrast and brightness. I'd prefer
-            not to use one of such extensions, however, for security and privacy reasons.
-          </p>
         </div>
       </div>
     </ContentCard>
@@ -120,7 +126,7 @@ import ContentCard from '@/components/ContentCard.vue'
     }
   }
 
-  article {
+  article:not(.feedback) {
     padding: 1.5rem;
 
     h3 {
@@ -131,28 +137,37 @@ import ContentCard from '@/components/ContentCard.vue'
   }
 
   article:nth-child(3) {
-    .thread {
-      .comment:not(:last-child) {
-        padding-bottom: 1.5rem;
-      }
-
-      .comment.reply {
+    .thread:has(.reply) {
+      .thread {
         position: relative;
         padding-left: 1.5rem;
       }
 
-      .comment.reply:not(:last-child) {
+      .thread:not(:last-child) {
         border-left: 1px solid hsla(224, 20%, 49%, 0.1);
+        padding-bottom: 1.5rem;
       }
 
-      .comment.reply:last-child:after {
+      .comment:has(+ .thread) > p {
+        position: relative;
+      }
+
+      .thread:last-child:after,
+      .comment:has(+ .thread) > p:after {
         content: '';
         position: absolute;
         left: 0;
         top: 0;
-        height: 20px;
         width: 1px;
         background-color: hsla(224, 20%, 49%, 0.1);
+      }
+
+      .thread:last-child:after {
+        height: 20px;
+      }
+
+      .comment:has(+ .thread) {
+        padding-bottom: 1.5rem;
       }
     }
 
@@ -178,6 +193,7 @@ import ContentCard from '@/components/ContentCard.vue'
       }
 
       button {
+        font-family: inherit;
         background-color: transparent;
         border: none;
         color: var(--color-primary-indigo);
@@ -187,6 +203,10 @@ import ContentCard from '@/components/ContentCard.vue'
 
       button:hover {
         text-decoration: underline;
+      }
+
+      p > .mentioned-handle {
+        color: var(--color-primary-purple);
       }
     }
 
@@ -210,6 +230,66 @@ import ContentCard from '@/components/ContentCard.vue'
       column-gap: 3.313rem;
       color: var(--color-neutral-gray);
       text-align: center;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .feedback-details {
+    a > .p-button {
+      height: 2.75rem;
+    }
+
+    article:not(.feedback) {
+      padding: 1.5rem 2rem 2rem 2rem;
+    }
+
+    article:nth-child(3) {
+      .thread:has(.reply) {
+        .thread {
+          margin-left: 1.25rem;
+        }
+
+        .thread:not(:last-child) {
+          padding-bottom: 1rem;
+        }
+
+        .comment:has(+ .thread) {
+          padding-bottom: 2rem;
+        }
+
+        .comment:has(+ .thread) > p:after {
+          height: calc(100% + 2rem);
+        }
+      }
+
+      .comment {
+        .row {
+          column-gap: 2rem;
+        }
+
+        &.reply > .row {
+          margin-bottom: 0.625rem;
+        }
+
+        .author > .name {
+          font-size: var(--font-size-xs);
+          letter-spacing: -0.19px;
+        }
+        .author > .handle {
+          font-size: var(--font-size-xs);
+        }
+
+        p {
+          font-size: var(--font-size-s);
+          padding-left: 3.188rem;
+          margin-left: 1.25rem;
+        }
+      }
+
+      hr {
+        margin: 2rem 0;
+      }
     }
   }
 }
