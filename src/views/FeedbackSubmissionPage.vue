@@ -122,7 +122,6 @@ import BackLink from '@/components/BackLink.vue'
 @media screen and (min-width: 768px) {
   .feedback-submission {
     form {
-      width: 33.75rem;
       padding: 3.25rem 2.625rem 2.5rem 2.625rem;
 
       .form-icon {

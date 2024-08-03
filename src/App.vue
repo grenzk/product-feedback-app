@@ -13,7 +13,9 @@ import SiteHeader from '@/components/SiteHeader.vue'
 <style lang="scss">
 #app {
   --font-family: var(--font-family-sans);
+
   display: grid;
+  margin: 0 auto;
 }
 
 #app:has(.home) {
@@ -31,6 +33,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
 #app:has(.feedback-submission) {
   grid-template-rows: 6.75rem;
   padding: 0 1.5rem 4.813rem 1.5rem;
+  max-width: 33.75rem;
 }
 
 #app:has(.feedback-details) {
@@ -41,11 +44,6 @@ import SiteHeader from '@/components/SiteHeader.vue'
 }
 
 @media screen and (min-width: 768px) {
-  body {
-    display: flex;
-    justify-content: center;
-  }
-
   #app:has(.home) {
     grid-template: 11.125rem 2.5rem 4.5rem auto / repeat(3, 1fr);
     column-gap: 0.625rem;
@@ -73,7 +71,8 @@ import SiteHeader from '@/components/SiteHeader.vue'
 
   #app:has(.feedback-details) {
     grid-template-rows: 6.25rem;
-    padding: 0 2.5rem 6.75rem 2.5rem;
+    padding: 0 0 6.75rem 0;
+    width: 43.063rem;
   }
 }
 
