@@ -13,9 +13,9 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
   <FeedbackControls />
 
   <main class="home | l-flex">
-    <FeedbackCard v-if="true" />
+    <FeedbackCard />
 
-    <ContentCard v-if="true" class="empty-state">
+    <ContentCard class="empty-state">
       <img src="@/assets/images/suggestions/illustration-empty.svg" alt="" aria-hidden="true" />
       <h3>There is no feedback yet.</h3>
       <p>

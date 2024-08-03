@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@/views/HomePage.vue'
 import FeedbackSubmissionPage from '@/views/FeedbackSubmissionPage.vue'
+import FeedbackDetailsPage from '@/views/FeedbackDetailsPage.vue'
 import RoadmapPage from '@/views/RoadmapPage.vue'
 
 export const router = createRouter({
@@ -15,6 +16,11 @@ export const router = createRouter({
       path: '/feedback/new',
       name: 'new feedback',
       component: FeedbackSubmissionPage
+    },
+    {
+      path: '/feedback-details',
+      name: 'feedback details',
+      component: FeedbackDetailsPage
     },
     {
       path: '/roadmap',

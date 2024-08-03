@@ -4,11 +4,11 @@ import ContentCard from './ContentCard.vue'
 </script>
 
 <template>
-  <RouterLink to="#">
+  <RouterLink to="/feedback-details">
     <ContentCard class="feedback">
       <div class="column | l-flex">
         <div>
-          <h3>Add tags for solutions</h3>
+          <h2>Add tags for solutions</h2>
           <p>Easier to search for solutions based on a specific stack.</p>
           <Tag value="Enhancement"></Tag>
         </div>
@@ -38,7 +38,7 @@ a:has(.feedback) {
   padding: 1.5rem;
   cursor: pointer;
 
-  &:hover h3 {
+  &:hover h2 {
     color: var(--color-primary-indigo);
   }
 
@@ -46,7 +46,7 @@ a:has(.feedback) {
     flex-direction: column;
     row-gap: 1rem;
 
-    h3 {
+    h2 {
       font-size: inherit;
       letter-spacing: -0.18px;
     }
@@ -96,7 +96,7 @@ a:has(.feedback) {
       justify-content: flex-end;
       column-gap: 2.5rem;
 
-      h3 {
+      h2 {
         font-size: var(--font-size-l);
         letter-spacing: -0.25px;
       }
