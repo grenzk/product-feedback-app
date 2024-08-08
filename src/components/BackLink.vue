@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <RouterLink class="back-link | l-flex" to="/">
-    <img src="@/assets/images/shared/icon-arrow-left.svg" alt="" aria-hidden="true" />
+    <img src="@/assets/images/shared/icon-arrow-left.svg" alt="" aria-hidden="true" class="icon" />
     <span class="text-bold">Go Back</span>
   </RouterLink>
 </template>

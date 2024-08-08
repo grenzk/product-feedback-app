@@ -1,113 +1,126 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-
-import Tag from 'primevue/tag'
-import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
+import FeedbackCard from '@/components/FeedbackCard.vue'
 </script>
 
 <template>
-  <header id="roadmap-header" class="l-flex">
-    <div>
-      <RouterLink to="/" class="back-link l-flex">
-        <img src="@/assets/images/shared/icon-arrow-left.svg" alt="" class="icon" />
-        <span>Go Back</span>
-      </RouterLink>
-      <h1>Roadmap</h1>
+  <div class="l-flex" role="tablist">
+    <button id="tab-1" class="text-bold" role="tab" aria-selected="true" aria-controls="tabpanel-1">
+      Planned (2)
+    </button>
+    <button
+      id="tab-2"
+      class="text-bold"
+      role="tab"
+      aria-selected="false"
+      aria-controls="tabpanel-2"
+    >
+      In-Progress (3)
+    </button>
+    <button
+      id="tab-3"
+      class="text-bold"
+      role="tab"
+      aria-selected="false"
+      aria-controls="tabpanel-3"
+    >
+      Live (1)
+    </button>
+  </div>
+
+  <main class="roadmap-content">
+    <div id="tabpanel-1" class="l-flex" role="tabpanel" tabindex="0" aria-labelledby="tab-1">
+      <div class="row">
+        <h2>Planned (2)</h2>
+        <span class="description">Ideas prioritized for research</span>
+      </div>
+      <FeedbackCard />
     </div>
-    <NewFeedbackLink />
-  </header>
-
-  <nav>
-    <ul class="l-flex">
-      <li>Planned (2)</li>
-      <li>In-Progress (3)</li>
-      <li>Live (1)</li>
-    </ul>
-  </nav>
-
-  <main id="main">
-    <div class="text-group l-container">
+    <!-- <div id="tabpanel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2">
       <h2>In-Progress (3)</h2>
-      <p>Features currently being developed.</p>
+      <span>Features currently being developed</span>
     </div>
-
-    <section class="feedback l-container">
-      <div class="column l-flex">
-        <div>
-          <h3 class="feedback-title">Add tags for solutions</h3>
-          <p class="feedback-description">
-            Easier to search for solutions based on a specific stack.
-          </p>
-          <Tag value="Enhancement"></Tag>
-        </div>
-
-        <div class="upvote-counter">
-          <img src="@/assets/images/shared/icon-arrow-up.svg" alt="" />
-          <span>112</span>
-        </div>
-      </div>
-
-      <div class="comment-counter">
-        <img src="@/assets/images/shared/icon-comments.svg" alt="" />
-        <span>2</span>
-      </div>
-    </section>
+    <div id="tabpanel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3">
+      <h2>Live (1)</h2>
+      <span>Released features</span>
+    </div> -->
   </main>
 </template>
 
 <style lang="scss">
-#roadmap-header {
-  background-color: var(--color-primary-indigo-dark-1);
-  padding: 1.625rem 1.5rem;
-  justify-content: space-between;
-  align-items: center;
-  row-gap: 3px;
-
-  .back-link {
-    align-items: center;
-    column-gap: 1rem;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: var(--font-size-xxs);
-    color: var(--color-neutral-white-1);
-
-    .icon {
-      filter: invert(1%) sepia(1%) saturate(1%) hue-rotate(1deg) brightness(1000%) contrast(100%);
-    }
-  }
-
-  h1 {
-    font-size: var(--font-size-l);
-    color: var(--color-neutral-white-1);
-    letter-spacing: -0.25px;
-  }
-}
-
-nav {
-  padding: 1.25rem 2.5rem 1.25rem 1.5rem;
+div[role='tablist'] {
+  position: relative;
   border-bottom: 1px solid hsla(231, 20%, 63%, 0.25);
-  margin-bottom: 1rem;
 
-  ul {
-    justify-content: space-between;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background-color: var(--color-primary-purple);
+    scale: var(--width, 0.333) 1;
+    translate: var(--left, 0) 0;
+    transform-origin: left;
+  }
 
-    li {
-      color: var(--color-primary-indigo-dark-2);
-      font-weight: 700;
-      letter-spacing: -0.18px;
-      text-align: center;
+  button[role='tab'] {
+    background-color: transparent;
+    border: none;
+    color: var(--color-primary-indigo-dark-2);
+    opacity: 0.4;
+    padding: 1.25rem 0;
+    letter-spacing: -0.18px;
+    flex: 1;
+    cursor: pointer;
+  }
+}
+
+.roadmap-content {
+  div[role='tabpanel'] {
+    flex-direction: column;
+    row-gap: 1rem;
+
+    .row {
+      margin-bottom: 0.5rem;
+
+      h2 {
+        font-size: var(--font-size-l);
+        letter-spacing: -0.25px;
+        margin-bottom: 4px;
+      }
+
+      .description {
+        color: var(--color-neutral-gray);
+      }
+    }
+
+    .feedback {
+      position: relative;
+      overflow: hidden;
+      border-top-left-radius: var(--border-radius-s);
+      border-top-right-radius: var(--border-radius-s);
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background-color: var(--color-primary-purple);
+      }
+    }
+
+    &#tabpanel-1 .circle,
+    &#tabpanel-1 .feedback::after {
+      background-color: var(--color-secondary-orange-light);
+    }
+
+    &#tabpanel-3 .circle,
+    &#tabpanel-3 .feedback::after {
+      background-color: var(--color-secondary-blue-light);
     }
   }
-}
-
-.text-group {
-  margin-bottom: 1rem;
-
-  h2 {
-    letter-spacing: -0.25px;
-  }
-}
-
-.card {
 }
 </style>
