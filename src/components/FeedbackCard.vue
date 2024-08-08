@@ -8,6 +8,11 @@ import ContentCard from './ContentCard.vue'
     <ContentCard class="feedback">
       <div class="column | l-flex">
         <div>
+          <div class="category" v-if="$route.name === 'roadmap'">
+            <span class="circle"></span>
+            <span class="name">Planned</span>
+          </div>
+
           <h2>Add tags for solutions</h2>
           <p>Easier to search for solutions based on a specific stack.</p>
           <Tag value="Enhancement"></Tag>
@@ -45,6 +50,21 @@ a:has(.feedback) {
   .column {
     flex-direction: column;
     row-gap: 1rem;
+
+    .category {
+      display: inline-flex;
+      color: var(--color-neutral-gray);
+      align-items: center;
+      column-gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .category > .circle {
+      border-radius: 50%;
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: var(--color-primary-purple);
+    }
 
     h2 {
       font-size: inherit;
