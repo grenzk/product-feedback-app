@@ -5,7 +5,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
 </script>
 
 <template>
-  <SiteHeader v-if="$route.name === 'home'" />
+  <SiteHeader v-if="$route.name === 'home' || $route.name === 'roadmap'" />
 
   <RouterView />
 </template>
@@ -41,6 +41,14 @@ import SiteHeader from '@/components/SiteHeader.vue'
   padding: 0 1.5rem 6.75rem 1.5rem;
   row-gap: 1.5rem;
   max-width: 45.625rem;
+}
+
+#app:has(.roadmap-content) {
+  grid-template-rows: 6.25rem;
+
+  > .roadmap-content {
+    padding: 1.5rem 1.5rem 6.125rem 1.5rem;
+  }
 }
 
 @media screen and (min-width: 768px) {

@@ -2,16 +2,25 @@
 import { uiStore } from '@/stores/ui'
 
 import Button from 'primevue/button'
+import BackLink from './BackLink.vue'
+import NewFeedbackLink from './NewFeedbackLink.vue'
 </script>
 
 <template>
-  <header class="l-flex">
+  <header :class="{ 'roadmap-header | ': $route.name === 'roadmap' }" class="l-flex">
     <div class="column">
-      <h1>Frontend Mentor</h1>
-      <span class="description | text-medium">Feedback Board</span>
+      <template v-if="$route.name === 'home'">
+        <h1>Frontend Mentor</h1>
+        <span class="description | text-medium">Feedback Board</span>
+      </template>
+      <template v-else>
+        <BackLink />
+        <h1>Roadmap</h1>
+      </template>
     </div>
 
     <Button
+      v-if="$route.name === 'home'"
       text
       @click="uiStore.isSidebarActive = !uiStore.isSidebarActive"
       aria-label="toggle sidebar"
@@ -30,6 +39,7 @@ import Button from 'primevue/button'
         aria-hidden="true"
       />
     </Button>
+    <NewFeedbackLink v-else />
   </header>
 </template>
 
@@ -54,8 +64,28 @@ header {
     opacity: 75%;
   }
 
-  .p-button {
+  .p-button.p-button-text {
     padding: 0.5rem;
+  }
+}
+
+header.roadmap-header {
+  background-image: none;
+  background-color: var(--color-primary-indigo-dark-1);
+  padding: 1.625rem 1.5rem;
+  align-items: center;
+
+  h1 {
+    font-size: var(--font-size-l);
+    letter-spacing: -0.25px;
+  }
+
+  .back-link {
+    color: var(--color-neutral-white-1);
+
+    .icon {
+      filter: invert(1%) sepia(1%) saturate(1%) hue-rotate(1deg) brightness(1000%) contrast(100%);
+    }
   }
 }
 
