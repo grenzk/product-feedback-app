@@ -1,48 +1,100 @@
 <script setup lang="ts">
 import FeedbackCard from '@/components/FeedbackCard.vue'
+
+const tabsContainer = ref<HTMLDivElement | null>(null)
+const tabButtons = ref<HTMLButtonElement[]>([])
+const tabPanels = ref<HTMLDivElement[]>([])
+
+const categories = ref([
+  { title: 'Planned', description: 'Ideas prioritized for research', count: 2 },
+  { title: 'In-Progress', description: 'Features currently being developed', count: 3 },
+  { title: 'Live', description: 'Released features', count: 1 }
+])
+
+function moveFocus(prevTab: HTMLButtonElement, nextTab: HTMLButtonElement): void {
+  const nextTabPos = prevTab.compareDocumentPosition(nextTab)
+  const nextTabWidth = nextTab.offsetWidth / (tabsContainer.value?.offsetWidth || 0)
+  let transitionWidth = 0
+
+  if (nextTabPos === 4) {
+    transitionWidth = nextTab.offsetLeft + nextTab.offsetWidth - prevTab.offsetLeft
+  } else {
+    transitionWidth = prevTab.offsetLeft + prevTab.offsetWidth - nextTab.offsetLeft
+    tabsContainer.value?.style.setProperty('--left', `${nextTab.offsetLeft}px`)
+  }
+
+  tabsContainer.value?.style.setProperty(
+    '--width',
+    `${transitionWidth / tabsContainer.value.offsetWidth}`
+  )
+
+  setTimeout(() => {
+    tabsContainer.value?.style.setProperty('--left', `${nextTab.offsetLeft}px`)
+    tabsContainer.value?.style.setProperty('--width', `${nextTabWidth}`)
+  }, 220)
+}
+
+function handleActiveTab(e: Event): void {
+  const prevTab = tabButtons.value.find(button => button.ariaSelected === 'true')
+  const nextTab = e.target as HTMLButtonElement
+  const activePanel = tabPanels.value.find(
+    tabpanel => tabpanel.id === nextTab.getAttribute('aria-controls')
+  )
+
+  if (nextTab.ariaSelected === 'true') return
+
+  tabButtons.value.forEach(button => {
+    button.setAttribute('aria-selected', 'false')
+    button.setAttribute('tabindex', '-1')
+  })
+
+  tabPanels.value.forEach(panel => panel.setAttribute('hidden', 'true'))
+
+  activePanel?.removeAttribute('hidden')
+
+  nextTab.setAttribute('aria-selected', 'true')
+  nextTab.setAttribute('tabindex', '0')
+  nextTab.focus()
+
+  moveFocus(prevTab!, nextTab)
+}
 </script>
 
 <template>
-  <div class="l-flex" role="tablist">
-    <button id="tab-1" class="text-bold" role="tab" aria-selected="true" aria-controls="tabpanel-1">
-      Planned (2)
-    </button>
+  <div ref="tabsContainer" class="l-flex" role="tablist">
     <button
-      id="tab-2"
+      v-for="(category, index) of categories"
+      :key="index"
+      ref="tabButtons"
+      :id="`tab-${index + 1}`"
       class="text-bold"
       role="tab"
-      aria-selected="false"
-      aria-controls="tabpanel-2"
+      :aria-selected="index === 0 ? true : undefined"
+      :aria-controls="`tabpanel-${index + 1}`"
+      @click="handleActiveTab"
     >
-      In-Progress (3)
-    </button>
-    <button
-      id="tab-3"
-      class="text-bold"
-      role="tab"
-      aria-selected="false"
-      aria-controls="tabpanel-3"
-    >
-      Live (1)
+      {{ category.title }} ({{ category.count }})
     </button>
   </div>
 
   <main class="roadmap-content">
-    <div id="tabpanel-1" class="l-flex" role="tabpanel" tabindex="0" aria-labelledby="tab-1">
+    <div
+      v-for="(category, index) of categories"
+      :key="index"
+      ref="tabPanels"
+      :id="`tabpanel-${index + 1}`"
+      class="l-flex"
+      role="tabpanel"
+      :tabindex="index === 0 ? 0 : -1"
+      :aria-labelledby="`tab-${index + 1}`"
+      :hidden="index > 0"
+    >
       <div class="row">
-        <h2>Planned (2)</h2>
-        <span class="description">Ideas prioritized for research</span>
+        <h2>{{ category.title }} ({{ category.count }})</h2>
+        <span class="description">{{ category.description }}</span>
       </div>
-      <FeedbackCard />
+      <FeedbackCard :category="category.title" />
     </div>
-    <!-- <div id="tabpanel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2">
-      <h2>In-Progress (3)</h2>
-      <span>Features currently being developed</span>
-    </div>
-    <div id="tabpanel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3">
-      <h2>Live (1)</h2>
-      <span>Released features</span>
-    </div> -->
   </main>
 </template>
 
@@ -62,6 +114,9 @@ div[role='tablist'] {
     scale: var(--width, 0.333) 1;
     translate: var(--left, 0) 0;
     transform-origin: left;
+    transition:
+      scale 150ms,
+      translate 150ms;
   }
 
   button[role='tab'] {
@@ -73,6 +128,10 @@ div[role='tablist'] {
     letter-spacing: -0.18px;
     flex: 1;
     cursor: pointer;
+
+    &[aria-selected='true'] {
+      opacity: 1;
+    }
   }
 }
 
