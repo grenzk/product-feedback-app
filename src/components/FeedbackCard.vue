@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import Tag from 'primevue/tag'
 import ContentCard from './ContentCard.vue'
+
+defineProps<{
+  category: string
+}>()
 </script>
 
 <template>
@@ -10,7 +14,7 @@ import ContentCard from './ContentCard.vue'
         <div>
           <div class="category" v-if="$route.name === 'roadmap'">
             <span class="circle"></span>
-            <span class="name">Planned</span>
+            <span class="name">{{ category }}</span>
           </div>
 
           <h2>Add tags for solutions</h2>
