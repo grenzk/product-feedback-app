@@ -58,6 +58,14 @@ function handleActiveTab(e: Event): void {
 
   moveFocus(prevTab!, nextTab)
 }
+
+function handleResize(): void {
+  const activeTab = tabButtons.value.find(button => button.ariaSelected === 'true')
+  if (activeTab) moveFocus(activeTab, activeTab)
+}
+
+onMounted(() => window.addEventListener('resize', handleResize))
+onUnmounted(() => window.removeEventListener('resize', handleResize))
 </script>
 
 <template>
@@ -117,6 +125,13 @@ div[role='tablist'] {
     transition:
       scale 150ms,
       translate 150ms;
+  }
+
+  &:has(#tab-1[aria-selected='true'])::after {
+    background-color: var(--color-secondary-orange-light);
+  }
+  &:has(#tab-3[aria-selected='true'])::after {
+    background-color: var(--color-secondary-blue-light);
   }
 
   button[role='tab'] {
