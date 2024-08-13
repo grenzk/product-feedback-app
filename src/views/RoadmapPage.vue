@@ -13,7 +13,7 @@ const categories = ref([
 
 function moveFocus(prevTab: HTMLButtonElement, nextTab: HTMLButtonElement): void {
   const nextTabPos = prevTab.compareDocumentPosition(nextTab)
-  const nextTabWidth = nextTab.offsetWidth / (tabsContainer.value?.offsetWidth || 0)
+  const nextTabWidth = nextTab.offsetWidth / tabsContainer.value?.offsetWidth! || 0
   let transitionWidth = 0
 
   if (nextTabPos === 4) {
@@ -48,9 +48,9 @@ function handleActiveTab(e: Event): void {
     button.setAttribute('tabindex', '-1')
   })
 
-  tabPanels.value.forEach(panel => panel.setAttribute('hidden', 'true'))
+  tabPanels.value.forEach(panel => panel.setAttribute('data-state', 'hidden'))
 
-  activePanel?.removeAttribute('hidden')
+  activePanel?.removeAttribute('data-state')
 
   nextTab.setAttribute('aria-selected', 'true')
   nextTab.setAttribute('tabindex', '0')
@@ -95,7 +95,7 @@ onUnmounted(() => window.removeEventListener('resize', handleResize))
       role="tabpanel"
       :tabindex="index === 0 ? 0 : -1"
       :aria-labelledby="`tab-${index + 1}`"
-      :hidden="index > 0"
+      :data-state="index > 0 ? 'hidden' : null"
     >
       <div class="row">
         <h2>{{ category.title }} ({{ category.count }})</h2>
@@ -194,6 +194,48 @@ div[role='tablist'] {
     &#tabpanel-3 .circle,
     &#tabpanel-3 .feedback::after {
       background-color: var(--color-secondary-blue-light);
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  div[role='tabpanel'][data-state='hidden'] {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .roadmap-content {
+    div[role='tabpanel'] {
+      .row {
+        h2 {
+          font-size: var(--font-size-xs);
+          letter-spacing: -0.19px;
+        }
+
+        .description {
+          font-size: var(--font-size-xs);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .roadmap-content {
+    div[role='tabpanel'] {
+      row-gap: 1.5rem;
+      
+      .row {
+        h2 {
+          font-size: var(--font-size-l);
+          letter-spacing: -0.25px;
+        }
+
+        .description {
+          font-size: var(--font-size-m);
+        }
+      }
     }
   }
 }

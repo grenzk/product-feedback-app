@@ -105,8 +105,18 @@ header.roadmap-header {
       font-size: var(--font-size-s);
     }
 
-    .p-button {
+    .p-button.p-button-text {
       display: none;
+    }
+  }
+
+  header.roadmap-header {
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    h1 {
+      font-size: var(--font-size-xxl);
+      letter-spacing: -0.33px;
     }
   }
 }

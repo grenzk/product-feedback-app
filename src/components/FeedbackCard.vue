@@ -3,7 +3,7 @@ import Tag from 'primevue/tag'
 import ContentCard from './ContentCard.vue'
 
 defineProps<{
-  category: string
+  category?: string
 }>()
 </script>
 
@@ -112,7 +112,8 @@ a:has(.feedback) {
 }
 
 @media screen and (min-width: 768px) {
-  .feedback {
+  .home .feedback,
+  .feedback-details .feedback {
     padding: 1.75rem 2rem;
 
     .column {
@@ -148,6 +149,58 @@ a:has(.feedback) {
       top: 0;
       bottom: 0;
       margin: 0;
+    }
+  }
+
+  .roadmap-content .feedback {
+    padding: 1.5rem 1.25rem 1.5rem 1.25rem;
+
+    .column {
+      .category {
+        column-gap: 1rem;
+        margin-bottom: 0.75rem;
+      }
+
+      p {
+        margin: 0.563rem 0 1.5rem 0;
+      }
+    }
+
+    .comment-counter {
+      right: 1.5rem;
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .roadmap-content .feedback {
+    padding: 2rem;
+    --counter-padding: 0.625rem;
+
+    .column {
+      .category {
+        font-size: var(--font-size-m);
+        margin-bottom: 0.5rem;
+      }
+
+      h2 {
+        font-size: var(--font-size-l);
+        letter-spacing: -0.25px;
+      }
+
+      p {
+        font-size: var(--font-size-m);
+        margin: 0.25rem 0 1rem 0;
+      }
+    }
+
+    .comment-counter {
+      font-size: var(--font-size-m);
+      letter-spacing: -0.22px;
+      column-gap: 12px;
+      right: 2rem;
+      bottom: 2rem;
+      margin-bottom: 0.5rem;
     }
   }
 }

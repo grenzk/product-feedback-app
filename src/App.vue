@@ -45,6 +45,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
 
 #app:has(.roadmap-content) {
   grid-template-rows: 6.25rem;
+  max-width: 69.375rem;
 
   > .roadmap-content {
     padding: 1.5rem 1.5rem 6.125rem 1.5rem;
@@ -82,6 +83,29 @@ import SiteHeader from '@/components/SiteHeader.vue'
     padding: 0 0 6.75rem 0;
     width: 43.063rem;
   }
+
+  #app:has(.roadmap-content) {
+    grid-template: 7.063rem 2rem / repeat(3, 1fr);
+    column-gap: 0.625rem;
+    width: 43.063rem;
+    padding-top: 3.5rem;
+
+    > header.roadmap-header {
+      grid-area: 1 / 1 / 1 / 4;
+    }
+
+    > div[role='tablist'] {
+      display: none;
+    }
+
+    > .roadmap-content {
+      display: contents;
+
+      div[role='tabpanel'] {
+        grid-row: 3 / -1;
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 1200px) {
@@ -107,6 +131,29 @@ import SiteHeader from '@/components/SiteHeader.vue'
     > .home {
       grid-area: 2 / 2 / -1 / 2;
       padding: 0 0 8.063rem 0;
+    }
+  }
+
+  #app:has(.roadmap-content) {
+    grid-template: 7.063rem 3rem / repeat(3, 1fr);
+    column-gap: 1.875rem;
+    width: auto;
+    padding-top: 4.875rem;
+
+    > header.roadmap-header {
+      grid-area: 1 / 1 / 1 / 4;
+    }
+
+    > div[role='tablist'] {
+      display: none;
+    }
+
+    > .roadmap-content {
+      display: contents;
+
+      div[role='tabpanel'] {
+        grid-row: 3 / -1;
+      }
     }
   }
 }
