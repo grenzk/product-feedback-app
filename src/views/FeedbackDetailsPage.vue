@@ -106,8 +106,6 @@ import ContentCard from '@/components/ContentCard.vue'
 
 <style lang="scss">
 .feedback-details {
-  display: contents;
-
   a > .p-button {
     height: 2.5rem;
   }

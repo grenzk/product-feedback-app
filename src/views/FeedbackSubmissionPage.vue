@@ -57,8 +57,6 @@ import BackLink from '@/components/BackLink.vue'
 
 <style lang="scss">
 .feedback-submission {
-  display: contents;
-
   form {
     position: relative;
     background-color: var(--color-neutral-white-1);

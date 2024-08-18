@@ -34,6 +34,10 @@ import SiteHeader from '@/components/SiteHeader.vue'
   grid-template-rows: 6.75rem;
   padding: 0 1.5rem 4.813rem 1.5rem;
   max-width: 33.75rem;
+
+  > .feedback-submission {
+    display: contents;
+  }
 }
 
 #app:has(.feedback-details) {
@@ -41,6 +45,10 @@ import SiteHeader from '@/components/SiteHeader.vue'
   padding: 0 1.5rem 6.75rem 1.5rem;
   row-gap: 1.5rem;
   max-width: 45.625rem;
+
+  > .feedback-details {
+    display: contents;
+  }
 }
 
 #app:has(.roadmap-content) {
