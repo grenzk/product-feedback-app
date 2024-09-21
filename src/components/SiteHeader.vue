@@ -1,15 +1,18 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import { uiStore } from '@/stores/ui'
 
 import Button from 'primevue/button'
 import BackLink from './BackLink.vue'
 import NewFeedbackLink from './NewFeedbackLink.vue'
+
+const route = useRoute()
 </script>
 
 <template>
-  <header :class="{ 'roadmap-header | ': $route.name === 'roadmap' }" class="l-flex">
+  <header :class="{ 'roadmap-header | ': route.name === 'roadmap' }" class="l-flex">
     <div class="column">
-      <template v-if="$route.name === 'home'">
+      <template v-if="route.name === 'home'">
         <h1>Frontend Mentor</h1>
         <span class="description | text-medium">Feedback Board</span>
       </template>
@@ -20,7 +23,7 @@ import NewFeedbackLink from './NewFeedbackLink.vue'
     </div>
 
     <Button
-      v-if="$route.name === 'home'"
+      v-if="route.name === 'home'"
       text
       @click="uiStore.isSidebarActive = !uiStore.isSidebarActive"
       aria-label="toggle sidebar"

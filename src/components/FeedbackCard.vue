@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import Tag from 'primevue/tag'
 import ContentCard from './ContentCard.vue'
 
 defineProps<{
   category?: string
 }>()
+
+const route = useRoute()
 </script>
 
 <template>
@@ -12,7 +15,7 @@ defineProps<{
     <ContentCard class="feedback">
       <div class="column | l-flex">
         <div>
-          <div class="category" v-if="$route.name === 'roadmap'">
+          <div class="category" v-if="route.name === 'roadmap'">
             <span class="circle"></span>
             <span class="name">{{ category }}</span>
           </div>
