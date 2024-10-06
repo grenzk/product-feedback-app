@@ -32,6 +32,10 @@ import ContentCard from '@/components/ContentCard.vue'
             able to browse Frontend Mentor in the evening after my device’s dark mode turns on
             without the bright background it currently has.
           </p>
+          <form class="l-flex">
+            <Textarea auto-resize placeholder="Type your comment here" />
+            <Button class="submit-button" label="Post Reply" />
+          </form>
         </div>
       </div>
 
@@ -98,7 +102,7 @@ import ContentCard from '@/components/ContentCard.vue'
 
       <div class="row | l-flex">
         <span>250 Characters left</span>
-        <RouterLink><Button label="Post Comment" /></RouterLink>
+        <Button label="Post Comment" />
       </div>
     </ContentCard>
   </main>
@@ -182,6 +186,15 @@ import ContentCard from '@/components/ContentCard.vue'
         border-radius: 50%;
       }
 
+      form {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      form > .p-button {
+        align-self: flex-end;
+      }
+
       .author > .name {
         letter-spacing: -0.18px;
         color: var(--color-primary-indigo-dark-2);
@@ -190,7 +203,7 @@ import ContentCard from '@/components/ContentCard.vue'
         color: var(--color-neutral-gray);
       }
 
-      button {
+      button:not(.submit-button) {
         font-family: inherit;
         background-color: transparent;
         border: none;
@@ -199,12 +212,16 @@ import ContentCard from '@/components/ContentCard.vue'
         cursor: pointer;
       }
 
-      button:hover {
+      button:not(.submit-button):hover {
         text-decoration: underline;
       }
 
       p > .mentioned-handle {
         color: var(--color-primary-purple);
+      }
+
+      &:has(form) > p {
+        margin-bottom: 1rem;
       }
     }
 
@@ -268,6 +285,21 @@ import ContentCard from '@/components/ContentCard.vue'
 
         &.reply > .row {
           margin-bottom: 0.625rem;
+        }
+
+        form {
+          margin-left: 4.438rem;
+          flex-direction: row;
+        }
+
+        form > .p-inputtextarea {
+          max-width: 28.813rem;
+        }
+
+        form > .p-button {
+          align-self: flex-start;
+          width: 7.313rem;
+          height: 2.75rem;
         }
 
         .author > .name {

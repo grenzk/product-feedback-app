@@ -91,7 +91,6 @@ const route = useRoute()
   #app:has(.feedback-details) {
     grid-template-rows: 6.25rem;
     padding: 0 0 6.75rem 0;
-    width: 43.063rem;
   }
 
   #app:has(.roadmap-content) {
