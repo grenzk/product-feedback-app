@@ -10,6 +10,10 @@ defineProps<{
 }>()
 
 const route = useRoute()
+
+function handleUpvote(e: MouseEvent) {
+  e.preventDefault()
+}
 </script>
 
 <template>
@@ -26,7 +30,7 @@ const route = useRoute()
           <p>Easier to search for solutions based on a specific stack.</p>
           <Tag value="Enhancement"></Tag>
         </div>
-        <Button class="upvote-counter | text-bold">
+        <Button class="upvote-counter | text-bold" @click="handleUpvote">
           <img src="@/assets/images/shared/icon-arrow-up.svg" alt="" aria-hidden="true" />
           <span>112</span>
         </Button>
