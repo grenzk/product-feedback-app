@@ -11,7 +11,7 @@ defineProps<{
 
 const route = useRoute()
 
-function handleUpvote(e: MouseEvent) {
+function handleUpvote(e: MouseEvent): void {
   e.preventDefault()
 }
 </script>
