@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
+
 import Tag from 'primevue/tag'
+import Button from 'primevue/button'
 import ContentCard from './ContentCard.vue'
 
 defineProps<{
@@ -24,10 +26,10 @@ const route = useRoute()
           <p>Easier to search for solutions based on a specific stack.</p>
           <Tag value="Enhancement"></Tag>
         </div>
-        <button class="upvote-counter | text-bold">
+        <Button class="upvote-counter | text-bold">
           <img src="@/assets/images/shared/icon-arrow-up.svg" alt="" aria-hidden="true" />
           <span>112</span>
-        </button>
+        </Button>
       </div>
 
       <div class="comment-counter | text-bold">

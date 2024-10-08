@@ -25,7 +25,7 @@ import ContentCard from '@/components/ContentCard.vue'
               <span class="name | text-bold">Elijah Moss</span> <br />
               <span class="handle">@hexagon.bestagon</span>
             </div>
-            <button class="text-semi-bold">Reply</button>
+            <Button label="Reply" />
           </div>
           <p>
             Also, please allow styles to be applied based on system preferences. I would love to be
@@ -34,7 +34,7 @@ import ContentCard from '@/components/ContentCard.vue'
           </p>
           <form class="l-flex">
             <Textarea auto-resize placeholder="Type your comment here" />
-            <Button class="submit-button" label="Post Reply" />
+            <Button label="Post Reply" />
           </form>
         </div>
       </div>
@@ -49,7 +49,7 @@ import ContentCard from '@/components/ContentCard.vue'
               <span class="name | text-bold">James Skinner</span> <br />
               <span class="handle">@hummingbird1</span>
             </div>
-            <button class="text-semi-bold">Reply</button>
+            <Button label="Reply" />
           </div>
           <p>
             Second this! I do a lot of late night coding and reading. Adding a dark theme can be
@@ -65,7 +65,7 @@ import ContentCard from '@/components/ContentCard.vue'
                 <span class="name | text-bold">Anne Valentine</span> <br />
                 <span class="handle">@annev1990</span>
               </div>
-              <button class="text-semi-bold">Reply</button>
+              <Button label="Reply" />
             </div>
             <p>
               <span class="mentioned-handle | text-bold">@hummingbird1</span> While waiting for dark
@@ -83,7 +83,7 @@ import ContentCard from '@/components/ContentCard.vue'
                 <span class="name | text-bold">Ryan Welles</span> <br />
                 <span class="handle">@voyager.344</span>
               </div>
-              <button class="text-semi-bold">Reply</button>
+              <Button label="Reply" />
             </div>
             <p>
               <span class="mentioned-handle | text-bold">@annev1990 </span> Good point! Using any
@@ -180,6 +180,23 @@ import ContentCard from '@/components/ContentCard.vue'
         margin-bottom: 1rem;
       }
 
+      .row > .p-button {
+        font: inherit;
+        padding: 0;
+        background: transparent;
+        color: var(--color-primary-indigo);
+        margin-left: auto;
+        cursor: pointer;
+      }
+
+      .row > .p-button:hover {
+        text-decoration: underline;
+      }
+
+      .row > .p-button > .p-button-label {
+        font-weight: var(--font-weight-semi-bold);
+      }
+
       img {
         width: 40px;
         height: 40px;
@@ -203,19 +220,6 @@ import ContentCard from '@/components/ContentCard.vue'
         color: var(--color-neutral-gray);
       }
 
-      button:not(.submit-button) {
-        font-family: inherit;
-        background-color: transparent;
-        border: none;
-        color: var(--color-primary-indigo);
-        margin-left: auto;
-        cursor: pointer;
-      }
-
-      button:not(.submit-button):hover {
-        text-decoration: underline;
-      }
-
       p > .mentioned-handle {
         color: var(--color-primary-purple);
       }
@@ -233,10 +237,15 @@ import ContentCard from '@/components/ContentCard.vue'
     }
   }
 
-  article:last-child {
+  > article:last-child {
     .p-inputtextarea {
       height: 5rem !important;
       margin-bottom: 1rem;
+    }
+
+    .p-button {
+      width: 7.438rem;
+      height: 2.5rem;
     }
 
     .row {
@@ -319,6 +328,13 @@ import ContentCard from '@/components/ContentCard.vue'
 
       hr {
         margin: 2rem 0;
+      }
+    }
+
+    > article:last-child {
+      .p-button {
+        width: 8.875rem;
+        height: 2.75rem;
       }
     }
   }
