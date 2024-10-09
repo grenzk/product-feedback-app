@@ -51,8 +51,8 @@ function handleReply(): void {
     position: relative;
   }
 
-  .thread:last-child:after,
-  .comment:has(+ .thread) > p:after {
+  .thread:last-child::after,
+  .comment:has(+ .thread) > p::after {
     content: '';
     position: absolute;
     left: 0;
@@ -61,7 +61,7 @@ function handleReply(): void {
     background-color: hsla(224, 20%, 49%, 0.1);
   }
 
-  .thread:last-child:after {
+  .thread:last-child::after {
     height: 20px;
   }
 
@@ -152,7 +152,7 @@ hr {
       padding-bottom: 2rem;
     }
 
-    .comment:has(+ .thread) > p:after {
+    .comment:has(+ .thread) > p::after {
       height: calc(100% + 2rem);
     }
   }
