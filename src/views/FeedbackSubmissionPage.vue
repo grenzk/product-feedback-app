@@ -2,14 +2,15 @@
 import { RouterLink } from 'vue-router'
 
 import InputText from 'primevue/inputtext'
-import Dropdown from 'primevue/dropdown'
 import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
 import BackLink from '@/components/BackLink.vue'
 import CustomDropdown from '@/components/CustomDropdown.vue'
 
-const options = ref(['Feature', 'UI', 'UX', 'Enhancement', 'Bug'])
-const selectedOption = ref('Feature')
+const categories = ref(['Feature', 'UI', 'UX', 'Enhancement', 'Bug'])
+const statuses = ref(['Suggestion', 'Planned', 'In-Progress', 'Live'])
+const selectedCategory = ref('Feature')
+const selectedStatus = ref('Suggestion')
 </script>
 
 <template>
@@ -32,14 +33,14 @@ const selectedOption = ref('Feature')
       <div>
         <label class="text-bold">Category</label>
         <p>Choose a category for your feedback</p>
-        <CustomDropdown v-model="selectedOption" :options="options" />
+        <CustomDropdown v-model="selectedCategory" :options="categories" />
         <small></small>
       </div>
 
       <div v-if="false">
         <label class="text-bold">Update Status</label>
         <p>Change feature state</p>
-        <Dropdown />
+        <CustomDropdown v-model="selectedStatus" :options="statuses" />
         <small></small>
       </div>
 
