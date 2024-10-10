@@ -40,7 +40,6 @@
   --p-anchor-gutter: 16px;
 
   border-radius: var(--border-radius-m);
-  width: 15.938rem;
   overflow: hidden;
   box-shadow: 0px 10px 40px -7px hsla(230, 31%, 31%, 0.351);
 
@@ -72,6 +71,14 @@
       color: var(--color-primary-purple);
     }
   }
+}
+
+#app:has(.home) ~ .p-dropdown-panel {
+  width: 15.938rem;
+}
+
+#app:has(.feedback-submission) ~ .p-dropdown-panel > .p-dropdown-items-wrapper {
+  max-height: unset !important;
 }
 
 .p-button {

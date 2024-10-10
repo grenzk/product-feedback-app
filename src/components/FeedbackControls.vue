@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Dropdown from 'primevue/dropdown'
+import CustomDropdown from './CustomDropdown.vue'
 import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
 
 const sortOptions = ref(['Most Upvotes', 'Least Upvotes', 'Most Comments', 'Least Comments'])
@@ -14,25 +14,7 @@ const selectedOption = ref('Most Upvotes')
     </div>
 
     <div class="column">
-      <Dropdown v-model="selectedOption" :options="sortOptions">
-        <template #value="slotProps">
-          <div v-if="slotProps.value" class="dropdown-value | l-flex">
-            <span>Sort by : </span>
-            <span class="text-bold">{{ slotProps.value }}</span>
-          </div>
-        </template>
-        <template #option="slotProps">
-          <div class="dropdown-option | l-flex">
-            <span>{{ slotProps.option }}</span>
-            <img
-              v-if="selectedOption === slotProps.option"
-              src="@/assets/images/shared/icon-check.svg"
-              alt=""
-              aria-hidden="true"
-            />
-          </div>
-        </template>
-      </Dropdown>
+      <CustomDropdown v-model="selectedOption" :options="sortOptions" />
     </div>
     <NewFeedbackLink />
   </section>
@@ -53,32 +35,6 @@ const selectedOption = ref('Most Upvotes')
       font-size: var(--font-size-l);
       color: var(--color-neutral-white-1);
       letter-spacing: -0.25px;
-    }
-  }
-
-  .column:nth-child(2) {
-    .p-dropdown {
-      background: transparent;
-      column-gap: 0.5rem;
-      outline: 0;
-
-      &:hover {
-        opacity: 75%;
-      }
-
-      .p-dropdown-label {
-        color: var(--color-neutral-white-4);
-        padding: 0;
-      }
-
-      .p-dropdown-trigger {
-        width: 0.7rem;
-        filter: invert(1%) sepia(1%) saturate(1%) hue-rotate(1deg) brightness(1000%) contrast(100%);
-      }
-
-      .dropdown-value {
-        column-gap: 5px;
-      }
     }
   }
 

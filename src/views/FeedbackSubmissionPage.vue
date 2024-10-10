@@ -6,6 +6,10 @@ import Dropdown from 'primevue/dropdown'
 import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
 import BackLink from '@/components/BackLink.vue'
+import CustomDropdown from '@/components/CustomDropdown.vue'
+
+const options = ref(['Feature', 'UI', 'UX', 'Enhancement', 'Bug'])
+const selectedOption = ref('Feature')
 </script>
 
 <template>
@@ -28,7 +32,7 @@ import BackLink from '@/components/BackLink.vue'
       <div>
         <label class="text-bold">Category</label>
         <p>Choose a category for your feedback</p>
-        <Dropdown placeholder="Feature" />
+        <CustomDropdown v-model="selectedOption" :options="options" />
         <small></small>
       </div>
 
