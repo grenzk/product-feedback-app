@@ -19,6 +19,7 @@ const modelValue = defineModel<string>()
         <span class="text-bold">{{ slotProps.value }}</span>
       </div>
     </template>
+    
     <template #option="slotProps">
       <div class="dropdown-option | l-flex">
         <span>{{ slotProps.option }}</span>
@@ -32,6 +33,7 @@ const modelValue = defineModel<string>()
     </template>
   </Dropdown>
 </template>
+
 <style lang="scss">
 .suggestions > .column:nth-child(2) > .p-dropdown {
   background: transparent;
