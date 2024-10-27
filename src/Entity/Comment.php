@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 #[ApiResource]
@@ -16,6 +17,7 @@ class Comment
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('feedback')]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
@@ -23,6 +25,7 @@ class Comment
     private ?Feedback $feedback = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups('feedback')]
     private ?string $body = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'replies')]
@@ -32,6 +35,7 @@ class Comment
      * @var Collection<int, self>
      */
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parentComment')]
+    #[Groups('feedback')]
     private Collection $replies;
 
     public function __construct()

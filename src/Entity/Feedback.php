@@ -8,9 +8,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: FeedbackRepository::class)]
-#[ApiResource]
+#[ApiResource(normalizationContext: ['groups' => ['feedback']])]
+#[Groups('feedback')]
 class Feedback
 {
     #[ORM\Id]
@@ -99,7 +101,9 @@ class Feedback
      */
     public function getComments(): Collection
     {
-        return $this->comments;
+        return $this->comments->filter(function (Comment $comment) {
+            return $comment->getParentComment() === null;
+        });
     }
 
     public function addComment(Comment $comment): static
