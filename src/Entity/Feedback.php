@@ -43,7 +43,7 @@ class Feedback
     /**
      * @var Collection<int, Comment>
      */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'feedback', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'feedback', orphanRemoval: true, cascade: ['persist'])]
     private Collection $comments;
 
     public function __construct()
