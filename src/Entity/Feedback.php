@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FeedbackRepository::class)]
 #[ApiResource(normalizationContext: ['groups' => ['feedback']])]
@@ -21,15 +22,22 @@ class Feedback
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 50)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $detail = null;
 
     #[ORM\Column(enumType: FeedbackCategoryEnum::class)]
+    #[Assert\NotBlank]
+    #[Assert\Type(type: FeedbackCategoryEnum::class)]
     private ?FeedbackCategoryEnum $category = null;
 
     #[ORM\Column(enumType: FeedbackStatusEnum::class)]
+    #[Assert\NotBlank]
+    #[Assert\Type(type: FeedbackStatusEnum::class)]
     private ?FeedbackStatusEnum $status = null;
 
     /**

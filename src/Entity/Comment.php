@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 #[ApiResource]
@@ -26,6 +27,7 @@ class Comment
 
     #[ORM\Column(type: Types::TEXT)]
     #[Groups('feedback')]
+    #[Assert\NotBlank]
     private ?string $body = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'replies')]
