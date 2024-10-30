@@ -6,7 +6,6 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Patch;
 use App\Repository\CommentRepository;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -45,10 +44,13 @@ class Comment
 
     #[ORM\Column(length: 50)]
     #[Groups('feedback')]
+    #[Assert\NotBlank]
     private ?string $author = null;
 
     #[ORM\Column(length: 50)]
     #[Groups('feedback')]
+    #[Assert\NotBlank]
+    #[Assert\Regex('/^@[A-Za-z0-9._]+$/')]
     private ?string $authorHandle = null;
 
     #[ORM\Column]
