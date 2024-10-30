@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Patch;
 use App\Repository\CommentRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -42,8 +43,21 @@ class Comment
     #[Groups('feedback')]
     private Collection $replies;
 
+    #[ORM\Column(length: 50)]
+    #[Groups('feedback')]
+    private ?string $author = null;
+
+    #[ORM\Column(length: 50)]
+    #[Groups('feedback')]
+    private ?string $authorHandle = null;
+
+    #[ORM\Column]
+    #[Groups('feedback')]
+    private \DateTimeImmutable $publishedAt;
+
     public function __construct()
     {
+        $this->publishedAt = new \DateTimeImmutable();
         $this->replies = new ArrayCollection();
     }
 
@@ -114,6 +128,42 @@ class Comment
                 $reply->setParentComment(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): static
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getAuthorHandle(): ?string
+    {
+        return $this->authorHandle;
+    }
+
+    public function setAuthorHandle(string $authorHandle): static
+    {
+        $this->authorHandle = $authorHandle;
+
+        return $this;
+    }
+
+    public function getPublishedAt(): \DateTimeImmutable
+    {
+        return $this->publishedAt;
+    }
+
+    public function setPublishedAt(\DateTimeImmutable $publishedAt): static
+    {
+        $this->publishedAt = $publishedAt;
 
         return $this;
     }
