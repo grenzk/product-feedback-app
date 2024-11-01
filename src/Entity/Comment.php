@@ -50,7 +50,6 @@ class Comment
     #[ORM\Column(length: 50)]
     #[Groups('feedback')]
     #[Assert\NotBlank]
-    #[Assert\Regex('/^@[A-Za-z0-9._]+$/')]
     private ?string $authorHandle = null;
 
     #[ORM\Column]
