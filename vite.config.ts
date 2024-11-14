@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
-      dts: 'assets/auto-imports.d.ts',
+      dts: './assets/vue/auto-imports.d.ts',
       imports: ['vue']
     }),
     symfonyPlugin()
@@ -17,13 +17,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: './assets/vue/main.ts'
+        main: './assets/main.ts'
       }
     }
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./assets', import.meta.url))
+      '@': fileURLToPath(new URL('./assets/vue', import.meta.url))
     }
   }
 })

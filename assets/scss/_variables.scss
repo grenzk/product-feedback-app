@@ -1,0 +1,46 @@
+:root {
+  --color-primary-purple: hsl(282, 83%, 52%);
+  --color-primary-indigo: hsl(230, 76%, 59%);
+  --color-primary-indigo-dark-1: hsl(230, 31%, 31%);
+  --color-primary-indigo-dark-2: hsl(231, 33%, 34%);
+
+  --color-secondary-orange-light: hsl(14, 83%, 74%);
+  --color-secondary-blue-light: hsl(204, 94%, 68%);
+  --color-secondary-red: hsl(0, 67%, 53%);
+
+  --color-hover-purple: hsl(282, 90%, 66%);
+  --color-hover-indigo: hsl(230, 91%, 73%);
+  --color-hover-indigo-light: hsl(230, 100%, 91%);
+  --color-hover-indigo-dark: hsl(231, 26%, 52%);
+  --color-hover-red: hsl(0, 69%, 72%);
+
+  --color-gradient: linear-gradient(
+    219deg,
+    hsl(347, 77%, 61%) 0%,
+    hsl(274, 91%, 59%) 53%,
+    hsl(201, 84%, 54%) 100%
+  );
+
+  --color-neutral-white-1: hsl(0, 0%, 100%);
+  --color-neutral-white-2: hsl(230, 60%, 98%);
+  --color-neutral-white-3: hsl(231, 100%, 97%);
+  --color-neutral-white-4: hsl(230, 86%, 97%);
+  --color-neutral-gray: hsl(224, 20%, 49%);
+
+  --font-family-sans: 'Jost', sans-serif;
+
+  --font-size-xxs: 0.813rem;  // 13px
+  --font-size-xs: 0.875rem;   // 14px
+  --font-size-s: 0.938rem;    // 15px
+  --font-size-m: 1rem;        // 16px
+  --font-size-l: 1.125rem;    // 18px
+  --font-size-xl: 1.25rem;    // 20px
+  --font-size-xxl: 1.5rem;    // 24px
+
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+
+  --border-radius-s: 0.313rem;
+  --border-radius-m: 0.625rem;
+}

@@ -1,0 +1,47 @@
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-xxs);
+  background-color: var(--color-neutral-white-2);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--color-primary-indigo-dark-2);
+}
+
+ul {
+  list-style: none;
+}
+
+p,
+li {
+  color: var(--color-neutral-gray);
+}
+
+button {
+  font: inherit;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}

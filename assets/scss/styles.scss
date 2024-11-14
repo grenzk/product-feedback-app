@@ -1,0 +1,12 @@
+@use 'sass:meta';
+@use 'variables';
+@use 'custom_primevue';
+@use 'composition';
+@use 'utilities';
+@use 'exceptions';
+
+@layer base, primevue;
+
+@layer base {
+  @include meta.load-css('base');
+}
