@@ -18,8 +18,10 @@
     "@vueuse/core": "^10.11.0",
     "pinia": "^2.1.7",
     "primevue": "^3.52.0",
+    "vee-validate": "^4.14.7",
     "vue": "^3.4.27",
-    "vue-router": "^4.4.0"
+    "vue-router": "^4.4.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.44.1",
