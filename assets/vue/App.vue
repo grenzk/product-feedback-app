@@ -32,6 +32,11 @@ const route = useRoute()
   }
 }
 
+#app:has(.auth) {
+  padding: 7rem 0.3rem 0 0.3rem;
+  max-width: 20.438rem;
+}
+
 #app:has(.feedback-submission) {
   grid-template-rows: 6.75rem;
   padding: 0 1.5rem 4.813rem 1.5rem;
@@ -81,6 +86,10 @@ const route = useRoute()
       grid-area: 4 / 1 / -1 / 4;
       padding: 1.5rem 0 7.063rem 0;
     }
+  }
+
+  #app:has(.auth) {
+    padding: 7rem 0 0 0;
   }
 
   #app:has(.feedback-submission) {
