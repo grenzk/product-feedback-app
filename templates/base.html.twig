@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Product Feedback App</title>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -9,14 +11,12 @@
           href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Product Feedback App</title>
+        {% block stylesheets %}
+            {{ vite_entry_link_tags('main') }}
+        {% endblock %}
     </head>
     <body>
         <div id="app"></div>
-
-        {% block body %}{% endblock %}
-
         {% block javascripts %}
             {{ vite_entry_script_tags('main') }}
         {% endblock %}
