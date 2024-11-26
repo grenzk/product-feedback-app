@@ -39,6 +39,3 @@ lerna-debug.log*
 *.sw?
 
 *.tsbuildinfo
-
-test-results/
-playwright-report/
