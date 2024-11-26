@@ -1,9 +1,10 @@
 # Stage 1: Build the Vue.js frontend
 FROM node:22-alpine AS frontend-build
 WORKDIR /app
-COPY package*.json ./
+COPY package*.json .
 RUN npm install
-COPY . .
+COPY ./assets ./assets
+COPY vite.config.ts tsconfig*.json .
 RUN npm run build
 
 # Stage 2: Build the Symfony backend
