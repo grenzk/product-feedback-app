@@ -1,32 +1,65 @@
 <script setup lang="ts">
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
+
 import Card from 'primevue/card'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
+
+const schema = {
+  email: yup
+    .string()
+    .required('Please enter your email')
+    .email('Invalid email address')
+    .label('Email'),
+  password: yup.string().required('Please enter your password').label('Password')
+}
+
+const { defineField, handleSubmit, errors } = useForm({
+  validationSchema: schema
+})
+
+const [email] = defineField('email')
+const [password] = defineField('password')
+
+const onSubmit = handleSubmit(values => {
+  console.log(values)
+})
 </script>
 
 <template>
   <main class="auth">
-    <Card>
-      <template #title>Sign in to your account</template>
+    <form @submit="onSubmit">
+      <Card>
+        <template #title>Sign in to your account</template>
 
-      <template #content>
-        <div class="field">
-          <label class="text-medium">Email</label>
-          <InputText />
-          <small></small>
-        </div>
+        <template #content>
+          <div class="field">
+            <label for="email" class="text-medium">Email</label>
+            <InputText
+              v-model="email"
+              aria-describedby="email-help"
+              :class="{ 'p-invalid': errors.email }"
+            />
+            <small v-if="errors.email" id="email-help" class="p-error">{{ errors.email }}</small>
+          </div>
 
-        <div class="field">
-          <label class="text-medium">Password</label>
-          <InputText />
-          <small></small>
-        </div>
-      </template>
+          <div class="field">
+            <label for="password" class="text-medium">Password</label>
+            <InputText
+              v-model="password"
+              aria-describedby="password-help"
+              :class="{ 'p-invalid': errors.password }"
+            />
+            <small id="password-help" class="p-error">{{ errors.password }}</small>
+          </div>
+        </template>
 
-      <template #footer>
-        <Button label="Sign in" />
-      </template>
-    </Card>
+        <template #footer>
+          <Button label="Sign in" type="submit" />
+        </template>
+      </Card>
+    </form>
   </main>
 </template>
 
@@ -41,15 +74,19 @@ import Button from 'primevue/button'
       margin-bottom: 0.5rem;
     }
 
+    .field {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 1.5rem;
+      }
+    }
+
     .p-inputtext {
-      margin: 0.5rem 0 1rem 0;
+      margin-top: 0.5rem;
       height: 2.5rem;
       padding-left: 1rem;
       padding-right: 1rem;
-    }
-
-    .field:last-child > .p-inputtext {
-      margin-bottom: 1.5rem;
     }
 
     .p-button {
