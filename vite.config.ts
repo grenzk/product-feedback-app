@@ -7,7 +7,9 @@ import AutoImport from 'unplugin-auto-import/vite'
 
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      script: { globalTypeFiles: ['./assets/vue/global.d.ts'] }
+    }),
     AutoImport({
       dts: './assets/vue/auto-imports.d.ts',
       imports: ['vue']
