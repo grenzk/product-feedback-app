@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
+import { useAuthStore } from '@/stores/auth'
 
 import Card from 'primevue/card'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
+import Message from 'primevue/message'
 
 const schema = {
   email: yup
@@ -15,19 +17,30 @@ const schema = {
   password: yup.string().required('Please enter your password').label('Password')
 }
 
-const { defineField, handleSubmit, errors } = useForm({
+const { defineField, handleSubmit, resetForm, errors } = useForm<User>({
   validationSchema: schema
 })
 
 const [email] = defineField('email')
 const [password] = defineField('password')
 
-const onSubmit = handleSubmit(values => {
-  console.log(values)
+const onSubmit = handleSubmit((values): void => {
+  useAuthStore().authenticateUser(values.email, values.password)
+  resetForm()
 })
 </script>
 
 <template>
+  <Transition name="fade">
+    <Message
+      v-if="useAuthStore().errorMessage.length > 0"
+      severity="error"
+      @close="useAuthStore().errorMessage = ''"
+    >
+      {{ useAuthStore().errorMessage }}
+    </Message>
+  </Transition>
+
   <main class="auth">
     <form @submit="onSubmit">
       <Card>
@@ -48,6 +61,7 @@ const onSubmit = handleSubmit(values => {
             <label for="password" class="text-medium">Password</label>
             <InputText
               v-model="password"
+              type="password"
               aria-describedby="password-help"
               :class="{ 'p-invalid': errors.password }"
             />
@@ -95,5 +109,15 @@ const onSubmit = handleSubmit(values => {
       border-radius: var(--border-radius-s);
     }
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

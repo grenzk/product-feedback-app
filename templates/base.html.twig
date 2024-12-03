@@ -20,5 +20,14 @@
         {% block javascripts %}
             {{ vite_entry_script_tags('main') }}
         {% endblock %}
+        <script>
+            window.user = {{ app.user|serialize('jsonld', {
+                'groups': ['user:read']
+            })|raw }}
+
+            window.tokens  = {{
+                app.user ? app.user.validTokenStrings|json_encode|raw : 'null'
+            }}
+        </script>
     </body>
 </html>
