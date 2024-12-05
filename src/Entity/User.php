@@ -17,9 +17,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
+    security: 'is_granted("ROLE_USER")',
     operations: [
-        new Post(processor: UserPasswordHasher::class, validationContext: ['groups' => ['Default', 'user:create']]),
-        new Get(),
+        new Post(
+            security: 'is_granted("PUBLIC_ACCESS")',
+            processor: UserPasswordHasher::class,
+            validationContext: ['groups' => ['Default', 'user:create']]
+        ),
+        new Get()
     ],
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:create']]
@@ -63,6 +68,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private array $roles = [];
+
+    /* scopes given during API authentication */
+    private ?array $accessTokenScopes = null;
 
     /**
      * @var Collection<int, ApiToken>
@@ -148,7 +156,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
+        if (null === $this->accessTokenScopes) {
+            // logged in via the full user mechanism
+            $roles = $this->roles;
+            $roles[] = 'ROLE_FULL_USER';
+        } else {
+            $roles = $this->accessTokenScopes;
+        }
+
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
@@ -213,5 +228,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             ->map(fn(ApiToken $token) => $token->getToken())
             ->toArray()
         ;
+    }
+
+    public function markAsTokenAuthenticated(array $scopes): void
+    {
+        $this->accessTokenScopes = $scopes;
     }
 }

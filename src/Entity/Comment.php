@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
 use App\Repository\CommentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,7 +15,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
-#[ApiResource(operations: [new Post(), new Patch()])]
+#[ApiResource(operations: [
+    new Post(security: 'is_granted("ROLE_COMMENT_CREATE")'),
+    new Patch(security: 'is_granted("ROLE_COMMENT_EDIT")'),
+    new Delete(security: 'is_granted("ROLE_COMMENT_DELETE")')
+])]
 class Comment
 {
     #[ORM\Id]

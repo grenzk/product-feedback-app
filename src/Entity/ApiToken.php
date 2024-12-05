@@ -12,14 +12,18 @@ class ApiToken
 
     public const SCOPE_FEEDBACK_CREATE = 'ROLE_FEEDBACK_CREATE';
     public const SCOPE_FEEDBACK_EDIT = 'ROLE_FEEDBACK_EDIT';
+    public const SCOPE_FEEDBACK_DELETE = 'ROLE_FEEDBACK_DELETE';
     public const SCOPE_COMMENT_CREATE = 'ROLE_COMMENT_CREATE';
     public const SCOPE_COMMENT_EDIT = 'ROLE_COMMENT_EDIT';
+    public const SCOPE_COMMENT_DELETE = 'ROLE_COMMENT_DELETE';
 
     public const SCOPES = [
         self::SCOPE_FEEDBACK_CREATE => 'Create Feedback',
         self::SCOPE_FEEDBACK_EDIT => 'Edit Feedback',
+        self::SCOPE_FEEDBACK_DELETE => 'Delete Feedback',
         self::SCOPE_COMMENT_CREATE => 'Create Comment',
-        self::SCOPE_COMMENT_EDIT => 'Edit Comment'
+        self::SCOPE_COMMENT_EDIT => 'Edit Comment',
+        self::SCOPE_COMMENT_DELETE => 'Delete Comment'
     ];
 
     #[ORM\Id]
@@ -98,7 +102,8 @@ class ApiToken
         return $this;
     }
 
-    public function isValid(): bool {
+    public function isValid(): bool
+    {
         return $this->expiresAt === null || $this->expiresAt > new \DateTimeImmutable();
     }
 }
