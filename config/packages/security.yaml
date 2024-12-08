@@ -10,7 +10,13 @@ security:
                 class: App\Entity\User
                 property: email
     role_hierarchy:
-        ROLE_FULL_USER: [ROLE_FEEDBACK_CREATE, ROLE_FEEDBACK_EDIT, ROLE_COMMENT_CREATE, ROLE_COMMENT_EDIT]
+        ROLE_FULL_USER: [
+          ROLE_FEEDBACK_CREATE,
+          ROLE_FEEDBACK_EDIT,
+          ROLE_FEEDBACK_DELETE,
+          ROLE_COMMENT_CREATE,
+          ROLE_COMMENT_EDIT,
+          ROLE_COMMENT_DELETE ]
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
