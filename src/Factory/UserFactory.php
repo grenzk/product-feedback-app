@@ -23,10 +23,7 @@ final class UserFactory extends PersistentProxyObjectFactory
      *
      * @todo inject services if required
      */
-    public function __construct(private UserPasswordHasherInterface $passwordHasher)
-    {
-        parent::__construct();
-    }
+    public function __construct(private UserPasswordHasherInterface $passwordHasher) {}
 
     public static function class(): string
     {
@@ -41,7 +38,9 @@ final class UserFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
+            'email' => self::faker()->text(50),
             'password' => 'foobar',
+            'username' => self::faker()->text(50),
         ];
     }
 
