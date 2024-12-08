@@ -57,6 +57,10 @@ class Feedback
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'feedback', orphanRemoval: true, cascade: ['persist'])]
     private Collection $comments;
 
+    #[ORM\ManyToOne(inversedBy: 'feedback')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $ownedBy = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -143,6 +147,18 @@ class Feedback
                 $comment->setFeedback(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOwnedBy(): ?User
+    {
+        return $this->ownedBy;
+    }
+
+    public function setOwnedBy(?User $ownedBy): static
+    {
+        $this->ownedBy = $ownedBy;
 
         return $this;
     }
