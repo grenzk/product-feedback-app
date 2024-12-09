@@ -21,7 +21,10 @@ use Symfony\Component\Validator\Constraints as Assert;
     new Get(),
     new GetCollection(),
     new Post(security: 'is_granted("ROLE_FEEDBACK_CREATE")'),
-    new Patch(security: 'is_granted("ROLE_FEEDBACK_EDIT")'),
+    new Patch(
+        security: 'is_granted("ROLE_FEEDBACK_EDIT") and object.getOwnedBy() == user',
+        securityPostDenormalize: 'object.getOwnedBy() == user',
+    ),
     new Delete(security: 'is_granted("ROLE_FEEDBACK_DELETE")')
 ], normalizationContext: ['groups' => ['feedback']])]
 #[Groups('feedback')]
