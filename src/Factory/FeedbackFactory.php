@@ -36,6 +36,7 @@ final class FeedbackFactory extends PersistentProxyObjectFactory
             'detail' => self::faker()->text(),
             'status' => self::faker()->randomElement(FeedbackStatusEnum::cases()),
             'title' => self::faker()->text(50),
+            'ownedBy' => UserFactory::new()
         ];
     }
 
