@@ -7,6 +7,8 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Get;
 use App\Repository\UserRepository;
 use App\State\UserPasswordHasher;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -66,6 +68,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private array $roles = [];
+
+    /**
+     * @var Collection<int, Feedback>
+     */
+    #[ORM\OneToMany(targetEntity: Feedback::class, mappedBy: 'ownedBy', orphanRemoval: true)]
+    private Collection $feedback;
+
+    public function __construct()
+    {
+        $this->feedback = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -163,5 +176,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Feedback>
+     */
+    public function getFeedback(): Collection
+    {
+        return $this->feedback;
+    }
+
+    public function addFeedback(Feedback $feedback): static
+    {
+        if (!$this->feedback->contains($feedback)) {
+            $this->feedback->add($feedback);
+            $feedback->setOwnedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFeedback(Feedback $feedback): static
+    {
+        if ($this->feedback->removeElement($feedback)) {
+            // set the owning side to null (unless already changed)
+            if ($feedback->getOwnedBy() === $this) {
+                $feedback->setOwnedBy(null);
+            }
+        }
+
+        return $this;
     }
 }
