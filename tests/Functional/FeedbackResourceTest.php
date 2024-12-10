@@ -2,8 +2,6 @@
 
 namespace App\Tests\Functional;
 
-use App\Entity\ApiToken;
-use App\Factory\ApiTokenFactory;
 use App\Factory\FeedbackFactory;
 use App\Factory\UserFactory;
 use Zenstruck\Browser\HttpOptions;
