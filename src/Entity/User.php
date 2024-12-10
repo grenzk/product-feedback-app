@@ -7,8 +7,6 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Get;
 use App\Repository\UserRepository;
 use App\State\UserPasswordHasher;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -68,27 +66,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private array $roles = [];
-
-    /* scopes given during API authentication */
-    private ?array $accessTokenScopes = null;
-
-    /**
-     * @var Collection<int, ApiToken>
-     */
-    #[ORM\OneToMany(targetEntity: ApiToken::class, mappedBy: 'ownedBy')]
-    private Collection $apiTokens;
-
-    /**
-     * @var Collection<int, Feedback>
-     */
-    #[ORM\OneToMany(targetEntity: Feedback::class, mappedBy: 'ownedBy', orphanRemoval: true)]
-    private Collection $feedback;
-
-    public function __construct()
-    {
-        $this->apiTokens = new ArrayCollection();
-        $this->feedback = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -163,14 +140,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        if (null === $this->accessTokenScopes) {
-            // logged in via the full user mechanism
-            $roles = $this->roles;
-            $roles[] = 'ROLE_FULL_USER';
-        } else {
-            $roles = $this->accessTokenScopes;
-        }
-
+        $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
@@ -193,82 +163,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         $this->plainPassword = null;
-    }
-
-    /**
-     * @return Collection<int, ApiToken>
-     */
-    public function getApiTokens(): Collection
-    {
-        return $this->apiTokens;
-    }
-
-    public function addApiToken(ApiToken $apiToken): static
-    {
-        if (!$this->apiTokens->contains($apiToken)) {
-            $this->apiTokens->add($apiToken);
-            $apiToken->setOwnedBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeApiToken(ApiToken $apiToken): static
-    {
-        if ($this->apiTokens->removeElement($apiToken)) {
-            // set the owning side to null (unless already changed)
-            if ($apiToken->getOwnedBy() === $this) {
-                $apiToken->setOwnedBy(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getValidTokenStrings(): array
-    {
-        return $this->getApiTokens()
-            ->filter(fn(ApiToken $token) => $token->isValid())
-            ->map(fn(ApiToken $token) => $token->getToken())
-            ->toArray()
-        ;
-    }
-
-    public function markAsTokenAuthenticated(array $scopes): void
-    {
-        $this->accessTokenScopes = $scopes;
-    }
-
-    /**
-     * @return Collection<int, Feedback>
-     */
-    public function getFeedback(): Collection
-    {
-        return $this->feedback;
-    }
-
-    public function addFeedback(Feedback $feedback): static
-    {
-        if (!$this->feedback->contains($feedback)) {
-            $this->feedback->add($feedback);
-            $feedback->setOwnedBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFeedback(Feedback $feedback): static
-    {
-        if ($this->feedback->removeElement($feedback)) {
-            // set the owning side to null (unless already changed)
-            if ($feedback->getOwnedBy() === $this) {
-                $feedback->setOwnedBy(null);
-            }
-        }
-
-        return $this;
     }
 }

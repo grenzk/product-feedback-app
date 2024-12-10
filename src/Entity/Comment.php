@@ -16,9 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 #[ApiResource(operations: [
-    new Post(security: 'is_granted("ROLE_COMMENT_CREATE")'),
-    new Patch(security: 'is_granted("ROLE_COMMENT_EDIT")'),
-    new Delete(security: 'is_granted("ROLE_COMMENT_DELETE")')
+    new Post(),
+    new Patch(),
+    new Delete()
 ])]
 class Comment
 {

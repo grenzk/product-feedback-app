@@ -17,9 +17,15 @@ class FeedbackResourceTest extends ApiTestCase
 
     public function testGetCollectionOfFeedback(): void
     {
-        FeedbackFactory::createMany(4);
+        $user1 = UserFactory::createOne();
+        $user2 = UserFactory::createOne();
+
+        FeedbackFactory::createMany(4, [
+            'ownedBy' => $user1
+        ]);
 
         $json = $this->browser()
+            ->actingAs($user2)
             ->get('/api/feedback')
             ->assertJsonMatches('totalItems', 4)
             ->assertJsonMatches('length(member)', 4)
@@ -41,7 +47,7 @@ class FeedbackResourceTest extends ApiTestCase
 
     public function testPostToCreateFeedback(): void
     {
-        $user =  UserFactory::createOne();
+        $user = UserFactory::createOne();
 
         $this->browser()
             ->actingAs($user)
@@ -60,32 +66,6 @@ class FeedbackResourceTest extends ApiTestCase
             )
             ->assertStatus(201)
             ->assertJsonMatches('title', 'Add tags for solutions')
-        ;
-    }
-
-    public function testPostToCreateFeedbackWithApiKey(): void
-    {
-        $token = ApiTokenFactory::createOne([
-            'scopes' => [ApiToken::SCOPE_FEEDBACK_CREATE]
-        ]);
-
-        $this->browser()
-            ->post('/api/feedback', HttpOptions::json([])
-                ->withHeader('Authorization', 'Bearer ' . $token->getToken()))
-            ->assertStatus(422)
-        ;
-    }
-
-    public function testPostToCreateFeedbackDeniedWithoutScope(): void
-    {
-        $token = ApiTokenFactory::createOne([
-            'scopes' => [ApiToken::SCOPE_FEEDBACK_EDIT]
-        ]);
-
-        $this->browser()
-            ->post('/api/feedback', HttpOptions::json([])
-                ->withHeader('Authorization', 'Bearer ' . $token->getToken()))
-            ->assertStatus(403)
         ;
     }
 

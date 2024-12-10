@@ -17,16 +17,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FeedbackRepository::class)]
-#[ApiResource(operations: [
-    new Get(),
-    new GetCollection(),
-    new Post(security: 'is_granted("ROLE_FEEDBACK_CREATE")'),
-    new Patch(
-        security: 'is_granted("ROLE_FEEDBACK_EDIT") and object.getOwnedBy() == user',
-        securityPostDenormalize: 'object.getOwnedBy() == user',
-    ),
-    new Delete(security: 'is_granted("ROLE_FEEDBACK_DELETE")')
-], normalizationContext: ['groups' => ['feedback']])]
+#[ApiResource(
+    security: 'is_granted("ROLE_USER")',
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Patch(
+            security: 'object.getOwnedBy() === user',
+            securityPostDenormalize: 'object.getOwnedBy() === user',
+        ),
+        new Delete()
+    ],
+    normalizationContext: ['groups' => ['feedback']]
+)]
 #[Groups('feedback')]
 class Feedback
 {
