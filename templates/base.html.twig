@@ -24,10 +24,6 @@
             window.user = {{ app.user|serialize('jsonld', {
                 'groups': ['user:read']
             })|raw }}
-
-            window.tokens  = {{
-                app.user ? app.user.validTokenStrings|json_encode|raw : 'null'
-            }}
         </script>
     </body>
 </html>
