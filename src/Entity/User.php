@@ -6,7 +6,6 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Get;
 use App\Repository\UserRepository;
-use App\State\UserPasswordHasher;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
@@ -21,7 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Post(
             security: 'is_granted("PUBLIC_ACCESS")',
-            processor: UserPasswordHasher::class,
             validationContext: ['groups' => ['Default', 'user:create']]
         ),
         new Get()
@@ -59,6 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[Groups(['user:create'])]
+    #[SerializedName('password')]
     #[Assert\NotBlank(groups: ['user:create'])]
     #[Assert\Length(min: 6)]
     private ?string $plainPassword = null;
