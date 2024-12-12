@@ -15,7 +15,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
-#[ApiResource(operations: [
+#[ApiResource(
+    security: 'is_granted("ROLE_USER")',
+    operations: [
     new Post(),
     new Patch(),
     new Delete()
@@ -47,23 +49,12 @@ class Comment
     #[Groups('feedback')]
     private Collection $replies;
 
-    #[ORM\Column(length: 50)]
-    #[Groups('feedback')]
-    #[Assert\NotBlank]
-    private ?string $author = null;
-
-    #[ORM\Column(length: 50)]
-    #[Groups('feedback')]
-    #[Assert\NotBlank]
-    private ?string $authorHandle = null;
-
-    #[ORM\Column]
-    #[Groups('feedback')]
-    private \DateTimeImmutable $publishedAt;
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $ownedBy = null;
 
     public function __construct()
     {
-        $this->publishedAt = new \DateTimeImmutable();
         $this->replies = new ArrayCollection();
     }
 
@@ -138,38 +129,14 @@ class Comment
         return $this;
     }
 
-    public function getAuthor(): ?string
+    public function getOwnedBy(): ?User
     {
-        return $this->author;
+        return $this->ownedBy;
     }
 
-    public function setAuthor(string $author): static
+    public function setOwnedBy(?User $ownedBy): static
     {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    public function getAuthorHandle(): ?string
-    {
-        return $this->authorHandle;
-    }
-
-    public function setAuthorHandle(string $authorHandle): static
-    {
-        $this->authorHandle = $authorHandle;
-
-        return $this;
-    }
-
-    public function getPublishedAt(): \DateTimeImmutable
-    {
-        return $this->publishedAt;
-    }
-
-    public function setPublishedAt(\DateTimeImmutable $publishedAt): static
-    {
-        $this->publishedAt = $publishedAt;
+        $this->ownedBy = $ownedBy;
 
         return $this;
     }
