@@ -5,7 +5,7 @@ namespace App\State;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Feedback;
-use App\Entity\User;
+use App\Entity\Comment;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 
@@ -14,9 +14,11 @@ class FeedbackSetOwnerProcessor implements ProcessorInterface
 {
     public function __construct(private ProcessorInterface $innerProcessor, private Security $security) {}
 
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): User
+    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): mixed
     {
-        if ($data instanceof Feedback && $data->getOwnedBy() === null && $this->security->getUser()) {
+        if (($data instanceof Feedback || $data instanceof Comment) &&
+            $data->getOwnedBy() === null && $this->security->getUser()
+        ) {
             $data->setOwnedBy($this->security->getUser());
         }
 
