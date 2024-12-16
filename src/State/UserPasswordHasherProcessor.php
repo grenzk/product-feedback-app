@@ -13,7 +13,7 @@ class UserPasswordHasherProcessor implements ProcessorInterface
 {
     public function __construct(private ProcessorInterface $innerProcessor, private UserPasswordHasherInterface $passwordHasher) {}
 
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): User
+    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): mixed
     {
         if ($data instanceof User && $data->getPlainPassword()) {
             $data->setPassword($this->passwordHasher->hashPassword($data, $data->getPlainPassword()));
