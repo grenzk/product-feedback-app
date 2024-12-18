@@ -40,7 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 50, unique: true)]
-    #[Groups(['user:read', 'user:create'])]
+    #[Groups(['user:read', 'user:create', 'feedback'])]
     #[Assert\NotBlank]
     #[Assert\Length(min: 3)]
     private ?string $username = null;
