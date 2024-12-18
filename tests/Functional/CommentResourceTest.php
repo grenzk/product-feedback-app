@@ -73,6 +73,25 @@ class CommentResourceTest extends ApiTestCase
         ;
     }
 
+    public function testPostReplyToComment(): void
+    {
+        $user = UserFactory::createOne();
+        $feedback = FeedbackFactory::createOne();
+        $comment = CommentFactory::createOne([
+            'feedback' => $feedback
+        ]);
+
+        $this->browser()
+            ->actingAs($user)
+            ->post('/api/comments', HttpOptions::json([
+                'feedback' => '/api/feedback/' . $feedback->getId(),
+                'parentComment' => '/api/comments/' . $comment->getId(),
+                'body' => 'This is a reply.',
+            ]))
+            ->assertSuccessful()
+        ;
+    }
+
     public function testDeleteComment(): void
     {
         $user1 = UserFactory::createOne();
