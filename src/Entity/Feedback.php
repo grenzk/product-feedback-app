@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FeedbackRepository::class)]
 #[ApiResource(
-    // security: 'is_granted("ROLE_USER")',
+    security: 'is_granted("ROLE_USER")',
     operations: [
         new Get(),
         new GetCollection(),
