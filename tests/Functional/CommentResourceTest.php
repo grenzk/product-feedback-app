@@ -14,7 +14,7 @@ class CommentResourceTest extends ApiTestCase
     use ResetDatabase;
     use Factories;
 
-    public function testPostToCreateComment()
+    public function testPostToCreateComment(): void
     {
         $user = UserFactory::createOne();
         $feedback = FeedbackFactory::createOne();
@@ -73,7 +73,7 @@ class CommentResourceTest extends ApiTestCase
         ;
     }
 
-    public function testDeleteComment()
+    public function testDeleteComment(): void
     {
         $user1 = UserFactory::createOne();
         $comment = CommentFactory::createOne(['ownedBy' => $user1]);
