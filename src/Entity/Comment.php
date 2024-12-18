@@ -18,10 +18,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     security: 'is_granted("ROLE_USER")',
     operations: [
-    new Post(),
-    new Patch(),
-    new Delete()
-])]
+        new Post(),
+        new Patch(
+            security: 'object.getOwnedBy() === user',
+            securityPostDenormalize: 'object.getOwnedBy() === user'
+        ),
+        new Delete(
+            security: 'object.getOwnedBy() === user',
+            securityPostDenormalize: 'object.getOwnedBy() === user'
+        )
+    ],
+)]
 class Comment
 {
     #[ORM\Id]
@@ -51,6 +58,7 @@ class Comment
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups('feedback')]
     private ?User $ownedBy = null;
 
     public function __construct()
