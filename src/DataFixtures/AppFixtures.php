@@ -27,6 +27,7 @@ class AppFixtures extends Fixture
         ]);
 
         $user2 = UserFactory::repository()->findOneBy(['email' => 'james.skinner@example.com']);
+        $user3 = UserFactory::repository()->findOneBy(['email' => 'anne.valentine@example.com']);
 
         FeedbackFactory::createOne([
             'title' => 'Add tags for solutions',
@@ -62,12 +63,21 @@ class AppFixtures extends Fixture
 
         $feedback = FeedbackFactory::repository()->findOneBy(['title' => 'Add a dark theme option']);
 
-        CommentFactory::createOne([
+        $comment = CommentFactory::createOne([
             'body' => 'Second this! I do a lot of late night coding and reading. ' .
                 'Adding a dark theme can be great for preventing eye strain and the headaches that result. ' .
                 'It’s also quite a trend with modern apps and apparently saves battery life.',
             'feedback' => $feedback,
             'ownedBy' => $user2,
+        ]);
+
+        CommentFactory::createOne([
+            'body' => 'While waiting for dark mode, there are browser extensions that will also do the job. ' .
+                'Search for "dark theme” followed by your browser. ' .
+                'There might be a need to turn off the extension for sites with naturally black backgrounds though.',
+            'feedback' => $feedback,
+            'parentComment' => $comment,
+            'ownedBy' => $user3
         ]);
     }
 }
