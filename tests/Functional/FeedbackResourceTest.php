@@ -69,11 +69,11 @@ class FeedbackResourceTest extends ApiTestCase
 
     public function testPatchToUpdateFeedback(): void
     {
-        $user =  UserFactory::createOne();
-        $feedback = FeedbackFactory::createOne(['ownedBy' => $user]);
+        $user1 =  UserFactory::createOne();
+        $feedback = FeedbackFactory::createOne(['ownedBy' => $user1]);
 
         $this->browser()
-            ->actingAs($user)
+            ->actingAs($user1)
             ->patch(
                 '/api/feedback/' . $feedback->getId(),
                 HttpOptions::json([
@@ -99,7 +99,7 @@ class FeedbackResourceTest extends ApiTestCase
         ;
 
         $this->browser()
-            ->actingAs($user)
+            ->actingAs($user1)
             ->patch(
                 '/api/feedback/' . $feedback->getId(),
                 HttpOptions::json([

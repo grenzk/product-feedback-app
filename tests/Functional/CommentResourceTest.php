@@ -2,7 +2,6 @@
 
 namespace App\Tests\Functional;
 
-use App\Entity\Feedback;
 use App\Factory\CommentFactory;
 use App\Factory\FeedbackFactory;
 use App\Factory\UserFactory;
