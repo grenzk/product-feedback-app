@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FeedbackRepository::class)]
 #[ApiResource(
-    security: 'is_granted("ROLE_USER")',
+    // security: 'is_granted("ROLE_USER")',
     operations: [
         new Get(),
         new GetCollection(),
@@ -27,7 +27,10 @@ use Symfony\Component\Validator\Constraints as Assert;
             security: 'object.getOwnedBy() === user',
             securityPostDenormalize: 'object.getOwnedBy() === user',
         ),
-        new Delete()
+        new Delete(
+            security: 'object.getOwnedBy() === user',
+            securityPostDenormalize: 'object.getOwnedBy() === user',
+        )
     ],
     normalizationContext: ['groups' => ['feedback']]
 )]
