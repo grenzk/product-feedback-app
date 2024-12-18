@@ -109,4 +109,25 @@ class FeedbackResourceTest extends ApiTestCase
             ->assertStatus(403)
         ;
     }
+
+    public function testDeleteFeedback(): void
+    {
+        $user1 = UserFactory::createOne();
+        $feedback = FeedbackFactory::createOne(['ownedBy' => $user1]);
+
+        $this->browser()
+            ->actingAs($user1)
+            ->delete('/api/feedback/' . $feedback->getId())
+            ->assertSuccessful()
+        ;
+
+        $user2 = UserFactory::createOne();
+        $feedback = FeedbackFactory::createOne(['ownedBy' => $user1]);
+
+        $this->browser()
+            ->actingAs($user2)
+            ->delete('/api/feedback/' . $feedback->getId())
+            ->assertStatus(403)
+        ;
+    }
 }
