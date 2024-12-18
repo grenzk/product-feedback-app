@@ -37,12 +37,10 @@ final class UserFactory extends PersistentProxyObjectFactory
      */
     protected function defaults(): array|callable
     {
-        $randomUser = self::faker()->unique()->randomElement(self::USERS);
-
         return [
-            'email' => $randomUser['email'],
+            'email' => self::faker()->email(),
             'password' => 'foobar',
-            'username' => $randomUser['username'],
+            'username' => self::faker()->userName(),
         ];
     }
 
