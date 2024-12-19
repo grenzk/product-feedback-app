@@ -81,6 +81,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'ownedBy', orphanRemoval: true)]
     private Collection $comments;
 
+    #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:create', 'feedback'])]
+    #[Assert\NotBlank]
+    private ?string $fullName = null;
+
     public function __construct()
     {
         $this->feedback = new ArrayCollection();
@@ -241,6 +246,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $comment->setOwnedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFullName(): ?string
+    {
+        return $this->fullName;
+    }
+
+    public function setFullName(string $fullName): static
+    {
+        $this->fullName = $fullName;
 
         return $this;
     }

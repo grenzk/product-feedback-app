@@ -12,10 +12,10 @@ use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 final class UserFactory extends PersistentProxyObjectFactory
 {
     const USERS = [
-        ['email' => 'elijah.moss@example.com', 'username' => 'hexagon.bestagon',],
-        ['email' => 'james.skinner@example.com', 'username' => 'hummingbird1'],
-        ['email' => 'anne.valentine@example.com', 'username' => 'annev1990'],
-        ['email' => 'ryan.welles@example.com', 'username' => 'voyager.344']
+        ['email' => 'elijah.moss@example.com', 'fullName' => 'Elijah Moss', 'username' => 'hexagon.bestagon',],
+        ['email' => 'james.skinner@example.com', 'fullName' => 'James Skinner', 'username' => 'hummingbird1'],
+        ['email' => 'anne.valentine@example.com', 'fullName' => 'Anne Valentine', 'username' => 'annev1990'],
+        ['email' => 'ryan.welles@example.com', 'fullName' => 'Ryan Welles', 'username' => 'voyager.344']
     ];
 
     /**
@@ -39,8 +39,9 @@ final class UserFactory extends PersistentProxyObjectFactory
     {
         return [
             'email' => self::faker()->email(),
-            'password' => 'foobar',
+            'fullName' => self::faker()->name(),
             'username' => self::faker()->userName(),
+            'password' => 'foobar',
         ];
     }
 

@@ -16,6 +16,7 @@ class UserResourceTest extends ApiTestCase
         $this->browser()
             ->post('/api/users', HttpOptions::json([
                 'email' => 'john.doe@example.com',
+                'fullName' => 'John Doe',
                 'username' => 'johndoe',
                 'password' => 'foobar'
             ]))
