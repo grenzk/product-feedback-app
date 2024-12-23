@@ -86,10 +86,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     private ?string $fullName = null;
 
+    /**
+     * @var Collection<int, Upvote>
+     */
+    #[ORM\OneToMany(targetEntity: Upvote::class, mappedBy: 'ownedBy', orphanRemoval: true)]
+    private Collection $upvotes;
+
     public function __construct()
     {
         $this->feedback = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->upvotes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -258,6 +265,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFullName(string $fullName): static
     {
         $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Upvote>
+     */
+    public function getUpvotes(): Collection
+    {
+        return $this->upvotes;
+    }
+
+    public function addUpvote(Upvote $upvote): static
+    {
+        if (!$this->upvotes->contains($upvote)) {
+            $this->upvotes->add($upvote);
+            $upvote->setOwnedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUpvote(Upvote $upvote): static
+    {
+        if ($this->upvotes->removeElement($upvote)) {
+            // set the owning side to null (unless already changed)
+            if ($upvote->getOwnedBy() === $this) {
+                $upvote->setOwnedBy(null);
+            }
+        }
 
         return $this;
     }

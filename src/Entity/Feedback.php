@@ -71,9 +71,16 @@ class Feedback
     #[ORM\JoinColumn(nullable: false)]
     private ?User $ownedBy = null;
 
+    /**
+     * @var Collection<int, Upvote>
+     */
+    #[ORM\OneToMany(targetEntity: Upvote::class, mappedBy: 'feedback', orphanRemoval: true)]
+    private Collection $upvotes;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->upvotes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -171,5 +178,41 @@ class Feedback
         $this->ownedBy = $ownedBy;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Upvote>
+     */
+    public function getUpvotes(): Collection
+    {
+        return $this->upvotes;
+    }
+
+    public function addUpvote(Upvote $upvote): static
+    {
+        if (!$this->upvotes->contains($upvote)) {
+            $this->upvotes->add($upvote);
+            $upvote->setFeedback($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUpvote(Upvote $upvote): static
+    {
+        if ($this->upvotes->removeElement($upvote)) {
+            // set the owning side to null (unless already changed)
+            if ($upvote->getFeedback() === $this) {
+                $upvote->setFeedback(null);
+            }
+        }
+
+        return $this;
+    }
+
+    #[Groups('feedback')]
+    public function getUpvoteCount(): int
+    {
+        return $this->upvotes->count();
     }
 }
