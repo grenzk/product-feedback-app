@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FeedbackRepository::class)]
@@ -211,6 +212,7 @@ class Feedback
     }
 
     #[Groups('feedback')]
+    #[SerializedName('upvotes')]
     public function getUpvoteCount(): int
     {
         return $this->upvotes->count();

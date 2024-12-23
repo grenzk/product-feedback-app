@@ -39,7 +39,8 @@ class FeedbackResourceTest extends ApiTestCase
             'category',
             'status',
             'comments',
-            'ownedBy'
+            'ownedBy',
+            'upvotes',
         ]);
     }
 
@@ -110,7 +111,7 @@ class FeedbackResourceTest extends ApiTestCase
         ;
     }
 
-    public function testDeleteFeedback(): void
+    public function testDeleteToRemoveFeedback(): void
     {
         $user1 = UserFactory::createOne();
         $feedback = FeedbackFactory::createOne(['ownedBy' => $user1]);

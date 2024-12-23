@@ -26,7 +26,7 @@ class UpvoteResourceTest extends ApiTestCase
             ]))
             ->assertSuccessful()
             ->get('/api/feedback/' . $feedback->getId())
-            ->assertJsonMatches('upvoteCount', 1)
+            ->assertJsonMatches('upvotes', 1)
         ;
 
         $this->browser()
@@ -36,7 +36,7 @@ class UpvoteResourceTest extends ApiTestCase
             ]))
             ->assertStatus(500)
             ->get('/api/feedback/' . $feedback->getId())
-            ->assertJsonMatches('upvoteCount', 1)
+            ->assertJsonMatches('upvotes', 1)
 
         ;
     }
@@ -53,12 +53,12 @@ class UpvoteResourceTest extends ApiTestCase
                 'feedback' => '/api/feedback/' . $feedback1->getId(),
             ]))
             ->get('/api/feedback/' . $feedback1->getId())
-            ->assertJsonMatches('upvoteCount', 1)
+            ->assertJsonMatches('upvotes', 1)
             ->post('/api/upvotes', HttpOptions::json([
                 'feedback' => '/api/feedback/' . $feedback2->getId(),
             ]))
             ->get('/api/feedback/' . $feedback2->getId())
-            ->assertJsonMatches('upvoteCount', 1)
+            ->assertJsonMatches('upvotes', 1)
         ;
     }
 
@@ -82,7 +82,7 @@ class UpvoteResourceTest extends ApiTestCase
             ]))
             ->assertSuccessful()
             ->get('/api/feedback/' . $feedback->getId())
-            ->assertJsonMatches('upvoteCount', 2)
+            ->assertJsonMatches('upvotes', 2)
         ;
     }
 
@@ -98,11 +98,11 @@ class UpvoteResourceTest extends ApiTestCase
         $this->browser()
             ->actingAs($user)
             ->get('/api/feedback/' . $feedback->getId())
-            ->assertJsonMatches('upvoteCount', 1)
+            ->assertJsonMatches('upvotes', 1)
             ->delete('/api/upvotes/' . $upvote->getId())
             ->assertSuccessful()
             ->get('/api/feedback/' . $feedback->getId())
-            ->assertJsonMatches('upvoteCount', 0)
+            ->assertJsonMatches('upvotes', 0)
         ;
     }
 }
