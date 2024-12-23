@@ -33,9 +33,9 @@ use Symfony\Component\Validator\Constraints as Assert;
             securityPostDenormalize: 'object.getOwnedBy() === user',
         )
     ],
-    normalizationContext: ['groups' => ['feedback']]
+    normalizationContext: ['groups' => ['feedback:read']]
 )]
-#[Groups('feedback')]
+#[Groups('feedback:read')]
 class Feedback
 {
     #[ORM\Id]
@@ -211,7 +211,7 @@ class Feedback
         return $this;
     }
 
-    #[Groups('feedback')]
+    #[Groups('feedback:read')]
     #[SerializedName('upvotes')]
     public function getUpvoteCount(): int
     {

@@ -40,7 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 50, unique: true)]
-    #[Groups(['user:read', 'user:create', 'feedback'])]
+    #[Groups(['user:read', 'user:create', 'feedback:read'])]
     #[Assert\NotBlank]
     #[Assert\Length(min: 3)]
     private ?string $username = null;
@@ -82,7 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $comments;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['user:read', 'user:create', 'feedback'])]
+    #[Groups(['user:read', 'user:create', 'feedback:read'])]
     #[Assert\NotBlank]
     private ?string $fullName = null;
 

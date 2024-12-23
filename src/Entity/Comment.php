@@ -34,7 +34,7 @@ class Comment
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('feedback')]
+    #[Groups('feedback:read')]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
@@ -42,7 +42,7 @@ class Comment
     private ?Feedback $feedback = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups('feedback')]
+    #[Groups('feedback:read')]
     #[Assert\NotBlank]
     private ?string $body = null;
 
@@ -53,12 +53,12 @@ class Comment
      * @var Collection<int, self>
      */
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parentComment')]
-    #[Groups('feedback')]
+    #[Groups('feedback:read')]
     private Collection $replies;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups('feedback')]
+    #[Groups('feedback:read')]
     private ?User $ownedBy = null;
 
     public function __construct()
