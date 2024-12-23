@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Feedback;
 use App\Entity\Comment;
+use App\Entity\Upvote;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 
@@ -16,7 +17,7 @@ class SetOwnerProcessor implements ProcessorInterface
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): mixed
     {
-        if (($data instanceof Feedback || $data instanceof Comment) &&
+        if (($data instanceof Feedback || $data instanceof Comment || $data instanceof Upvote) &&
             $data->getOwnedBy() === null && $this->security->getUser()
         ) {
             $data->setOwnedBy($this->security->getUser());
