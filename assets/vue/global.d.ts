@@ -5,5 +5,4 @@ declare interface User {
 
 declare interface Window {
   user: User | null
-  tokens: string[] | null
 }
