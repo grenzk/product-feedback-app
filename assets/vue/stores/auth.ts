@@ -1,31 +1,20 @@
 import { defineStore } from 'pinia'
+import { http } from '@/utils/api'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(window.user)
-  const tokens = ref(window.tokens)
   const errorMessage = ref<string>('')
 
   async function authenticateUser(email: string, password: string): Promise<void> {
     try {
-      const response = await fetch('/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email,
-          password
-        })
-      })
-
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.error)
-      }
-
+      const response = await http.post('/login', { email, password })
       const userIri = response.headers.get('Location')
 
-      onUserAuthenticated(userIri!)
+      if (!userIri) {
+        throw new Error('User IRI not found.')
+      }
+
+      onUserAuthenticated(userIri)
     } catch (error) {
       errorMessage.value = getErrorMessage(error)
     }
@@ -33,10 +22,8 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function onUserAuthenticated(userUri: string): Promise<void> {
     try {
-      const response = await fetch(userUri)
+      const response = await http.get(userUri)
       const data = await response.json()
-
-      if (!response.ok) throw new Error(data.error)
 
       user.value = data
     } catch (error) {
@@ -51,8 +38,8 @@ export const useAuthStore = defineStore('auth', () => {
 
   return {
     user,
-    tokens,
     errorMessage,
+    getErrorMessage,
     authenticateUser,
     onUserAuthenticated
   }
