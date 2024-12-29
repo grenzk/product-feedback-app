@@ -5,8 +5,16 @@ import Tag from 'primevue/tag'
 import Button from 'primevue/button'
 import ContentCard from './ContentCard.vue'
 
+interface Feedback {
+  title: string
+  detail: string
+  category: string
+  status: string
+  upvotes: number
+}
+
 defineProps<{
-  category?: string
+  feedback: Feedback
 }>()
 
 const route = useRoute()
@@ -23,16 +31,16 @@ function handleUpvote(e: MouseEvent): void {
         <div>
           <div class="category" v-if="route.name === 'roadmap'">
             <span class="circle"></span>
-            <span class="name">{{ category }}</span>
+            <span class="name">{{ feedback.status }}</span>
           </div>
 
-          <h2>Add tags for solutions</h2>
-          <p>Easier to search for solutions based on a specific stack.</p>
-          <Tag value="Enhancement"></Tag>
+          <h2>{{ feedback.title }}</h2>
+          <p>{{  feedback.detail }}</p>
+          <Tag :value="feedback.category"></Tag>
         </div>
         <Button class="upvote-counter | text-bold" @click="handleUpvote">
           <img src="../../images/shared/icon-arrow-up.svg" alt="" aria-hidden="true" />
-          <span>112</span>
+          <span>{{ feedback.upvotes }}</span>
         </Button>
       </div>
 

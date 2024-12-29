@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { uiStore } from '@/stores/ui'
+import { useContentStore } from '@/stores/content'
 
 import SidebarMenu from '@/components/SidebarMenu.vue'
 import ContentCard from '@/components/ContentCard.vue'
 import FeedbackCard from '@/components/FeedbackCard.vue'
 import FeedbackControls from '@/components/FeedbackControls.vue'
 import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
+
+const contentStore = useContentStore()
 </script>
 
 <template>
@@ -13,9 +16,7 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
   <FeedbackControls />
 
   <main class="home | l-flex">
-    <FeedbackCard />
-
-    <ContentCard class="empty-state">
+    <ContentCard v-if="contentStore.allFeedback.length === 0" class="empty-state">
       <img src="../../images/suggestions/illustration-empty.svg" alt="" aria-hidden="true" />
       <h3>There is no feedback yet.</h3>
       <p>
@@ -24,6 +25,8 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
       </p>
       <NewFeedbackLink />
     </ContentCard>
+
+    <FeedbackCard v-else v-for="feedback of contentStore.allFeedback" :feedback="feedback" />
   </main>
 
   <Transition name="fade">
