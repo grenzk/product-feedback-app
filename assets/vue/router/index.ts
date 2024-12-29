@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 import HomePage from '@/views/HomePage.vue'
 import AuthPage from '@/views/AuthPage.vue'
 import FeedbackSubmissionPage from '@/views/FeedbackSubmissionPage.vue'
@@ -34,4 +35,16 @@ export const router = createRouter({
       component: RoadmapPage
     }
   ]
+})
+
+router.beforeEach(to => {
+  const authStore = useAuthStore()
+
+  if (!authStore.isLoggedIn && to.name !== 'login') {
+    return '/login'
+  }
+
+  if (authStore.isLoggedIn && to.name === 'login') {
+    return false
+  }
 })

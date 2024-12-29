@@ -1,9 +1,14 @@
 import { defineStore } from 'pinia'
 import { http } from '@/utils/api'
+import { router } from '@/router'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(window.user)
   const errorMessage = ref<string>('')
+
+  const isLoggedIn = computed(() => {
+    return !!user.value
+  })
 
   async function authenticateUser(email: string, password: string): Promise<void> {
     try {
@@ -26,18 +31,21 @@ export const useAuthStore = defineStore('auth', () => {
       const data = await response.json()
 
       user.value = data
+
+      router.push('/')
     } catch (error) {
       errorMessage.value = getErrorMessage(error)
     }
   }
 
-  function getErrorMessage(error: unknown) {
+  function getErrorMessage(error: unknown): string {
     if (error instanceof Error) return error.message
     return String(error)
   }
 
   return {
     user,
+    isLoggedIn,
     errorMessage,
     getErrorMessage,
     authenticateUser,
