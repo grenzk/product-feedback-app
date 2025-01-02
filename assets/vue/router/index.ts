@@ -25,9 +25,10 @@ export const router = createRouter({
       component: FeedbackSubmissionPage
     },
     {
-      path: '/feedback-details',
-      name: 'feedback details',
-      component: FeedbackDetailsPage
+      path: '/feedback/:id',
+      name: 'feedback',
+      component: FeedbackDetailsPage,
+      props: true
     },
     {
       path: '/roadmap',

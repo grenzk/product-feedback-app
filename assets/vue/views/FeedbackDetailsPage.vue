@@ -1,10 +1,24 @@
 <script setup lang="ts">
+import { useContentStore } from '@/stores/content'
+
 import Button from 'primevue/button'
 import Textarea from 'primevue/textarea'
 import FeedbackCard from '@/components/FeedbackCard.vue'
 import BackLink from '@/components/BackLink.vue'
 import ContentCard from '@/components/ContentCard.vue'
 import UserComment from '@/components/UserComment.vue'
+
+const props = defineProps<{
+  id: string
+}>()
+
+const contentStore = useContentStore()
+
+const feedback = computed(() => {
+  return contentStore.allFeedback.find((feedback: Feedback) => {
+    return feedback.id === parseInt(props.id)
+  })
+})
 </script>
 
 <template>
@@ -14,7 +28,7 @@ import UserComment from '@/components/UserComment.vue'
       <RouterLink to="#"><Button label="Edit Feedback" /></RouterLink>
     </div>
 
-    <FeedbackCard />
+    <FeedbackCard v-if="feedback" :feedback="feedback" />
 
     <ContentCard>
       <h3>4 Comments</h3>

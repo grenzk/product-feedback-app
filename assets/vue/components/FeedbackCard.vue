@@ -5,14 +5,6 @@ import Tag from 'primevue/tag'
 import Button from 'primevue/button'
 import ContentCard from './ContentCard.vue'
 
-interface Feedback {
-  title: string
-  detail: string
-  category: string
-  status: string
-  upvotes: number
-}
-
 defineProps<{
   feedback: Feedback
 }>()
@@ -25,7 +17,7 @@ function handleUpvote(e: MouseEvent): void {
 </script>
 
 <template>
-  <RouterLink to="/feedback-details">
+  <RouterLink :to="`/feedback/${feedback.id}`">
     <ContentCard class="feedback">
       <div class="column | l-flex">
         <div>
@@ -35,7 +27,7 @@ function handleUpvote(e: MouseEvent): void {
           </div>
 
           <h2>{{ feedback.title }}</h2>
-          <p>{{  feedback.detail }}</p>
+          <p>{{ feedback.detail }}</p>
           <Tag :value="feedback.category"></Tag>
         </div>
         <Button class="upvote-counter | text-bold" @click="handleUpvote">
