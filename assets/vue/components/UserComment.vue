@@ -2,6 +2,11 @@
 import Button from 'primevue/button'
 import Textarea from 'primevue/textarea'
 
+defineProps<{
+  comment: UserComment
+  isReply?: boolean
+}>()
+
 const userWantsToReply = ref(false)
 
 function handleReply(): void {
@@ -11,26 +16,32 @@ function handleReply(): void {
 
 <template>
   <div class="thread">
-    <div class="comment">
+    <div class="comment" :class="{ '| reply': isReply }">
       <div class="row | l-flex">
         <img src="../../images/user-images/image-elijah.jpg" alt="" aria-hidden="true" />
+
         <div class="author">
-          <span class="name | text-bold">Elijah Moss</span> <br />
-          <span class="handle">@hexagon.bestagon</span>
+          <span class="name | text-bold">{{ comment.ownedBy.fullName }}</span> <br />
+          <span class="handle">@{{ comment.ownedBy.username }}</span>
         </div>
+
         <Button v-if="userWantsToReply" label="Cancel Reply" @click="handleReply" />
         <Button v-else label="Reply" @click="handleReply" />
       </div>
+
       <p>
-        Also, please allow styles to be applied based on system preferences. I would love to be able
-        to browse Frontend Mentor in the evening after my device’s dark mode turns on without the
-        bright background it currently has.
+        {{ comment.body }}
       </p>
+
       <form v-if="userWantsToReply" class="l-flex">
         <Textarea auto-resize placeholder="Type your comment here" />
         <Button label="Post Reply" />
       </form>
     </div>
+
+    <template v-if="comment.replies.length > 0">
+      <UserComment v-for="reply of comment.replies" :comment="reply" is-reply />
+    </template>
   </div>
   <hr />
 </template>

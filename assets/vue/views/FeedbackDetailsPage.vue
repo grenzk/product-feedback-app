@@ -30,9 +30,10 @@ const feedback = computed(() => {
 
     <FeedbackCard v-if="feedback" :feedback="feedback" />
 
-    <ContentCard>
-      <h3>4 Comments</h3>
-      <UserComment />
+    <ContentCard v-if="feedback && feedback.commentCount > 0">
+      <h3>{{ feedback.commentCount }} Comments</h3>
+      
+      <UserComment v-for="comment of feedback.comments" :comment="comment" />
     </ContentCard>
 
     <ContentCard>

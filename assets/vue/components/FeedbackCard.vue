@@ -38,7 +38,7 @@ function handleUpvote(e: MouseEvent): void {
 
       <div class="comment-counter | text-bold">
         <img src="../../images/shared/icon-comments.svg" alt="" aria-hidden="true" />
-        <span>2</span>
+        <span>{{ feedback.commentCount }}</span>
       </div>
     </ContentCard>
   </RouterLink>

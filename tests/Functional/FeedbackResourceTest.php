@@ -41,6 +41,7 @@ class FeedbackResourceTest extends ApiTestCase
             'comments',
             'ownedBy',
             'upvotes',
+            'commentCount'
         ]);
     }
 

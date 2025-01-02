@@ -169,6 +169,11 @@ class Feedback
         return $this;
     }
 
+    #[Groups('feedback:read')]
+    public function getCommentCount(): int {
+        return $this->comments->count();
+    }
+
     public function getOwnedBy(): ?User
     {
         return $this->ownedBy;
