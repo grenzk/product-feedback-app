@@ -3,8 +3,8 @@ import { http } from '@/utils/api'
 import { router } from '@/router'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref(window.user)
-  const errorMessage = ref<string>('')
+  const user = ref<User | null>(window.user)
+  const errorMessage = ref('')
 
   const isLoggedIn = computed(() => {
     return !!user.value

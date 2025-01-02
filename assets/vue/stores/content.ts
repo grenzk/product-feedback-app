@@ -5,7 +5,7 @@ import { useAuthStore } from './auth'
 export const useContentStore = defineStore('content', () => {
   const authStore = useAuthStore()
 
-  const allFeedback = ref([])
+  const allFeedback = ref<Feedback[]>([])
 
   async function loadAllFeedback(): Promise<void> {
     try {
