@@ -59,8 +59,8 @@ class FeedbackResourceTest extends ApiTestCase
                     [
                         'title' => 'Add tags for solutions',
                         'detail' => 'Easier to search for solutions based on a specific stack.',
-                        'category' => 'enhancement',
-                        'status' => 'suggestion',
+                        'category' => 'Enhancement',
+                        'status' => 'Suggestion',
                     ]
                 )
             )
@@ -79,11 +79,11 @@ class FeedbackResourceTest extends ApiTestCase
             ->patch(
                 '/api/feedback/' . $feedback->getId(),
                 HttpOptions::json([
-                    'status' => 'planned'
+                    'status' => 'Planned'
                 ])->withHeader('Content-Type', 'application/merge-patch+json')
             )
             ->assertStatus(200)
-            ->assertJsonMatches('status', 'planned')
+            ->assertJsonMatches('status', 'Planned')
         ;
 
         $user2 = UserFactory::createOne();
@@ -93,7 +93,7 @@ class FeedbackResourceTest extends ApiTestCase
             ->patch(
                 '/api/feedback/' . $feedback->getId(),
                 HttpOptions::json([
-                    'status' => 'live',
+                    'status' => 'Live',
                     'ownedBy' => '/api/users/' . $user2->getId()
                 ])->withHeader('Content-Type', 'application/merge-patch+json')
             )

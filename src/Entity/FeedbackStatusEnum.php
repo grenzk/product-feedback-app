@@ -4,8 +4,8 @@ namespace App\Entity;
 
 enum FeedbackStatusEnum: string
 {
-  case SUGGESTION = 'suggestion';
-  case PLANNED = 'planned';
-  case IN_PROGRESS = 'in-progress';
-  case LIVE = 'live';
+    case SUGGESTION = 'Suggestion';
+    case PLANNED = 'Planned';
+    case IN_PROGRESS = 'In-Progress';
+    case LIVE = 'Live';
 }

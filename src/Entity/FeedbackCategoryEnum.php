@@ -4,9 +4,9 @@ namespace App\Entity;
 
 enum FeedbackCategoryEnum: string
 {
-  case FEATURE = 'feature';
-  case UI = 'ui';
-  case UX = 'ux';
-  case ENHANCEMENT = 'enhancement';
-  case BUG = 'bug';
+    case FEATURE = 'Feature';
+    case UI = 'UI';
+    case UX = 'UX';
+    case ENHANCEMENT = 'Enhancement';
+    case BUG = 'Bug';
 }
