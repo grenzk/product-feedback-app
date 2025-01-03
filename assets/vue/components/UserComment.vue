@@ -2,12 +2,14 @@
 import Button from 'primevue/button'
 import Textarea from 'primevue/textarea'
 
-defineProps<{
+const props = defineProps<{
   comment: UserComment
   isReply?: boolean
 }>()
 
 const userWantsToReply = ref(false)
+const firstName = props.comment.ownedBy.fullName.split(' ')[0].toLowerCase()
+const imageUrl = `/user-images/image-${firstName}.jpg`
 
 function handleReply(): void {
   userWantsToReply.value = !userWantsToReply.value
@@ -18,7 +20,7 @@ function handleReply(): void {
   <div class="thread">
     <div class="comment" :class="{ '| reply': isReply }">
       <div class="row | l-flex">
-        <img src="../../images/user-images/image-elijah.jpg" alt="" aria-hidden="true" />
+        <img :src="imageUrl" alt="" aria-hidden="true" />
 
         <div class="author">
           <span class="name | text-bold">{{ comment.ownedBy.fullName }}</span> <br />
