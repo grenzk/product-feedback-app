@@ -19,36 +19,44 @@ export const useAuthStore = defineStore('auth', () => {
         throw new Error('User IRI not found.')
       }
 
-      onUserAuthenticated(userIri)
+      login(userIri)
     } catch (error) {
-      errorMessage.value = getErrorMessage(error)
+      showErrorMessage(error)
     }
   }
 
-  async function onUserAuthenticated(userUri: string): Promise<void> {
+  async function login(userIri: string): Promise<void> {
     try {
-      const response = await http.get(userUri)
+      const response = await http.get(userIri)
       const data = await response.json()
 
       user.value = data
 
       router.push('/')
     } catch (error) {
-      errorMessage.value = getErrorMessage(error)
+      showErrorMessage(error)
     }
   }
 
-  function getErrorMessage(error: unknown): string {
-    if (error instanceof Error) return error.message
-    return String(error)
+  function logout() {
+    window.location.href = '/logout'
+  }
+
+  function showErrorMessage(error: unknown): void {
+    if (error instanceof Error) {
+      errorMessage.value = error.message
+    } else {
+      errorMessage.value = String(error)
+    }
   }
 
   return {
     user,
     isLoggedIn,
     errorMessage,
-    getErrorMessage,
     authenticateUser,
-    onUserAuthenticated
+    login,
+    logout,
+    showErrorMessage
   }
 })

@@ -34,18 +34,19 @@ export const router = createRouter({
       path: '/roadmap',
       name: 'roadmap',
       component: RoadmapPage
-    }
+    },
+    { path: '/:pathMatch(.*)*', name: 'not found', redirect: '/' }
   ]
 })
 
 router.beforeEach(to => {
   const authStore = useAuthStore()
 
-  if (!authStore.isLoggedIn && to.name !== 'login') {
+  if (to.name !== 'login' && !authStore.isLoggedIn) {
     return '/login'
   }
 
-  if (authStore.isLoggedIn && to.name === 'login') {
-    return false
+  if (to.name === 'login' && authStore.isLoggedIn) {
+    authStore.logout()
   }
 })
