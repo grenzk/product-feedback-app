@@ -11,6 +11,11 @@
   &:focus {
     outline-color: var(--color-primary-indigo);
   }
+
+  &.p-invalid {
+    outline: none;
+    box-shadow: 0 0 0 1px var(--color-secondary-red);
+  }
 }
 
 .p-inputtext.p-variant-filled {
@@ -20,6 +25,7 @@
 .p-dropdown.p-variant-filled {
   .p-dropdown-label.p-inputtext {
     font: inherit;
+    color: inherit;
     padding: 0.875rem 1rem;
   }
 
@@ -71,6 +77,11 @@
       color: var(--color-primary-purple);
     }
   }
+}
+
+.p-error {
+  color: var(--color-secondary-red);
+  font-size: var(--font-size-xs);
 }
 
 #app:has(.home) ~ .p-dropdown-panel {
@@ -128,11 +139,11 @@
   .p-inputtext.p-variant-filled,
   .p-dropdown.p-variant-filled,
   .p-inputtextarea.p-variant-filled {
-    font-size: var(--font-size-s);
+    font-size: var(--font-size-m);
   }
 
   .p-inputtext.p-variant-filled,
-  .p-dropdown-label.p-inputtext {
+  .p-dropdown.p-variant-filled > .p-dropdown-label.p-inputtext {
     padding: 0.813rem 1.5rem;
   }
 
