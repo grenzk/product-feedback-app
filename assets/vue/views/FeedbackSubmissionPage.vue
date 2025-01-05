@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
 
 import InputText from 'primevue/inputtext'
 import Textarea from 'primevue/textarea'
@@ -7,34 +9,66 @@ import Button from 'primevue/button'
 import BackLink from '@/components/BackLink.vue'
 import CustomDropdown from '@/components/CustomDropdown.vue'
 
-const categories = ref(['Feature', 'UI', 'UX', 'Enhancement', 'Bug'])
-const statuses = ref(['Suggestion', 'Planned', 'In-Progress', 'Live'])
-const selectedCategory = ref('Feature')
+interface CreateFeedback {
+  title: string
+  category: string
+  detail: string
+}
+
+const categories = ['Feature', 'UI', 'UX', 'Enhancement', 'Bug']
+const statuses = ['Suggestion', 'Planned', 'In-Progress', 'Live']
 const selectedStatus = ref('Suggestion')
+
+const schema = {
+  title: yup.string().required("Can't be empty").label('Feedback Title'),
+  category: yup.string().required().label('Category'),
+  detail: yup.string().required("Can't be empty").label('Feedback Detail')
+}
+
+const { defineField, handleSubmit, resetForm, errors } = useForm<CreateFeedback>({
+  validationSchema: schema,
+  initialValues: {
+    category: 'Feature'
+  }
+})
+
+const [title] = defineField('title')
+const [category] = defineField('category')
+const [detail] = defineField('detail')
+
+const onSubmit = handleSubmit((values): void => {
+  console.log(values)
+})
 </script>
 
 <template>
   <main class="feedback-submission">
     <BackLink />
 
-    <form class="l-flex">
+    <form class="l-flex" @submit="onSubmit">
       <div class="form-icon | l-flex">
         <img src="../../images/shared/form-icon-plus.svg" alt="" aria-hidden="true" />
       </div>
 
       <h1>Create New Feedback</h1>
-      <div>
-        <label class="text-bold">Feedback Title</label>
+      <div class="field">
+        <label for="title" class="text-bold">Feedback Title</label>
         <p>Add a short, descriptive headline</p>
-        <InputText />
-        <small></small>
+
+        <InputText
+          v-model="title"
+          aria-describedby="title-help"
+          :class="{ 'p-invalid': errors.title }"
+        />
+        <small id="title-help" class="p-error">{{ errors.title }}</small>
       </div>
 
-      <div>
-        <label class="text-bold">Category</label>
+      <div class="field">
+        <label for="category" class="text-bold">Category</label>
         <p>Choose a category for your feedback</p>
-        <CustomDropdown v-model="selectedCategory" :options="categories" />
-        <small></small>
+
+        <CustomDropdown v-model="category" :options="categories" aria-describedby="category-help" />
+        <small id="category-help" class="p-error">{{ errors.category }}</small>
       </div>
 
       <div v-if="false">
@@ -44,15 +78,21 @@ const selectedStatus = ref('Suggestion')
         <small></small>
       </div>
 
-      <div>
-        <label class="text-bold">Feedback Detail</label>
+      <div class="field">
+        <label for="detail" class="text-bold">Feedback Detail</label>
         <p>Include any specific comments on what should be improved, added, etc.</p>
-        <Textarea auto-resize />
-        <small></small>
+
+        <Textarea
+          v-model="detail"
+          auto-resize
+          aria-describedby="detail-help"
+          :class="{ 'p-invalid': errors.detail }"
+        />
+        <small id="detail-help" class="p-error">{{ errors.detail }}</small>
       </div>
 
       <div class="form-buttons l-flex">
-        <RouterLink to="/"><Button label="Add feedback" /></RouterLink>
+        <Button type="submit" label="Add feedback" />
         <RouterLink to="/"><Button label="Cancel" /></RouterLink>
         <!-- <Button v-if="false" label="Delete" severity="danger" /> -->
       </div>
@@ -149,10 +189,6 @@ const selectedStatus = ref('Suggestion')
 
       p {
         font-size: var(--font-size-xs);
-      }
-
-      .p-inputtextarea {
-        height: 6rem !important;
       }
 
       .form-buttons {
