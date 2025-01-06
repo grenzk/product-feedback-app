@@ -14,7 +14,7 @@ export const useContentStore = defineStore('content', () => {
 
       allFeedback.value = data.member
     } catch (error) {
-      authStore.getErrorMessage(error)
+      authStore.showErrorMessage(error)
     }
   }
 
@@ -23,7 +23,7 @@ export const useContentStore = defineStore('content', () => {
       try {
         await loadAllFeedback()
       } catch (error) {
-        authStore.getErrorMessage(error)
+        authStore.showErrorMessage(error)
       }
     }
   })
