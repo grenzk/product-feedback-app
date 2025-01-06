@@ -27,3 +27,9 @@ declare interface Feedback {
   comments: UserComment[]
   commentCount: number
 }
+
+declare interface CreateFeedback {
+  title: string
+  category: string
+  detail: string
+}
