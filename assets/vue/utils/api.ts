@@ -8,7 +8,7 @@ class FetchWrapper {
     const config: RequestInit = {
       method,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/ld+json',
         ...headers
       }
     }
