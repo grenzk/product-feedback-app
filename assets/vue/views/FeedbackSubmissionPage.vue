@@ -2,6 +2,7 @@
 import { RouterLink } from 'vue-router'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
+import { useContentStore } from '@/stores/content'
 
 import InputText from 'primevue/inputtext'
 import Textarea from 'primevue/textarea'
@@ -9,12 +10,7 @@ import Button from 'primevue/button'
 import BackLink from '@/components/BackLink.vue'
 import CustomDropdown from '@/components/CustomDropdown.vue'
 
-interface CreateFeedback {
-  title: string
-  category: string
-  detail: string
-}
-
+const contentStore = useContentStore()
 const categories = ['Feature', 'UI', 'UX', 'Enhancement', 'Bug']
 const statuses = ['Suggestion', 'Planned', 'In-Progress', 'Live']
 const selectedStatus = ref('Suggestion')
@@ -37,7 +33,8 @@ const [category] = defineField('category')
 const [detail] = defineField('detail')
 
 const onSubmit = handleSubmit((values): void => {
-  console.log(values)
+  contentStore.createFeedback(values)
+  resetForm()
 })
 </script>
 
