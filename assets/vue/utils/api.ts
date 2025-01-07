@@ -8,7 +8,7 @@ class FetchWrapper {
     const config: RequestInit = {
       method,
       headers: {
-        'Content-Type': 'application/ld+json',
+        'Content-Type': method === 'PATCH' ? 'application/merge-patch+json' : 'application/ld+json',
         ...headers
       }
     }
@@ -37,6 +37,10 @@ class FetchWrapper {
 
   put(url: string, data: Record<string, any> | null, headers: HeadersInit = {}) {
     return this.request('PUT', url, data, headers)
+  }
+
+  patch(url: string, data: Record<string, any> | null, headers: HeadersInit = {}) {
+    return this.request('PATCH', url, data, headers)
   }
 
   delete(url: string, headers: HeadersInit = {}) {
