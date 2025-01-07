@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import { useContentStore } from '@/stores/content'
 
 import Button from 'primevue/button'
@@ -13,26 +14,23 @@ const props = defineProps<{
 }>()
 
 const contentStore = useContentStore()
+const { feedback } = storeToRefs(contentStore)
 
-const feedback = computed(() => {
-  return contentStore.allFeedback.find((feedback: Feedback) => {
-    return feedback.id === parseInt(props.id)
-  })
-})
+watchEffect(() => (feedback.value = contentStore.getFeedback(props.id)))
 </script>
 
 <template>
   <main class="feedback-details">
     <div class="row | l-flex">
       <BackLink />
-      <RouterLink to="#"><Button label="Edit Feedback" /></RouterLink>
+      <RouterLink :to="`/feedback/${id}/edit`"><Button label="Edit Feedback" /></RouterLink>
     </div>
 
     <FeedbackCard v-if="feedback" :feedback="feedback" />
 
     <ContentCard v-if="feedback && feedback.commentCount > 0">
       <h3>{{ feedback.commentCount }} Comments</h3>
-      
+
       <UserComment v-for="comment of feedback.comments" :comment="comment" />
     </ContentCard>
 

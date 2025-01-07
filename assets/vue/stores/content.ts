@@ -6,6 +6,7 @@ export const useContentStore = defineStore('content', () => {
   const authStore = useAuthStore()
 
   const allFeedback = ref<Feedback[]>([])
+  const feedback = ref<Feedback | undefined>(undefined)
 
   async function loadAllFeedback(): Promise<void> {
     try {
@@ -18,7 +19,12 @@ export const useContentStore = defineStore('content', () => {
     }
   }
 
-  async function createFeedback(formData: CreateFeedback): Promise<void> {
+  function getFeedback(id: string) {
+    return allFeedback.value.find((feedback: Feedback) => {
+      return feedback.id === parseInt(id)
+    })
+  }
+
     try {
       await http.post('/api/feedback', {
         title: formData.title,
@@ -45,7 +51,9 @@ export const useContentStore = defineStore('content', () => {
 
   return {
     allFeedback,
+    feedback,
     loadAllFeedback,
+    getFeedback,
     createFeedback,
   }
 })
