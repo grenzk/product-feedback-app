@@ -25,6 +25,12 @@ export const router = createRouter({
       component: FeedbackSubmissionPage
     },
     {
+      path: '/feedback/:id/edit',
+      name: 'edit feedback',
+      component: FeedbackSubmissionPage,
+      props: true
+    },
+    {
       path: '/feedback/:id',
       name: 'feedback',
       component: FeedbackDetailsPage,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import { useContentStore } from '@/stores/content'
@@ -10,31 +10,55 @@ import Button from 'primevue/button'
 import BackLink from '@/components/BackLink.vue'
 import CustomDropdown from '@/components/CustomDropdown.vue'
 
+const props = defineProps<{
+  id?: string
+}>()
+
 const contentStore = useContentStore()
+const route = useRoute()
+
+const isEditing = computed(() => route.name === 'edit feedback')
+const formTitle = computed(() => {
+  return isEditing.value ? `Editing '${contentStore.feedback?.title}'` : 'Create New Feedback'
+})
+const formButtonLabel = computed(() => (isEditing.value ? 'Save Changes' : 'Add feedback'))
+const prevRoute = computed(() => (isEditing.value ? `/feedback/${props.id}` : '/'))
+
 const categories = ['Feature', 'UI', 'UX', 'Enhancement', 'Bug']
 const statuses = ['Suggestion', 'Planned', 'In-Progress', 'Live']
-const selectedStatus = ref('Suggestion')
+const initialFormValues: Partial<FeedbackForm> = { category: 'Feature' }
 
 const schema = {
   title: yup.string().required("Can't be empty").label('Feedback Title'),
   category: yup.string().required().label('Category'),
+  status: yup.string().required().label('Update Status'),
   detail: yup.string().required("Can't be empty").label('Feedback Detail')
 }
 
-const { defineField, handleSubmit, resetForm, errors } = useForm<CreateFeedback>({
-  validationSchema: schema,
-  initialValues: {
-    category: 'Feature'
-  }
+const { defineField, handleSubmit, resetForm, errors } = useForm<FeedbackForm>({
+  validationSchema: schema
 })
 
 const [title] = defineField('title')
 const [category] = defineField('category')
+const [status] = defineField('status')
 const [detail] = defineField('detail')
 
 const onSubmit = handleSubmit((values): void => {
   contentStore.createFeedback(values)
   resetForm()
+})
+
+watchEffect(() => {
+  if (isEditing && props.id) {
+    contentStore.feedback = contentStore.getFeedback(props.id)
+
+    initialFormValues.title = contentStore.feedback?.title
+    initialFormValues.category = contentStore.feedback?.category
+    initialFormValues.detail = contentStore.feedback?.detail
+
+    resetForm({ values: initialFormValues })
+  }
 })
 </script>
 
@@ -47,7 +71,7 @@ const onSubmit = handleSubmit((values): void => {
         <img src="../../images/shared/form-icon-plus.svg" alt="" aria-hidden="true" />
       </div>
 
-      <h1>Create New Feedback</h1>
+      <h1>{{ formTitle }}</h1>
       <div class="field">
         <label for="title" class="text-bold">Feedback Title</label>
         <p>Add a short, descriptive headline</p>
@@ -68,11 +92,12 @@ const onSubmit = handleSubmit((values): void => {
         <small id="category-help" class="p-error">{{ errors.category }}</small>
       </div>
 
-      <div v-if="false">
-        <label class="text-bold">Update Status</label>
+      <div v-if="isEditing">
+        <label for="status" class="text-bold">Update Status</label>
         <p>Change feature state</p>
-        <CustomDropdown v-model="selectedStatus" :options="statuses" />
-        <small></small>
+
+        <CustomDropdown v-model="status" :options="statuses" aria-describedby="status-help" />
+        <small id="status-help" class="p-error">{{ errors.status }}</small>
       </div>
 
       <div class="field">
@@ -89,9 +114,11 @@ const onSubmit = handleSubmit((values): void => {
       </div>
 
       <div class="form-buttons l-flex">
-        <Button type="submit" label="Add feedback" />
-        <RouterLink to="/"><Button label="Cancel" /></RouterLink>
-        <!-- <Button v-if="false" label="Delete" severity="danger" /> -->
+        <Button type="submit" :label="formButtonLabel" />
+        <RouterLink :to="prevRoute">
+          <Button label="Cancel" />
+        </RouterLink>
+        <Button v-if="isEditing" label="Delete" severity="danger" />
       </div>
     </form>
   </main>
@@ -144,16 +171,23 @@ const onSubmit = handleSubmit((values): void => {
       flex-direction: column;
       row-gap: 1rem;
 
-      a > .p-button {
+      .p-button {
         width: 100%;
         height: 2.5rem;
       }
 
-      a:nth-child(2) > .p-button {
+      a > .p-button {
         background-color: var(--color-primary-indigo-dark-2);
       }
-      a:nth-child(2) > .p-button:hover {
+      a > .p-button:hover {
         background-color: var(--color-hover-indigo-dark);
+      }
+
+      > .p-button:last-child {
+        background-color: var(--color-secondary-red);
+      }
+      > .p-button:last-child:hover {
+        background-color: var(--color-hover-red);
       }
     }
   }
@@ -194,16 +228,17 @@ const onSubmit = handleSubmit((values): void => {
         justify-content: flex-start;
         column-gap: 1rem;
 
-        a > .p-button {
+        .p-button {
           height: 2.75rem;
         }
 
-        a:first-child > .p-button {
+        > .p-button:first-child {
           width: 9rem;
         }
 
-        a:nth-child(2) > .p-button {
+        .p-button:last-child {
           width: 5.813rem;
+          margin-right: auto;
         }
       }
     }

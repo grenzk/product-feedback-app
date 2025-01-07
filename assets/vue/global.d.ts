@@ -28,8 +28,9 @@ declare interface Feedback {
   commentCount: number
 }
 
-declare interface CreateFeedback {
+declare interface FeedbackForm {
   title: string
   category: string
+  status: string
   detail: string
 }
