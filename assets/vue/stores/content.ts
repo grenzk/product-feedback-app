@@ -28,9 +28,12 @@ export const useContentStore = defineStore('content', () => {
 
   async function postFeedback(formData: FeedbackForm): Promise<void> {
     try {
-      await http.post('/api/feedback', { ...formData })
+      const response = await http.post('/api/feedback', { ...formData })
+      const data = await response.json()
 
-      loadAllFeedback()
+      await loadAllFeedback()
+
+      router.push(`/feedback/${data.id}`)
     } catch (error) {
       authStore.showErrorMessage(error)
     }
