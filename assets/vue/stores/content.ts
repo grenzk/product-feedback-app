@@ -26,7 +26,7 @@ export const useContentStore = defineStore('content', () => {
     })
   }
 
-  async function createFeedback(formData: FeedbackForm): Promise<void> {
+  async function postFeedback(formData: FeedbackForm): Promise<void> {
     try {
       await http.post('/api/feedback', { ...formData })
 
@@ -58,7 +58,7 @@ export const useContentStore = defineStore('content', () => {
     }
   }
 
-  async function createComment(comment: string): Promise<void> {
+  async function postComment(comment: string): Promise<void> {
     try {
       await http.post('/api/comments', {
         feedback: `/api/feedback/${feedback.value?.id}`,
@@ -86,9 +86,9 @@ export const useContentStore = defineStore('content', () => {
     feedback,
     loadAllFeedback,
     selectFeedback,
-    createFeedback,
+    postFeedback,
     editFeedback,
     removeFeedback,
-    createComment
+    postComment
   }
 })

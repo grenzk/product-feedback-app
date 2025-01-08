@@ -48,7 +48,7 @@ const [status] = defineField('status')
 const [detail] = defineField('detail')
 
 const onSubmit = handleSubmit((values): void => {
-  isEditing.value ? contentStore.editFeedback(values) : contentStore.createFeedback(values)
+  isEditing.value ? contentStore.editFeedback(values) : contentStore.postFeedback(values)
   resetForm()
 })
 

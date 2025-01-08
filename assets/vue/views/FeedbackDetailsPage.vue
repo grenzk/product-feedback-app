@@ -32,7 +32,7 @@ const { defineField, handleSubmit, resetForm, errors } = useForm<{ comment: stri
 const [comment] = defineField('comment')
 
 const onSubmit = handleSubmit((values): void => {
-  contentStore.createComment(values.comment)
+  contentStore.postComment(values.comment)
   resetForm()
 })
 
