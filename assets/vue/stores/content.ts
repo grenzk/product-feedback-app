@@ -37,24 +37,26 @@ export const useContentStore = defineStore('content', () => {
   }
 
   async function editFeedback(formData: FeedbackForm) {
-    if (feedback.value) {
-      try {
-        await http.patch(`/api/feedback/${feedback.value.id}`, { ...formData })
-        await loadAllFeedback()
+    try {
+      await http.patch(`/api/feedback/${feedback.value?.id}`, { ...formData })
+      await loadAllFeedback()
 
-        router.push(`/feedback/${feedback.value.id}`)
-      } catch (error) {
-        authStore.showErrorMessage(error)
-      }
+      router.push(`/feedback/${feedback.value?.id}`)
+    } catch (error) {
+      authStore.showErrorMessage(error)
     }
   }
 
   async function removeFeedback(): Promise<void> {
-    if (feedback.value) {
-      try {
-        await http.delete(`/api/feedback/${feedback.value.id}`)
-        await loadAllFeedback()
+    try {
+      await http.delete(`/api/feedback/${feedback.value?.id}`)
+      await loadAllFeedback()
 
+      router.push('/')
+    } catch (error) {
+      authStore.showErrorMessage(error)
+    }
+  }
 
   async function createComment(comment: string): Promise<void> {
     try {
@@ -86,6 +88,7 @@ export const useContentStore = defineStore('content', () => {
     selectFeedback,
     createFeedback,
     editFeedback,
+    removeFeedback,
     createComment
   }
 })
