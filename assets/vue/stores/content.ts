@@ -20,7 +20,7 @@ export const useContentStore = defineStore('content', () => {
     }
   }
 
-  function selectFeedback(id: string): void {
+  function showFeedback(id: string): void {
     feedback.value = allFeedback.value.find((feedback: Feedback) => {
       return feedback.id === parseInt(id)
     })
@@ -88,7 +88,7 @@ export const useContentStore = defineStore('content', () => {
     allFeedback,
     feedback,
     loadAllFeedback,
-    selectFeedback,
+    showFeedback,
     postFeedback,
     editFeedback,
     removeFeedback,

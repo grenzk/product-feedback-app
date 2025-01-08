@@ -54,7 +54,7 @@ const onSubmit = handleSubmit((values): void => {
 
 watchEffect(() => {
   if (isEditing && props.id) {
-    contentStore.selectFeedback(props.id)
+    contentStore.showFeedback(props.id)
 
     if (contentStore.feedback) {
       title.value = contentStore.feedback.title

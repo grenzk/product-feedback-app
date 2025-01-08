@@ -36,7 +36,7 @@ const onSubmit = handleSubmit((values): void => {
   resetForm()
 })
 
-watchEffect(() => contentStore.selectFeedback(props.id))
+watchEffect(() => contentStore.showFeedback(props.id))
 </script>
 
 <template>
