@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
 import { storeToRefs } from 'pinia'
 import { useContentStore } from '@/stores/content'
 
@@ -16,6 +18,24 @@ const props = defineProps<{
 const contentStore = useContentStore()
 const { feedback } = storeToRefs(contentStore)
 
+const schema = {
+  comment: yup.string().max(250).label('Add Comment')
+}
+
+const { defineField, handleSubmit, resetForm, errors } = useForm<{ comment: string }>({
+  validationSchema: schema,
+  initialValues: {
+    comment: ''
+  }
+})
+
+const [comment] = defineField('comment')
+
+const onSubmit = handleSubmit((values): void => {
+  contentStore.createComment(values.comment)
+  resetForm()
+})
+
 watchEffect(() => contentStore.selectFeedback(props.id))
 </script>
 
@@ -23,7 +43,10 @@ watchEffect(() => contentStore.selectFeedback(props.id))
   <main class="feedback-details">
     <div class="row | l-flex">
       <BackLink />
-      <RouterLink :to="`/feedback/${id}/edit`"><Button label="Edit Feedback" /></RouterLink>
+
+      <RouterLink :to="`/feedback/${id}/edit`">
+        <Button label="Edit Feedback" />
+      </RouterLink>
     </div>
 
     <FeedbackCard v-if="feedback" :feedback="feedback" />
@@ -35,13 +58,20 @@ watchEffect(() => contentStore.selectFeedback(props.id))
     </ContentCard>
 
     <ContentCard>
-      <h3>Add Comment</h3>
-      <Textarea auto-resize placeholder="Type your comment here" />
+      <form @submit="onSubmit">
+        <label for="comment" class="text-bold">Add Comment</label>
+        <Textarea
+          v-model="comment"
+          auto-resize
+          placeholder="Type your comment here"
+          maxlength="250"
+        />
 
-      <div class="row | l-flex">
-        <span>250 Characters left</span>
-        <Button label="Post Comment" />
-      </div>
+        <div class="row | l-flex">
+          <span>{{ 250 - comment.length }} Characters left</span>
+          <Button type="submit" label="Post Comment" />
+        </div>
+      </form>
     </ContentCard>
   </main>
 </template>
@@ -69,10 +99,16 @@ watchEffect(() => contentStore.selectFeedback(props.id))
   article:not(.feedback) {
     padding: 1.5rem;
 
-    h3 {
+    h3,
+    label {
       font-size: var(--font-size-l);
       letter-spacing: -0.25px;
       margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      color: var(--color-primary-indigo-dark-2);
     }
   }
 

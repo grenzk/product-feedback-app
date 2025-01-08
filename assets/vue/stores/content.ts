@@ -55,10 +55,17 @@ export const useContentStore = defineStore('content', () => {
         await http.delete(`/api/feedback/${feedback.value.id}`)
         await loadAllFeedback()
 
-        router.push('/')
-      } catch (error) {
-        authStore.showErrorMessage(error)
-      }
+
+  async function createComment(comment: string): Promise<void> {
+    try {
+      await http.post('/api/comments', {
+        feedback: `/api/feedback/${feedback.value?.id}`,
+        body: comment
+      })
+
+      loadAllFeedback()
+    } catch (error) {
+      authStore.showErrorMessage(error)
     }
   }
 
@@ -79,6 +86,6 @@ export const useContentStore = defineStore('content', () => {
     selectFeedback,
     createFeedback,
     editFeedback,
-    removeFeedback
+    createComment
   }
 })
