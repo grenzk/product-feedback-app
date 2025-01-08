@@ -1,3 +1,4 @@
+import { router } from '@/router'
 import { defineStore } from 'pinia'
 import { http } from '@/utils/api'
 import { useAuthStore } from './auth'
@@ -27,12 +28,7 @@ export const useContentStore = defineStore('content', () => {
 
   async function createFeedback(formData: FeedbackForm): Promise<void> {
     try {
-      await http.post('/api/feedback', {
-        title: formData.title,
-        category: formData.category,
-        status: formData.status,
-        detail: formData.detail
-      })
+      await http.post('/api/feedback', { ...formData })
 
       loadAllFeedback()
     } catch (error) {
@@ -40,11 +36,29 @@ export const useContentStore = defineStore('content', () => {
     }
   }
 
-  async function removeFeedback(id: number): Promise<void> {
-    try {
-      await http.delete(`/api/feedback/${id}`)
-    } catch (error) {
-      authStore.showErrorMessage(error)
+  async function editFeedback(formData: FeedbackForm) {
+    if (feedback.value) {
+      try {
+        await http.patch(`/api/feedback/${feedback.value.id}`, { ...formData })
+        await loadAllFeedback()
+
+        router.push(`/feedback/${feedback.value.id}`)
+      } catch (error) {
+        authStore.showErrorMessage(error)
+      }
+    }
+  }
+
+  async function removeFeedback(): Promise<void> {
+    if (feedback.value) {
+      try {
+        await http.delete(`/api/feedback/${feedback.value.id}`)
+        await loadAllFeedback()
+
+        router.push('/')
+      } catch (error) {
+        authStore.showErrorMessage(error)
+      }
     }
   }
 
@@ -64,6 +78,7 @@ export const useContentStore = defineStore('content', () => {
     loadAllFeedback,
     selectFeedback,
     createFeedback,
+    editFeedback,
     removeFeedback
   }
 })

@@ -48,7 +48,7 @@ const [status] = defineField('status')
 const [detail] = defineField('detail')
 
 const onSubmit = handleSubmit((values): void => {
-  contentStore.createFeedback(values)
+  isEditing.value ? contentStore.editFeedback(values) : contentStore.createFeedback(values)
   resetForm()
 })
 
@@ -122,7 +122,12 @@ watchEffect(() => {
         <RouterLink :to="prevRoute">
           <Button label="Cancel" />
         </RouterLink>
-        <Button v-if="isEditing" label="Delete" severity="danger" />
+        <Button
+          v-if="isEditing"
+          label="Delete"
+          severity="danger"
+          @click="contentStore.removeFeedback"
+        />
       </div>
     </form>
   </main>
