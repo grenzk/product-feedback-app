@@ -18,6 +18,10 @@ const props = defineProps<{
 const contentStore = useContentStore()
 const { feedback } = storeToRefs(contentStore)
 
+const commentLabel = computed(() => {
+  return feedback.value?.commentCount === 1 ? 'Comment' : 'Comments'
+})
+
 const schema = {
   comment: yup.string().max(250).label('Add Comment')
 }
@@ -52,7 +56,7 @@ watchEffect(() => contentStore.showFeedback(props.id))
     <FeedbackCard v-if="feedback" :feedback="feedback" />
 
     <ContentCard v-if="feedback && feedback.commentCount > 0">
-      <h3>{{ feedback.commentCount }} Comments</h3>
+      <h3>{{ feedback.commentCount }} {{ commentLabel }}</h3>
 
       <UserComment v-for="comment of feedback.comments" :comment="comment" />
     </ContentCard>
