@@ -16,7 +16,7 @@ const props = defineProps<{
 const contentStore = useContentStore()
 const { feedback } = storeToRefs(contentStore)
 
-watchEffect(() => (feedback.value = contentStore.getFeedback(props.id)))
+watchEffect(() => contentStore.selectFeedback(props.id))
 </script>
 
 <template>

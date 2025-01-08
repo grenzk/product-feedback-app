@@ -51,13 +51,7 @@ const onSubmit = handleSubmit((values): void => {
 
 watchEffect(() => {
   if (isEditing && props.id) {
-    contentStore.feedback = contentStore.getFeedback(props.id)
-
-    initialFormValues.title = contentStore.feedback?.title
-    initialFormValues.category = contentStore.feedback?.category
-    initialFormValues.detail = contentStore.feedback?.detail
-
-    resetForm({ values: initialFormValues })
+    contentStore.selectFeedback(props.id)
   }
 })
 </script>
