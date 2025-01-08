@@ -26,7 +26,6 @@ const prevRoute = computed(() => (isEditing.value ? `/feedback/${props.id}` : '/
 
 const categories = ['Feature', 'UI', 'UX', 'Enhancement', 'Bug']
 const statuses = ['Suggestion', 'Planned', 'In-Progress', 'Live']
-const initialFormValues: Partial<FeedbackForm> = { category: 'Feature' }
 
 const schema = {
   title: yup.string().required("Can't be empty").label('Feedback Title'),
@@ -36,7 +35,11 @@ const schema = {
 }
 
 const { defineField, handleSubmit, resetForm, errors } = useForm<FeedbackForm>({
-  validationSchema: schema
+  validationSchema: schema,
+  initialValues: {
+    category: 'Feature',
+    status: 'Suggestion'
+  }
 })
 
 const [title] = defineField('title')
@@ -52,6 +55,13 @@ const onSubmit = handleSubmit((values): void => {
 watchEffect(() => {
   if (isEditing && props.id) {
     contentStore.selectFeedback(props.id)
+
+    if (contentStore.feedback) {
+      title.value = contentStore.feedback.title
+      category.value = contentStore.feedback.category
+      status.value = contentStore.feedback.status
+      detail.value = contentStore.feedback.detail
+    }
   }
 })
 </script>
