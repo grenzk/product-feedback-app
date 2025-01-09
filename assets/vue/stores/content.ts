@@ -61,10 +61,11 @@ export const useContentStore = defineStore('content', () => {
     }
   }
 
-  async function postComment(comment: string): Promise<void> {
+  async function postComment(comment: string, parentComment: string | null = null): Promise<void> {
     try {
       await http.post('/api/comments', {
         feedback: `/api/feedback/${feedback.value?.id}`,
+        parentComment: parentComment,
         body: comment
       })
 

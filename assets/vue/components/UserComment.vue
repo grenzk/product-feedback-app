@@ -1,19 +1,49 @@
 <script setup lang="ts">
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
+import { useContentStore } from '@/stores/content'
+
 import Button from 'primevue/button'
 import Textarea from 'primevue/textarea'
 
 const props = defineProps<{
   comment: UserComment
   isReply?: boolean
+  rootUsername?: string
 }>()
 
+const contentStore = useContentStore()
+
 const userWantsToReply = ref(false)
+
+const rootUsernameForReply = computed(() => {
+  return props.isReply && props.rootUsername ? `@${props.rootUsername}` : ''
+})
+
 const firstName = props.comment.ownedBy.fullName.split(' ')[0].toLowerCase()
 const imageUrl = `/user-images/image-${firstName}.jpg`
 
 function handleReply(): void {
   userWantsToReply.value = !userWantsToReply.value
 }
+
+const schema = {
+  reply: yup.string().max(250)
+}
+
+const { defineField, handleSubmit, resetForm } = useForm<{ reply: string }>({
+  validationSchema: schema,
+  initialValues: {
+    reply: ''
+  }
+})
+
+const [reply] = defineField('reply')
+
+const onSubmit = handleSubmit((values): void => {
+  contentStore.postComment(values.reply)
+  resetForm()
+})
 </script>
 
 <template>
@@ -32,17 +62,29 @@ function handleReply(): void {
       </div>
 
       <p>
+        <span v-if="isReply" class="mentioned-handle | text-bold">{{ rootUsernameForReply }}</span>
         {{ comment.body }}
       </p>
 
-      <form v-if="userWantsToReply" class="l-flex">
-        <Textarea auto-resize placeholder="Type your comment here" />
+      <form v-if="userWantsToReply" class="l-flex" @submit="onSubmit">
+        <Textarea
+          v-model="reply"
+          auto-resize
+          placeholder="Type your comment here"
+          maxlength="250"
+        />
+
         <Button label="Post Reply" />
       </form>
     </div>
 
     <template v-if="comment.replies.length > 0">
-      <UserComment v-for="reply of comment.replies" :comment="reply" is-reply />
+      <UserComment
+        v-for="reply of comment.replies"
+        :comment="reply"
+        is-reply
+        :root-username="comment.ownedBy.username"
+      />
     </template>
   </div>
   <hr />
