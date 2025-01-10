@@ -237,7 +237,7 @@ hr {
 
     form > .p-button {
       align-self: flex-start;
-      width: 7.313rem;
+      min-width: 7.313rem;
       height: 2.75rem;
     }
 
