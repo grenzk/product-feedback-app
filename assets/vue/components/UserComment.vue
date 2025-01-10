@@ -22,7 +22,7 @@ const rootUsernameForReply = computed(() => {
 })
 const replyLabel = computed(() => (userWantsToReply.value ? 'Cancel Reply' : 'Reply'))
 
-const firstName = props.comment.ownedBy.fullName.split(' ')[0].toLowerCase()
+const firstName = props.comment.ownedBy.fullName.toLowerCase().split(' ')[0]
 const imageUrl = `/user-images/image-${firstName}.jpg`
 
 function handleReply(id: number): void {
