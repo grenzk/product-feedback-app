@@ -15,23 +15,26 @@ const props = defineProps<{
 const contentStore = useContentStore()
 
 const userWantsToReply = ref(false)
+const commentId = ref(0)
 
 const rootUsernameForReply = computed(() => {
   return props.isReply && props.rootUsername ? `@${props.rootUsername}` : ''
 })
+const replyLabel = computed(() => (userWantsToReply.value ? 'Cancel Reply' : 'Reply'))
 
 const firstName = props.comment.ownedBy.fullName.split(' ')[0].toLowerCase()
 const imageUrl = `/user-images/image-${firstName}.jpg`
 
-function handleReply(): void {
+function handleReply(id: number): void {
   userWantsToReply.value = !userWantsToReply.value
+  commentId.value = id
 }
 
 const schema = {
-  reply: yup.string().max(250)
+  reply: yup.string().min(1).max(250)
 }
 
-const { defineField, handleSubmit, resetForm } = useForm<{ reply: string }>({
+const { defineField, handleSubmit, resetForm, errors } = useForm<{ reply: string }>({
   validationSchema: schema,
   initialValues: {
     reply: ''
@@ -41,7 +44,10 @@ const { defineField, handleSubmit, resetForm } = useForm<{ reply: string }>({
 const [reply] = defineField('reply')
 
 const onSubmit = handleSubmit((values): void => {
-  contentStore.postComment(values.reply)
+  contentStore.postComment(values.reply, commentId.value)
+
+  userWantsToReply.value = false
+
   resetForm()
 })
 </script>
@@ -57,8 +63,7 @@ const onSubmit = handleSubmit((values): void => {
           <span class="handle">@{{ comment.ownedBy.username }}</span>
         </div>
 
-        <Button v-if="userWantsToReply" label="Cancel Reply" @click="handleReply" />
-        <Button v-else label="Reply" @click="handleReply" />
+        <Button :label="replyLabel" @click="handleReply(comment.id)" />
       </div>
 
       <p>
@@ -74,7 +79,7 @@ const onSubmit = handleSubmit((values): void => {
           maxlength="250"
         />
 
-        <Button label="Post Reply" />
+        <Button type="submit" label="Post Reply" />
       </form>
     </div>
 
