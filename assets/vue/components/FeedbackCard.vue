@@ -11,8 +11,10 @@ defineProps<{
 
 const route = useRoute()
 
-function handleUpvote(e: MouseEvent): void {
-  e.preventDefault()
+const isUpvoted = ref(false)
+
+function handleUpvote() {
+  isUpvoted.value = !isUpvoted.value
 }
 </script>
 
@@ -30,7 +32,12 @@ function handleUpvote(e: MouseEvent): void {
           <p>{{ feedback.detail }}</p>
           <Tag :value="feedback.category"></Tag>
         </div>
-        <Button class="upvote-counter | text-bold" @click="handleUpvote">
+
+        <Button
+          class="upvote-counter | text-bold"
+          :data-state="isUpvoted ? 'upvoted' : null"
+          @click="handleUpvote"
+        >
           <img src="../../images/shared/icon-arrow-up.svg" alt="" aria-hidden="true" />
           <span>{{ feedback.upvotes }}</span>
         </Button>
@@ -103,6 +110,15 @@ a:has(.feedback) {
 
       &:hover {
         background-color: var(--color-hover-indigo-light);
+      }
+
+      &[data-state='upvoted'] {
+        color: var(--color-neutral-white-1);
+        background-color: var(--color-primary-indigo);
+      }
+
+      &[data-state='upvoted'] > img {
+        filter: invert(1%) sepia(1%) saturate(1%) hue-rotate(1deg) brightness(1000%) contrast(100%);
       }
     }
   }
