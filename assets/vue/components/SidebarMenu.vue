@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { uiStore } from '@/stores/ui'
+import { useContentStore } from '@/stores/content'
 
 import Button from 'primevue/button'
 import ContentCard from './ContentCard.vue'
+
+const contentStore = useContentStore()
 </script>
 
 <template>
@@ -29,22 +32,10 @@ import ContentCard from './ContentCard.vue'
       </div>
 
       <ul class="l-flex">
-        <li class="l-flex">
+        <li v-for="status of contentStore.statuses" class="l-flex" :key="status.title">
           <span class="circle"></span>
-          <span>Planned</span>
-          <span class="text-bold">2</span>
-        </li>
-
-        <li class="l-flex">
-          <span class="circle"></span>
-          <span>In-Progress</span>
-          <span class="text-bold">3</span>
-        </li>
-
-        <li class="l-flex">
-          <span class="circle"></span>
-          <span>Live</span>
-          <span class="text-bold">1</span>
+          <span>{{ status.title }}</span>
+          <span class="text-bold">{{ status.count }}</span>
         </li>
       </ul>
     </ContentCard>
