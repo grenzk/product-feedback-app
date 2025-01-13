@@ -16,6 +16,10 @@ const authStore = useAuthStore()
 const contentStore = useContentStore()
 const route = useRoute()
 
+const disableHover = computed(() => {
+  return route.name === 'feedback' ? 'no-hover' : null
+})
+
 const upvote = computed(() => {
   return authStore.user?.upvotes.find((upvote: Upvote) => {
     return upvote.feedback.id === props.feedback.id
@@ -56,7 +60,7 @@ async function toggleUpvote(id: number, upvote: Upvote | undefined): Promise<voi
 
 <template>
   <RouterLink :to="`/feedback/${feedback.id}`">
-    <ContentCard class="feedback">
+    <ContentCard class="feedback" :data-state="disableHover">
       <div class="column | l-flex">
         <div>
           <div class="category" v-if="route.name === 'roadmap'">
@@ -92,6 +96,10 @@ a:has(.feedback) {
   text-decoration: none;
 }
 
+a:has(.feedback[data-state='no-hover']) {
+  display: contents;
+}
+
 .feedback {
   --counter-padding: 0.375rem;
 
@@ -101,6 +109,10 @@ a:has(.feedback) {
 
   &:hover h2 {
     color: var(--color-primary-indigo);
+  }
+
+  &[data-state='no-hover'] h2 {
+    color: var(--color-primary-indigo-dark-2);
   }
 
   .column {
