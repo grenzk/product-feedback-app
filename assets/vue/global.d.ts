@@ -1,6 +1,12 @@
+declare interface Upvote {
+  id?: number
+  feedback: { id: number }
+}
+
 declare interface User {
   email: string
   password: string
+  upvotes: Upvote[]
 }
 
 declare interface Window {

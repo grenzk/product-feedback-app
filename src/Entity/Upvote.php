@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
 use App\Repository\UpvoteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
     security: 'is_granted("ROLE_USER")',
@@ -25,10 +27,12 @@ class Upvote
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('user:read')]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'upvotes')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups('user:read')]
     private ?Feedback $feedback = null;
 
     #[ORM\ManyToOne(inversedBy: 'upvotes')]

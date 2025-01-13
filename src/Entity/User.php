@@ -90,6 +90,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Upvote>
      */
     #[ORM\OneToMany(targetEntity: Upvote::class, mappedBy: 'ownedBy', orphanRemoval: true)]
+    #[Groups(['user:read'])]
     private Collection $upvotes;
 
     public function __construct()
