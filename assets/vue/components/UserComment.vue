@@ -34,7 +34,7 @@ const schema = {
   reply: yup.string().min(1).max(250)
 }
 
-const { defineField, handleSubmit, resetForm, errors } = useForm<{ reply: string }>({
+const { defineField, handleSubmit, resetForm } = useForm<{ reply: string }>({
   validationSchema: schema,
   initialValues: {
     reply: ''
