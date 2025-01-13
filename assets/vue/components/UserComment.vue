@@ -89,6 +89,7 @@ const onSubmit = handleSubmit((values): void => {
         :comment="reply"
         is-reply
         :root-username="comment.ownedBy.username"
+        :key="reply.id"
       />
     </template>
   </div>

@@ -26,7 +26,12 @@ const contentStore = useContentStore()
       <NewFeedbackLink />
     </ContentCard>
 
-    <FeedbackCard v-else v-for="feedback of contentStore.allFeedback" :feedback="feedback" />
+    <FeedbackCard
+      v-else
+      v-for="feedback of contentStore.allFeedback"
+      :feedback="feedback"
+      :key="feedback.id"
+    />
   </main>
 
   <Transition name="fade">

@@ -26,7 +26,7 @@ const schema = {
   comment: yup.string().max(250).label('Add Comment')
 }
 
-const { defineField, handleSubmit, resetForm, errors } = useForm<{ comment: string }>({
+const { defineField, handleSubmit, resetForm } = useForm<{ comment: string }>({
   validationSchema: schema,
   initialValues: {
     comment: ''
@@ -58,7 +58,7 @@ watchEffect(() => contentStore.showFeedback(props.id))
     <ContentCard v-if="feedback && feedback.commentCount > 0">
       <h3>{{ feedback.commentCount }} {{ commentLabel }}</h3>
 
-      <UserComment v-for="comment of feedback.comments" :comment="comment" />
+      <UserComment v-for="comment of feedback.comments" :comment="comment" :key="comment.id" />
     </ContentCard>
 
     <ContentCard>
