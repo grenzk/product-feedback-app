@@ -40,7 +40,7 @@ const onSubmit = handleSubmit((values): void => {
   resetForm()
 })
 
-watchEffect(() => contentStore.showFeedback(props.id))
+watchEffect(() => contentStore.findandSetFeedback(props.id))
 </script>
 
 <template>
