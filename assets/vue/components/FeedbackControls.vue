@@ -1,16 +1,20 @@
 <script setup lang="ts">
+import { useContentStore } from '@/stores/content'
+
 import CustomDropdown from './CustomDropdown.vue'
 import NewFeedbackLink from './NewFeedbackLink.vue'
 
 const sortOptions = ref(['Most Upvotes', 'Least Upvotes', 'Most Comments', 'Least Comments'])
 const selectedOption = ref('Most Upvotes')
+
+const contentStore = useContentStore()
 </script>
 
 <template>
   <section class="suggestions | l-flex">
     <div class="column">
       <img src="../../images/suggestions/icon-suggestions.svg" alt="" aria-hidden="true" />
-      <h2>6 Suggestions</h2>
+      <h2>{{ contentStore.allFeedback.length }} Suggestions</h2>
     </div>
 
     <div class="column">
