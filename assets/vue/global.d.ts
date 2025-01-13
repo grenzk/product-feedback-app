@@ -40,3 +40,9 @@ declare interface FeedbackForm {
   status: string
   detail: string
 }
+
+interface Status {
+  title: string
+  description: string
+  count: number
+}
