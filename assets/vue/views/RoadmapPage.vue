@@ -1,15 +1,13 @@
 <script setup lang="ts">
+import { useContentStore } from '@/stores/content'
+
 import FeedbackCard from '@/components/FeedbackCard.vue'
 
 const tabsContainer = ref<HTMLDivElement | null>(null)
 const tabButtons = ref<HTMLButtonElement[]>([])
 const tabPanels = ref<HTMLDivElement[]>([])
 
-const categories = ref([
-  { title: 'Planned', description: 'Ideas prioritized for research', count: 2 },
-  { title: 'In-Progress', description: 'Features currently being developed', count: 3 },
-  { title: 'Live', description: 'Released features', count: 1 }
-])
+const contentStore = useContentStore()
 
 function moveFocus(prevTab: HTMLButtonElement, nextTab: HTMLButtonElement): void {
   const nextTabPos = prevTab.compareDocumentPosition(nextTab)
@@ -71,8 +69,8 @@ onUnmounted(() => window.removeEventListener('resize', handleResize))
 <template>
   <div ref="tabsContainer" class="l-flex" role="tablist">
     <button
-      v-for="(category, index) of categories"
-      :key="index"
+      v-for="(status, index) of contentStore.statuses"
+      :key="status.title"
       ref="tabButtons"
       :id="`tab-${index + 1}`"
       class="text-bold"
@@ -81,14 +79,14 @@ onUnmounted(() => window.removeEventListener('resize', handleResize))
       :aria-controls="`tabpanel-${index + 1}`"
       @click="handleActiveTab"
     >
-      {{ category.title }} ({{ category.count }})
+      {{ status.title }} ({{ status.count }})
     </button>
   </div>
 
   <main class="roadmap-content">
     <div
-      v-for="(category, index) of categories"
-      :key="index"
+      v-for="(status, index) of contentStore.statuses"
+      :key="status.title"
       ref="tabPanels"
       :id="`tabpanel-${index + 1}`"
       class="l-flex"
@@ -98,10 +96,15 @@ onUnmounted(() => window.removeEventListener('resize', handleResize))
       :data-state="index > 0 ? 'hidden' : null"
     >
       <div class="row">
-        <h2>{{ category.title }} ({{ category.count }})</h2>
-        <span class="description">{{ category.description }}</span>
+        <h2>{{ status.title }} ({{ status.count }})</h2>
+        <span class="description">{{ status.description }}</span>
       </div>
-      <FeedbackCard :category="category.title" />
+
+      <FeedbackCard
+        v-for="feedback of contentStore.filteredFeedback(status.title)"
+        :feedback="feedback"
+        :key="feedback.id"
+      />
     </div>
   </main>
 </template>

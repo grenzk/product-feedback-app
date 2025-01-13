@@ -8,6 +8,11 @@ export const useContentStore = defineStore('content', () => {
 
   const allFeedback = ref<Feedback[]>([])
   const feedback = ref<Feedback | undefined>(undefined)
+  const statuses = ref<Status[]>([
+    { title: 'Planned', description: 'Ideas prioritized for research', count: 0 },
+    { title: 'In-Progress', description: 'Features currently being developed', count: 0 },
+    { title: 'Live', description: 'Released features', count: 0 }
+  ])
 
   async function loadAllFeedback(): Promise<void> {
     try {
@@ -75,10 +80,20 @@ export const useContentStore = defineStore('content', () => {
     }
   }
 
+  function filteredFeedback(status: string): Feedback[] {
+    return allFeedback.value.filter((feedback: Feedback) => {
+      return feedback.status === status
+    })
+  }
+
   watchEffect(async () => {
     if (authStore.isLoggedIn) {
       try {
         await loadAllFeedback()
+
+        statuses.value.forEach((status: Status) => {
+          status.count = filteredFeedback(status.title).length
+        })
       } catch (error) {
         authStore.showErrorMessage(error)
       }
@@ -88,11 +103,13 @@ export const useContentStore = defineStore('content', () => {
   return {
     allFeedback,
     feedback,
+    statuses,
     loadAllFeedback,
     findandSetFeedback,
     postFeedback,
     editFeedback,
     removeFeedback,
-    postComment
+    postComment,
+    filteredFeedback
   }
 })
