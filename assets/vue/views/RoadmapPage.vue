@@ -101,7 +101,7 @@ onUnmounted(() => window.removeEventListener('resize', handleResize))
       </div>
 
       <FeedbackCard
-        v-for="feedback of contentStore.filteredFeedback(status.title)"
+        v-for="feedback of contentStore.filterFeedbackByStatus(status.title)"
         :feedback="feedback"
         :key="feedback.id"
       />

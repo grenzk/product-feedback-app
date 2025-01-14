@@ -20,6 +20,10 @@ export const useContentStore = defineStore('content', () => {
       const data = await response.json()
 
       allFeedback.value = data.member
+
+      for (const status of statuses.value) {
+        status.count = filterFeedbackByStatus(status.title).length
+      }
     } catch (error) {
       authStore.showErrorMessage(error)
     }
@@ -80,7 +84,7 @@ export const useContentStore = defineStore('content', () => {
     }
   }
 
-  function filteredFeedback(status: string): Feedback[] {
+  function filterFeedbackByStatus(status: string): Feedback[] {
     return allFeedback.value.filter((feedback: Feedback) => {
       return feedback.status === status
     })
@@ -90,10 +94,6 @@ export const useContentStore = defineStore('content', () => {
     if (authStore.isLoggedIn) {
       try {
         await loadAllFeedback()
-
-        statuses.value.forEach((status: Status) => {
-          status.count = filteredFeedback(status.title).length
-        })
       } catch (error) {
         authStore.showErrorMessage(error)
       }
@@ -110,6 +110,6 @@ export const useContentStore = defineStore('content', () => {
     editFeedback,
     removeFeedback,
     postComment,
-    filteredFeedback
+    filterFeedbackByStatus
   }
 })
