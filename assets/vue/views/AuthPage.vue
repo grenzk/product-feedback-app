@@ -17,9 +17,7 @@ const schema = {
   password: yup.string().required('Please enter your password').label('Password')
 }
 
-const { defineField, handleSubmit, resetForm, errors } = useForm<User>({
-  validationSchema: schema
-})
+const { defineField, handleSubmit, resetForm, errors } = useForm<User>({ validationSchema: schema })
 
 const [email] = defineField('email')
 const [password] = defineField('password')

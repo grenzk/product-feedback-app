@@ -16,6 +16,7 @@ const route = useRoute()
         <h1>Frontend Mentor</h1>
         <span class="description | text-medium">Feedback Board</span>
       </template>
+
       <template v-else>
         <BackLink />
         <h1>Roadmap</h1>
@@ -35,8 +36,10 @@ const route = useRoute()
         alt=""
         aria-hidden="true"
       />
+
       <img v-else src="../../images/shared/mobile/icon-hamburger.svg" alt="" aria-hidden="true" />
     </Button>
+
     <NewFeedbackLink v-else />
   </header>
 </template>

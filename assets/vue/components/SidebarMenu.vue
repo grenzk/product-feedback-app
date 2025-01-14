@@ -22,6 +22,7 @@ const contentStore = useContentStore()
         <Button label="Enhancement" severity="secondary" />
         <Button label="Bug" severity="secondary" />
       </div>
+
       <Button label="Feature" severity="secondary" />
     </ContentCard>
 

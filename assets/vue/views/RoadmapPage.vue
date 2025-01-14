@@ -3,11 +3,11 @@ import { useContentStore } from '@/stores/content'
 
 import FeedbackCard from '@/components/FeedbackCard.vue'
 
+const contentStore = useContentStore()
+
 const tabsContainer = ref<HTMLDivElement | null>(null)
 const tabButtons = ref<HTMLButtonElement[]>([])
 const tabPanels = ref<HTMLDivElement[]>([])
-
-const contentStore = useContentStore()
 
 function moveFocus(prevTab: HTMLButtonElement, nextTab: HTMLButtonElement): void {
   const nextTabPos = prevTab.compareDocumentPosition(nextTab)
@@ -32,9 +32,9 @@ function moveFocus(prevTab: HTMLButtonElement, nextTab: HTMLButtonElement): void
   }, 220)
 }
 
-function handleActiveTab(e: Event): void {
+function handleActiveTab(event: Event): void {
   const prevTab = tabButtons.value.find(button => button.ariaSelected === 'true')
-  const nextTab = e.target as HTMLButtonElement
+  const nextTab = event.target as HTMLButtonElement
   const activePanel = tabPanels.value.find(
     tabpanel => tabpanel.id === nextTab.getAttribute('aria-controls')
   )

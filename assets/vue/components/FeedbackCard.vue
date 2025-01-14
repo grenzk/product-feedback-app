@@ -16,14 +16,9 @@ const authStore = useAuthStore()
 const contentStore = useContentStore()
 const route = useRoute()
 
-const disableHover = computed(() => {
-  return route.name === 'feedback' ? 'no-hover' : null
-})
-
+const disableHover = computed(() => (route.name === 'feedback' ? 'no-hover' : null))
 const upvote = computed(() => {
-  return authStore.user?.upvotes.find((upvote: Upvote) => {
-    return upvote.feedback.id === props.feedback.id
-  })
+  return authStore.user?.upvotes.find((upvote: Upvote) => upvote.feedback.id === props.feedback.id)
 })
 
 async function toggleUpvote(id: number, upvote: Upvote | undefined): Promise<void> {
@@ -39,9 +34,7 @@ async function toggleUpvote(id: number, upvote: Upvote | undefined): Promise<voi
     } else {
       authStore.user.upvotes.push(newUpvote)
 
-      const response = await http.post(`/api/upvotes`, {
-        feedback: `/api/feedback/${id}`
-      })
+      const response = await http.post(`/api/upvotes`, { feedback: `/api/feedback/${id}` })
       const data = await response.json()
 
       const index = authStore.user.upvotes.findIndex((upvote: Upvote) => {

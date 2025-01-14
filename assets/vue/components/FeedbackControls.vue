@@ -4,10 +4,10 @@ import { useContentStore } from '@/stores/content'
 import CustomDropdown from './CustomDropdown.vue'
 import NewFeedbackLink from './NewFeedbackLink.vue'
 
+const contentStore = useContentStore()
+
 const sortOptions = ref(['Most Upvotes', 'Least Upvotes', 'Most Comments', 'Least Comments'])
 const selectedOption = ref('Most Upvotes')
-
-const contentStore = useContentStore()
 </script>
 
 <template>
@@ -20,6 +20,7 @@ const contentStore = useContentStore()
     <div class="column">
       <CustomDropdown v-model="selectedOption" :options="sortOptions" />
     </div>
+
     <NewFeedbackLink />
   </section>
 </template>

@@ -30,9 +30,7 @@ export const useContentStore = defineStore('content', () => {
   }
 
   function findandSetFeedback(id: string): void {
-    feedback.value = allFeedback.value.find((feedback: Feedback) => {
-      return feedback.id === parseInt(id)
-    })
+    feedback.value = allFeedback.value.find((feedback: Feedback) => feedback.id === parseInt(id))
   }
 
   async function postFeedback(formData: FeedbackForm): Promise<void> {
@@ -48,7 +46,7 @@ export const useContentStore = defineStore('content', () => {
     }
   }
 
-  async function editFeedback(formData: FeedbackForm) {
+  async function editFeedback(formData: FeedbackForm): Promise<void> {
     try {
       await http.patch(`/api/feedback/${feedback.value?.id}`, { ...formData })
       await loadAllFeedback()
@@ -85,9 +83,7 @@ export const useContentStore = defineStore('content', () => {
   }
 
   function filterFeedbackByStatus(status: string): Feedback[] {
-    return allFeedback.value.filter((feedback: Feedback) => {
-      return feedback.status === status
-    })
+    return allFeedback.value.filter((feedback: Feedback) => feedback.status === status)
   }
 
   watchEffect(async () => {

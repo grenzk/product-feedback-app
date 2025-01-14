@@ -30,9 +30,7 @@ function handleReply(id: number): void {
   commentId.value = id
 }
 
-const schema = {
-  reply: yup.string().min(1).max(250)
-}
+const schema = { reply: yup.string().min(1).max(250) }
 
 const { defineField, handleSubmit, resetForm } = useForm<{ reply: string }>({
   validationSchema: schema,

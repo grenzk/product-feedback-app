@@ -18,13 +18,9 @@ const props = defineProps<{
 const contentStore = useContentStore()
 const { feedback } = storeToRefs(contentStore)
 
-const commentLabel = computed(() => {
-  return feedback.value?.commentCount === 1 ? 'Comment' : 'Comments'
-})
+const commentLabel = computed(() => (feedback.value?.commentCount === 1 ? 'Comment' : 'Comments'))
 
-const schema = {
-  comment: yup.string().max(250).label('Add Comment')
-}
+const schema = { comment: yup.string().max(250).label('Add Comment') }
 
 const { defineField, handleSubmit, resetForm } = useForm<{ comment: string }>({
   validationSchema: schema,
@@ -57,7 +53,6 @@ watchEffect(() => contentStore.findandSetFeedback(props.id))
 
     <ContentCard v-if="feedback && feedback.commentCount > 0">
       <h3>{{ feedback.commentCount }} {{ commentLabel }}</h3>
-
       <UserComment v-for="comment of feedback.comments" :comment="comment" :key="comment.id" />
     </ContentCard>
 
