@@ -2,7 +2,6 @@
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useContentStore } from '@/stores/content'
-import { http } from '@/utils/api'
 
 import Tag from 'primevue/tag'
 import Button from 'primevue/button'
@@ -20,35 +19,6 @@ const disableHover = computed(() => (route.name === 'feedback' ? 'no-hover' : nu
 const upvote = computed(() => {
   return authStore.user?.upvotes.find((upvote: Upvote) => upvote.feedback.id === props.feedback.id)
 })
-
-async function toggleUpvote(id: number, upvote: Upvote | undefined): Promise<void> {
-  if (!authStore.user) throw new Error('User is not defined.')
-
-  const newUpvote = { feedback: { id: id } }
-
-  try {
-    if (upvote) {
-      authStore.user.upvotes.pop()
-
-      await http.delete(`/api/upvotes/${upvote.id}`)
-    } else {
-      authStore.user.upvotes.push(newUpvote)
-
-      const response = await http.post(`/api/upvotes`, { feedback: `/api/feedback/${id}` })
-      const data = await response.json()
-
-      const index = authStore.user.upvotes.findIndex((upvote: Upvote) => {
-        return upvote.feedback.id === newUpvote.feedback.id
-      })
-
-      authStore.user.upvotes[index] = { ...newUpvote, id: data.id }
-    }
-
-    contentStore.loadAllFeedback()
-  } catch (error) {
-    authStore.showErrorMessage(error)
-  }
-}
 </script>
 
 <template>
@@ -69,7 +39,7 @@ async function toggleUpvote(id: number, upvote: Upvote | undefined): Promise<voi
         <Button
           class="upvote-counter | text-bold"
           :data-state="upvote ? 'upvoted' : null"
-          @click.prevent="toggleUpvote(feedback.id, upvote)"
+          @click.prevent="contentStore.toggleUpvote(feedback.id, upvote)"
         >
           <img src="../../images/shared/icon-arrow-up.svg" alt="" aria-hidden="true" />
           <span>{{ feedback.upvotes }}</span>
