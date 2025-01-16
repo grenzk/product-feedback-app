@@ -8,6 +8,7 @@ export const useContentStore = defineStore('content', () => {
 
   const allFeedback = ref<Feedback[]>([])
   const feedback = ref<Feedback | undefined>(undefined)
+  const feedbackSort = ref<SortOption>('Most Upvotes')
   const statuses = ref<Status[]>([
     { title: 'Planned', description: 'Ideas prioritized for research', count: 0 },
     { title: 'In-Progress', description: 'Features currently being developed', count: 0 },
@@ -113,10 +114,23 @@ export const useContentStore = defineStore('content', () => {
     return allFeedback.value.filter((feedback: Feedback) => feedback.status === status)
   }
 
+  function sortFeedback(option: SortOption): void {
+    const sortOptions = {
+      'Most Upvotes': (f1: Feedback, f2: Feedback) => f2.upvotes - f1.upvotes,
+      'Least Upvotes': (f1: Feedback, f2: Feedback) => f1.upvotes - f2.upvotes,
+      'Most Comments': (f1: Feedback, f2: Feedback) => f2.commentCount - f1.commentCount,
+      'Least Comments': (f1: Feedback, f2: Feedback) => f1.commentCount - f2.commentCount
+    }
+
+    allFeedback.value.sort(sortOptions[option])
+  }
+
   watchEffect(async () => {
     if (authStore.isLoggedIn) {
       try {
         await loadAllFeedback()
+
+        sortFeedback(feedbackSort.value)
       } catch (error) {
         authStore.showErrorMessage(error)
       }
@@ -126,6 +140,7 @@ export const useContentStore = defineStore('content', () => {
   return {
     allFeedback,
     feedback,
+    feedbackSort,
     statuses,
     loadAllFeedback,
     findandSetFeedback,
@@ -134,6 +149,7 @@ export const useContentStore = defineStore('content', () => {
     removeFeedback,
     toggleUpvote,
     postComment,
-    filterFeedbackByStatus
+    filterFeedbackByStatus,
+    sortFeedback
   }
 })

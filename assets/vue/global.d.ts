@@ -46,3 +46,5 @@ interface Status {
   description: string
   count: number
 }
+
+type SortOption = 'Most Upvotes' | 'Least Upvotes' | 'Most Comments' | 'Least Comments'

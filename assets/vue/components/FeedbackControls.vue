@@ -6,8 +6,27 @@ import NewFeedbackLink from './NewFeedbackLink.vue'
 
 const contentStore = useContentStore()
 
-const sortOptions = ref(['Most Upvotes', 'Least Upvotes', 'Most Comments', 'Least Comments'])
-const selectedOption = ref('Most Upvotes')
+const sortOptions = ref<SortOption[]>([
+  'Most Upvotes',
+  'Least Upvotes',
+  'Most Comments',
+  'Least Comments'
+])
+
+onMounted(() => {
+  const savedOption = localStorage.getItem('selectedSortOption')
+
+  if (savedOption) contentStore.feedbackSort = savedOption as SortOption
+})
+
+watch(
+  () => contentStore.feedbackSort,
+  newOption => {
+    localStorage.setItem('selectedSortOption', newOption)
+
+    contentStore.sortFeedback(newOption)
+  }
+)
 </script>
 
 <template>
@@ -18,7 +37,7 @@ const selectedOption = ref('Most Upvotes')
     </div>
 
     <div class="column">
-      <CustomDropdown v-model="selectedOption" :options="sortOptions" />
+      <CustomDropdown v-model="contentStore.feedbackSort" :options="sortOptions" />
     </div>
 
     <NewFeedbackLink />
