@@ -53,7 +53,7 @@ const onSubmit = handleSubmit((values): void => {
 })
 
 watchEffect(() => {
-  if (isEditing && props.id) {
+  if (isEditing.value && props.id) {
     contentStore.findandSetFeedback(props.id)
 
     if (contentStore.feedback) {

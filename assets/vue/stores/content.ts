@@ -127,13 +127,9 @@ export const useContentStore = defineStore('content', () => {
 
   watchEffect(async () => {
     if (authStore.isLoggedIn) {
-      try {
-        await loadAllFeedback()
+      await loadAllFeedback()
 
-        sortFeedback(feedbackSort.value)
-      } catch (error) {
-        authStore.showErrorMessage(error)
-      }
+      sortFeedback(feedbackSort.value)
     }
   })
 
