@@ -26,7 +26,7 @@ const route = useRoute()
     <Button
       v-if="route.name === 'home'"
       text
-      @click="uiStore.isSidebarActive = !uiStore.isSidebarActive"
+      @click="uiStore.toggleSidebarState()"
       aria-label="toggle sidebar"
       :aria-expanded="uiStore.isSidebarActive"
     >

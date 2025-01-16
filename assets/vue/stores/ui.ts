@@ -1,3 +1,7 @@
 export const uiStore = reactive({
-  isSidebarActive: false
+  isSidebarActive: false,
+
+  toggleSidebarState(): void {
+    this.isSidebarActive = !this.isSidebarActive
+  }
 })
