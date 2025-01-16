@@ -6,9 +6,7 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(window.user)
   const errorMessage = ref('')
 
-  const isLoggedIn = computed(() => {
-    return !!user.value
-  })
+  const isLoggedIn = computed(() => !!user.value)
 
   async function authenticateUser(email: string, password: string): Promise<void> {
     try {

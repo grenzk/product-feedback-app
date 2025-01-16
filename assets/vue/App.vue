@@ -4,10 +4,12 @@ import { RouterView, useRoute } from 'vue-router'
 import SiteHeader from '@/components/SiteHeader.vue'
 
 const route = useRoute()
+
+const isRestrictedPage = computed(() => route.name === 'home' || route.name === 'roadmap')
 </script>
 
 <template>
-  <SiteHeader v-if="route.name === 'home' || route.name === 'roadmap'" />
+  <SiteHeader v-if="isRestrictedPage" />
 
   <RouterView />
 </template>

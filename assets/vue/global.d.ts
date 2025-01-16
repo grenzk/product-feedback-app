@@ -1,19 +1,19 @@
-declare interface Upvote {
+interface Upvote {
   id?: number
   feedback: { id: number }
 }
 
-declare interface User {
+interface User {
   email: string
   password: string
   upvotes: Upvote[]
 }
 
-declare interface Window {
+interface Window {
   user: User | null
 }
 
-declare interface UserComment {
+interface UserComment {
   id: number
   body: string
   replies: UserComment[]
@@ -23,7 +23,7 @@ declare interface UserComment {
   }
 }
 
-declare interface Feedback {
+interface Feedback {
   id: number
   title: string
   detail: string
@@ -34,7 +34,7 @@ declare interface Feedback {
   commentCount: number
 }
 
-declare interface FeedbackForm {
+interface FeedbackForm {
   title: string
   category: string
   status: string
