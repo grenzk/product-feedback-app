@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ComponentPublicInstance } from 'vue'
 import { RouterLink } from 'vue-router'
 import { uiStore } from '@/stores/ui'
 import { useContentStore } from '@/stores/content'
@@ -7,23 +8,55 @@ import Button from 'primevue/button'
 import ContentCard from './ContentCard.vue'
 
 const contentStore = useContentStore()
+const buttons = ref<HTMLButtonElement[]>([])
+
+function handleClick(event: Event) {
+  const currentButton = event.currentTarget as HTMLButtonElement
+  const prevButton = buttons.value.find(button => button.hasAttribute('data-state'))
+
+  if (prevButton && prevButton !== currentButton) {
+    prevButton.removeAttribute('data-state')
+    currentButton.setAttribute('data-state', 'active')
+  }
+
+  contentStore.resetFeedback()
+  contentStore.filterFeedbackByCategory(currentButton.textContent as CategoryOption)
+}
+
+function addButton(el: Element | ComponentPublicInstance | null): void {
+  const button = el as ComponentPublicInstance
+
+  buttons.value.push(button.$el as HTMLButtonElement)
+}
+
+onMounted(() => buttons.value[0].setAttribute('data-state', 'active'))
 </script>
 
 <template>
   <aside class="l-flex" :data-state="uiStore.isSidebarActive ? 'active' : null">
     <ContentCard class="tags">
       <div class="row | l-flex">
-        <Button label="All" severity="secondary" />
-        <Button label="UI" severity="secondary" />
-        <Button label="UX" severity="secondary" />
+        <Button :ref="el => addButton(el)" label="All" severity="secondary" @click="handleClick" />
+        <Button :ref="el => addButton(el)" label="UI" severity="secondary" @click="handleClick" />
+        <Button :ref="el => addButton(el)" label="UX" severity="secondary" @click="handleClick" />
       </div>
 
       <div class="row | l-flex">
-        <Button label="Enhancement" severity="secondary" />
-        <Button label="Bug" severity="secondary" />
+        <Button
+          :ref="el => addButton(el)"
+          label="Enhancement"
+          severity="secondary"
+          @click="handleClick"
+        />
+        <Button :ref="el => addButton(el)" label="Bug" severity="secondary" @click="handleClick" />
       </div>
 
-      <Button label="Feature" severity="secondary" />
+      <Button
+        :ref="el => addButton(el)"
+        label="Feature"
+        severity="secondary"
+        @click="handleClick"
+      />
     </ContentCard>
 
     <ContentCard class="categories">
@@ -82,6 +115,15 @@ aside {
 
     .p-button {
       padding: 0.375rem 1rem;
+    }
+
+    .p-button[data-state='active'] {
+      color: var(--color-neutral-white-1);
+      background-color: var(--color-primary-indigo);
+    }
+
+    .p-button[data-state='active']:hover {
+      background-color: var(--color-primary-indigo);
     }
   }
 

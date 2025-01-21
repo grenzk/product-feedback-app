@@ -7,6 +7,7 @@ export const useContentStore = defineStore('content', () => {
   const authStore = useAuthStore()
 
   const allFeedback = ref<Feedback[]>([])
+  const allFeedbackCopy = ref<Feedback[]>([])
   const feedback = ref<Feedback | undefined>(undefined)
   const feedbackSort = ref<SortOption>('Most Upvotes')
   const statuses = ref<Status[]>([
@@ -21,6 +22,7 @@ export const useContentStore = defineStore('content', () => {
       const data = await response.json()
 
       allFeedback.value = data.member
+      allFeedbackCopy.value = data.member
 
       for (const status of statuses.value) {
         status.count = filterFeedbackByStatus(status.title).length
@@ -110,8 +112,20 @@ export const useContentStore = defineStore('content', () => {
     }
   }
 
+  function resetFeedback(): void {
+    allFeedback.value = allFeedbackCopy.value
+  }
+
   function filterFeedbackByStatus(status: string): Feedback[] {
     return allFeedback.value.filter((feedback: Feedback) => feedback.status === status)
+  }
+
+  function filterFeedbackByCategory(category: CategoryOption): void {
+    if (category === 'All') return
+
+    allFeedback.value = allFeedback.value.filter((feedback: Feedback) => {
+      return feedback.category === category
+    })
   }
 
   function sortFeedback(option: SortOption): void {
@@ -145,7 +159,9 @@ export const useContentStore = defineStore('content', () => {
     removeFeedback,
     toggleUpvote,
     postComment,
+    resetFeedback,
     filterFeedbackByStatus,
+    filterFeedbackByCategory,
     sortFeedback
   }
 })
