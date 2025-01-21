@@ -13,6 +13,10 @@ const sortOptions = ref<SortOption[]>([
   'Least Comments'
 ])
 
+const suggestionLabel = computed(() => {
+  return contentStore.allFeedback.length === 1 ? 'Suggestion' : 'Suggestions'
+})
+
 onMounted(() => {
   const savedOption = localStorage.getItem('selectedSortOption')
 
@@ -33,7 +37,7 @@ watch(
   <section class="suggestions | l-flex">
     <div class="column">
       <img src="../../images/suggestions/icon-suggestions.svg" alt="" aria-hidden="true" />
-      <h2>{{ contentStore.allFeedback.length }} Suggestions</h2>
+      <h2>{{ contentStore.allFeedback.length }} {{ suggestionLabel }}</h2>
     </div>
 
     <div class="column">
