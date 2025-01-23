@@ -22,7 +22,7 @@ function handleClick(event: Event) {
     localStorage.setItem('selectedCategoryOption', selectedCategory)
   }
 
-  contentStore.resetFeedback()
+  contentStore.$reset()
   contentStore.filterFeedbackByCategory(selectedCategory)
 }
 

@@ -113,7 +113,7 @@ export const useContentStore = defineStore('content', () => {
     }
   }
 
-  function resetFeedback(): void {
+  function $reset(): void {
     allFeedback.value = allFeedbackCopy.value
   }
 
@@ -162,7 +162,7 @@ export const useContentStore = defineStore('content', () => {
     removeFeedback,
     toggleUpvote,
     postComment,
-    resetFeedback,
+    $reset,
     filterFeedbackByStatus,
     filterFeedbackByCategory,
     sortFeedback
