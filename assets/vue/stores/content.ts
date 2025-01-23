@@ -151,6 +151,7 @@ export const useContentStore = defineStore('content', () => {
 
   return {
     allFeedback,
+    allFeedbackCopy,
     feedback,
     feedbackSort,
     feedbackCategory,
