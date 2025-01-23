@@ -40,6 +40,8 @@ onMounted(() => {
   if (selectedCategory && selectedButton) {
     contentStore.feedbackCategory = selectedButton.textContent as CategoryOption
 
+    contentStore.filterFeedbackByCategory(contentStore.feedbackCategory)
+
     selectedButton.setAttribute('data-state', 'active')
   } else {
     buttons.value[0].setAttribute('data-state', 'active')
