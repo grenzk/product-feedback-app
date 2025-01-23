@@ -10,6 +10,7 @@ export const useContentStore = defineStore('content', () => {
   const allFeedbackCopy = ref<Feedback[]>([])
   const feedback = ref<Feedback | undefined>(undefined)
   const feedbackSort = ref<SortOption>('Most Upvotes')
+  const feedbackCategory = ref<CategoryOption>('All')
   const statuses = ref<Status[]>([
     { title: 'Planned', description: 'Ideas prioritized for research', count: 0 },
     { title: 'In-Progress', description: 'Features currently being developed', count: 0 },
@@ -144,6 +145,7 @@ export const useContentStore = defineStore('content', () => {
       await loadAllFeedback()
 
       sortFeedback(feedbackSort.value)
+      filterFeedbackByCategory(feedbackCategory.value)
     }
   })
 
@@ -151,6 +153,7 @@ export const useContentStore = defineStore('content', () => {
     allFeedback,
     feedback,
     feedbackSort,
+    feedbackCategory,
     statuses,
     loadAllFeedback,
     findandSetFeedback,

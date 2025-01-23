@@ -13,14 +13,17 @@ const buttons = ref<HTMLButtonElement[]>([])
 function handleClick(event: Event) {
   const currentButton = event.currentTarget as HTMLButtonElement
   const prevButton = buttons.value.find(button => button.hasAttribute('data-state'))
+  const selectedCategory = currentButton.textContent as CategoryOption
 
   if (prevButton && prevButton !== currentButton) {
     prevButton.removeAttribute('data-state')
     currentButton.setAttribute('data-state', 'active')
+
+    localStorage.setItem('selectedCategoryOption', selectedCategory)
   }
 
   contentStore.resetFeedback()
-  contentStore.filterFeedbackByCategory(currentButton.textContent as CategoryOption)
+  contentStore.filterFeedbackByCategory(selectedCategory)
 }
 
 function addButton(el: Element | ComponentPublicInstance | null): void {
@@ -29,7 +32,18 @@ function addButton(el: Element | ComponentPublicInstance | null): void {
   buttons.value.push(button.$el as HTMLButtonElement)
 }
 
-onMounted(() => buttons.value[0].setAttribute('data-state', 'active'))
+onMounted(() => {
+  const selectedCategory = localStorage.getItem('selectedCategoryOption')
+  const selectedButton = buttons.value.find(button => button.textContent === selectedCategory)
+
+  if (selectedCategory && selectedButton) {
+    contentStore.feedbackCategory = selectedButton.textContent as CategoryOption
+
+    selectedButton.setAttribute('data-state', 'active')
+  } else {
+    buttons.value[0].setAttribute('data-state', 'active')
+  }
+})
 </script>
 
 <template>
