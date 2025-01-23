@@ -7,6 +7,7 @@ import ContentCard from '@/components/ContentCard.vue'
 import FeedbackCard from '@/components/FeedbackCard.vue'
 import FeedbackControls from '@/components/FeedbackControls.vue'
 import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
+import Skeleton from 'primevue/skeleton'
 
 const contentStore = useContentStore()
 </script>
@@ -16,22 +17,28 @@ const contentStore = useContentStore()
   <FeedbackControls />
 
   <main class="home | l-flex">
-    <ContentCard v-if="contentStore.allFeedback.length === 0" class="empty-state">
-      <img src="../../images/suggestions/illustration-empty.svg" alt="" aria-hidden="true" />
-      <h3>There is no feedback yet.</h3>
-      <p>
-        Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to
-        improve our app.
-      </p>
-      <NewFeedbackLink />
-    </ContentCard>
+    <template v-if="contentStore.isLoading">
+      <Skeleton v-for="i of 4" :key="i" height="10rem" border-radius="0.625rem"></Skeleton>
+    </template>
 
-    <FeedbackCard
-      v-else
-      v-for="feedback of contentStore.allFeedback"
-      :feedback="feedback"
-      :key="feedback.id"
-    />
+    <template v-else>
+      <ContentCard v-if="contentStore.allFeedback.length === 0" class="empty-state">
+        <img src="../../images/suggestions/illustration-empty.svg" alt="" aria-hidden="true" />
+        <h3>There is no feedback yet.</h3>
+        <p>
+          Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas
+          to improve our app.
+        </p>
+        <NewFeedbackLink />
+      </ContentCard>
+
+      <FeedbackCard
+        v-else
+        v-for="feedback of contentStore.allFeedback"
+        :feedback="feedback"
+        :key="feedback.id"
+      />
+    </template>
   </main>
 
   <Transition name="fade">

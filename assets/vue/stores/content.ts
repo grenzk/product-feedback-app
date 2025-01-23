@@ -16,6 +16,7 @@ export const useContentStore = defineStore('content', () => {
     { title: 'In-Progress', description: 'Features currently being developed', count: 0 },
     { title: 'Live', description: 'Released features', count: 0 }
   ])
+  const isLoading = ref(false)
 
   async function loadAllFeedback(): Promise<void> {
     try {
@@ -142,10 +143,16 @@ export const useContentStore = defineStore('content', () => {
 
   watchEffect(async () => {
     if (authStore.isLoggedIn) {
-      await loadAllFeedback()
+      isLoading.value = true
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        await loadAllFeedback()
 
-      sortFeedback(feedbackSort.value)
-      filterFeedbackByCategory(feedbackCategory.value)
+        sortFeedback(feedbackSort.value)
+        filterFeedbackByCategory(feedbackCategory.value)
+      } finally {
+        isLoading.value = false
+      }
     }
   })
 
@@ -156,6 +163,7 @@ export const useContentStore = defineStore('content', () => {
     feedbackSort,
     feedbackCategory,
     statuses,
+    isLoading,
     loadAllFeedback,
     findandSetFeedback,
     postFeedback,
