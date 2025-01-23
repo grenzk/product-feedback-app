@@ -27,9 +27,10 @@ function handleClick(event: Event) {
 }
 
 function addButton(el: Element | ComponentPublicInstance | null): void {
-  const button = el as ComponentPublicInstance
-
-  buttons.value.push(button.$el as HTMLButtonElement)
+  if (el) {
+    const button = el as ComponentPublicInstance
+    buttons.value.push(button.$el as HTMLButtonElement)
+  }
 }
 
 onMounted(() => {
