@@ -16,12 +16,10 @@ function handleClick(event: Event) {
   const prevButton = buttons.value.find(button => button.hasAttribute('data-state'))
   const selectedCategory = currentButton.textContent as CategoryOption
 
-  if (prevButton && prevButton !== currentButton) {
-    prevButton.removeAttribute('data-state')
-    currentButton.setAttribute('data-state', 'active')
+  if (prevButton) prevButton.removeAttribute('data-state')
+  currentButton.setAttribute('data-state', 'active')
 
-    localStorage.setItem('selectedCategoryOption', selectedCategory)
-  }
+  localStorage.setItem('selectedCategoryOption', selectedCategory)
 
   contentStore.$reset()
   contentStore.filterFeedbackByCategory(selectedCategory)
