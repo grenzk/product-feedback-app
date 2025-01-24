@@ -100,15 +100,22 @@ watchEffect(() => {
     <ContentCard class="categories">
       <div class="row | l-flex">
         <h2>Roadmap</h2>
-        <RouterLink class="text-semi-bold" to="/roadmap">View</RouterLink>
+        <Skeleton v-if="contentStore.isLoading" width="3rem"></Skeleton>
+        <RouterLink v-else class="text-semi-bold" to="/roadmap">View</RouterLink>
       </div>
 
       <ul class="l-flex">
-        <li v-for="status of contentStore.statuses" class="l-flex" :key="status.title">
-          <span class="circle"></span>
-          <span>{{ status.title }}</span>
-          <span class="text-bold">{{ status.count }}</span>
-        </li>
+        <template v-if="contentStore.isLoading">
+          <Skeleton v-for="i in 3" :key="i" width="100%" height="1.5rem"></Skeleton>
+        </template>
+
+        <template v-else>
+          <li v-for="status of contentStore.statuses" class="l-flex" :key="status.title">
+            <span class="circle"></span>
+            <span>{{ status.title }}</span>
+            <span class="text-bold">{{ status.count }}</span>
+          </li>
+        </template>
       </ul>
     </ContentCard>
   </aside>
