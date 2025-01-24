@@ -10,6 +10,10 @@ import NewFeedbackLink from '@/components/NewFeedbackLink.vue'
 import Skeleton from 'primevue/skeleton'
 
 const contentStore = useContentStore()
+
+onUnmounted(() => {
+  contentStore.$reset()
+})
 </script>
 
 <template>

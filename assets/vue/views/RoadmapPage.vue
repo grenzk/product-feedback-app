@@ -62,10 +62,7 @@ function handleResize(): void {
   if (activeTab) moveFocus(activeTab, activeTab)
 }
 
-onMounted(() => {
-  contentStore.$reset()
-  window.addEventListener('resize', handleResize)
-})
+onMounted(() => window.addEventListener('resize', handleResize))
 onUnmounted(() => window.removeEventListener('resize', handleResize))
 </script>
 
