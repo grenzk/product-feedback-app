@@ -146,7 +146,6 @@ export const useContentStore = defineStore('content', () => {
     if (authStore.isLoggedIn) {
       isLoading.value = true
       try {
-        await new Promise(resolve => setTimeout(resolve, 2000))
         await loadAllFeedback()
 
         sortFeedback(feedbackSort.value)
