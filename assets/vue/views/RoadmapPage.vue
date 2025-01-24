@@ -2,6 +2,7 @@
 import { useContentStore } from '@/stores/content'
 
 import FeedbackCard from '@/components/FeedbackCard.vue'
+import Skeleton from 'primevue/skeleton'
 
 const contentStore = useContentStore()
 
@@ -79,7 +80,8 @@ onUnmounted(() => window.removeEventListener('resize', handleResize))
       :aria-controls="`tabpanel-${index + 1}`"
       @click="handleActiveTab"
     >
-      {{ status.title }} ({{ status.count }})
+      <Skeleton v-if="contentStore.isLoading" width="3rem"></Skeleton>
+      <template v-else>{{ status.title }} ({{ status.count }})</template>
     </button>
   </div>
 
@@ -96,15 +98,28 @@ onUnmounted(() => window.removeEventListener('resize', handleResize))
       :data-state="index > 0 ? 'hidden' : null"
     >
       <div class="row">
-        <h2>{{ status.title }} ({{ status.count }})</h2>
-        <span class="description">{{ status.description }}</span>
+        <template v-if="contentStore.isLoading">
+          <Skeleton width="6rem" height="1.5rem"></Skeleton>
+          <Skeleton width="7.5rem"></Skeleton>
+        </template>
+
+        <template v-else>
+          <h2>{{ status.title }} ({{ status.count }})</h2>
+          <span class="description">{{ status.description }}</span>
+        </template>
       </div>
 
-      <FeedbackCard
-        v-for="feedback of contentStore.filterFeedbackByStatus(status.title)"
-        :feedback="feedback"
-        :key="feedback.id"
-      />
+      <template v-if="contentStore.isLoading">
+        <Skeleton height="15rem" border-radius="0.625rem"></Skeleton>
+      </template>
+
+      <template v-else>
+        <FeedbackCard
+          v-for="feedback of contentStore.filterFeedbackByStatus(status.title)"
+          :feedback="feedback"
+          :key="feedback.id"
+        />
+      </template>
     </div>
   </main>
 </template>
@@ -150,6 +165,11 @@ div[role='tablist'] {
     &[aria-selected='true'] {
       opacity: 1;
     }
+
+    > .p-skeleton {
+      display: block;
+      margin: 0 auto;
+    }
   }
 }
 
@@ -165,6 +185,10 @@ div[role='tablist'] {
         font-size: var(--font-size-l);
         letter-spacing: -0.25px;
         margin-bottom: 4px;
+      }
+
+      .p-skeleton:first-child {
+        margin-bottom: 1rem;
       }
 
       .description {
