@@ -3,6 +3,7 @@ import { useContentStore } from '@/stores/content'
 
 import CustomDropdown from './CustomDropdown.vue'
 import NewFeedbackLink from './NewFeedbackLink.vue'
+import Skeleton from 'primevue/skeleton'
 
 const contentStore = useContentStore()
 
@@ -37,11 +38,14 @@ watch(
   <section class="suggestions | l-flex">
     <div class="column">
       <img src="../../images/suggestions/icon-suggestions.svg" alt="" aria-hidden="true" />
-      <h2>{{ contentStore.allFeedback.length }} {{ suggestionLabel }}</h2>
+
+      <Skeleton v-if="contentStore.isLoading" width="7rem" height="1rem"></Skeleton>
+      <h2 v-else>{{ contentStore.allFeedback.length }} {{ suggestionLabel }}</h2>
     </div>
 
     <div class="column">
-      <CustomDropdown v-model="contentStore.feedbackSort" :options="sortOptions" />
+      <Skeleton v-if="contentStore.isLoading" width="7rem" height="1rem"></Skeleton>
+      <CustomDropdown v-else v-model="contentStore.feedbackSort" :options="sortOptions" />
     </div>
 
     <NewFeedbackLink />
