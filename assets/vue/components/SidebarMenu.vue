@@ -6,6 +6,7 @@ import { useContentStore } from '@/stores/content'
 
 import Button from 'primevue/button'
 import ContentCard from './ContentCard.vue'
+import Skeleton from 'primevue/skeleton'
 
 const contentStore = useContentStore()
 const buttons = ref<HTMLButtonElement[]>([])
@@ -33,20 +34,15 @@ function addButton(el: Element | ComponentPublicInstance | null): void {
   }
 }
 
-onMounted(() => {
-  const selectedCategory = localStorage.getItem('selectedCategoryOption')
-  const selectedButton = buttons.value.find(button => button.textContent === selectedCategory)
+watchEffect(() => {
+  contentStore.feedbackCategory = localStorage.getItem('selectedCategoryOption') as CategoryOption
 
-  if (selectedCategory && selectedButton) {
-    contentStore.feedbackCategory = selectedButton.textContent as CategoryOption
+  if (buttons.value.length > 0) {
+    const selectedButton = buttons.value.find(button => {
+      return button.textContent === contentStore.feedbackCategory
+    })
 
-    if (contentStore.allFeedback === contentStore.allFeedbackCopy) {
-      contentStore.filterFeedbackByCategory(contentStore.feedbackCategory)
-    }
-
-    selectedButton.setAttribute('data-state', 'active')
-  } else {
-    buttons.value[0].setAttribute('data-state', 'active')
+    selectedButton?.setAttribute('data-state', 'active')
   }
 })
 </script>
@@ -55,22 +51,47 @@ onMounted(() => {
   <aside class="l-flex" :data-state="uiStore.isSidebarActive ? 'active' : null">
     <ContentCard class="tags">
       <div class="row | l-flex">
-        <Button :ref="el => addButton(el)" label="All" severity="secondary" @click="handleClick" />
-        <Button :ref="el => addButton(el)" label="UI" severity="secondary" @click="handleClick" />
-        <Button :ref="el => addButton(el)" label="UX" severity="secondary" @click="handleClick" />
+        <template v-if="contentStore.isLoading">
+          <Skeleton v-for="i in 3" :key="i" width="2.75rem" height="1.75rem"></Skeleton>
+        </template>
+
+        <template v-else>
+          <Button
+            :ref="el => addButton(el)"
+            label="All"
+            severity="secondary"
+            @click="handleClick"
+          />
+          <Button :ref="el => addButton(el)" label="UI" severity="secondary" @click="handleClick" />
+          <Button :ref="el => addButton(el)" label="UX" severity="secondary" @click="handleClick" />
+        </template>
       </div>
 
       <div class="row | l-flex">
-        <Button
-          :ref="el => addButton(el)"
-          label="Enhancement"
-          severity="secondary"
-          @click="handleClick"
-        />
-        <Button :ref="el => addButton(el)" label="Bug" severity="secondary" @click="handleClick" />
+        <template v-if="contentStore.isLoading">
+          <Skeleton width="7rem" height="1.75rem"></Skeleton>
+          <Skeleton width="2.75rem" height="1.75rem"></Skeleton>
+        </template>
+
+        <template v-else>
+          <Button
+            :ref="el => addButton(el)"
+            label="Enhancement"
+            severity="secondary"
+            @click="handleClick"
+          />
+          <Button
+            :ref="el => addButton(el)"
+            label="Bug"
+            severity="secondary"
+            @click="handleClick"
+          />
+        </template>
       </div>
 
+      <Skeleton v-if="contentStore.isLoading" width="5rem" height="1.75rem"></Skeleton>
       <Button
+        v-else
         :ref="el => addButton(el)"
         label="Feature"
         severity="secondary"
