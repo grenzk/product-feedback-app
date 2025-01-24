@@ -10,6 +10,33 @@ const tabsContainer = ref<HTMLDivElement | null>(null)
 const tabButtons = ref<HTMLButtonElement[]>([])
 const tabPanels = ref<HTMLDivElement[]>([])
 
+// Primary tab interaction handler
+function handleActiveTab(event: Event): void {
+  const prevTab = tabButtons.value.find(button => button.ariaSelected === 'true')
+  const nextTab = event.target as HTMLButtonElement
+  const activePanel = tabPanels.value.find(tabpanel => {
+    return tabpanel.id === nextTab.getAttribute('aria-controls')
+  })
+
+  if (nextTab.ariaSelected === 'true') return
+
+  tabButtons.value.forEach(button => {
+    button.setAttribute('aria-selected', 'false')
+    button.setAttribute('tabindex', '-1')
+  })
+
+  tabPanels.value.forEach(panel => panel.setAttribute('data-state', 'hidden'))
+
+  activePanel?.removeAttribute('data-state')
+
+  nextTab.setAttribute('aria-selected', 'true')
+  nextTab.setAttribute('tabindex', '0')
+  nextTab.focus()
+
+  moveFocus(prevTab!, nextTab)
+}
+
+// Helper functions
 function moveFocus(prevTab: HTMLButtonElement, nextTab: HTMLButtonElement): void {
   const nextTabPos = prevTab.compareDocumentPosition(nextTab)
   const nextTabWidth = nextTab.offsetWidth / tabsContainer.value?.offsetWidth! || 0
@@ -31,31 +58,6 @@ function moveFocus(prevTab: HTMLButtonElement, nextTab: HTMLButtonElement): void
     tabsContainer.value?.style.setProperty('--left', `${nextTab.offsetLeft}px`)
     tabsContainer.value?.style.setProperty('--width', `${nextTabWidth}`)
   }, 220)
-}
-
-function handleActiveTab(event: Event): void {
-  const prevTab = tabButtons.value.find(button => button.ariaSelected === 'true')
-  const nextTab = event.target as HTMLButtonElement
-  const activePanel = tabPanels.value.find(
-    tabpanel => tabpanel.id === nextTab.getAttribute('aria-controls')
-  )
-
-  if (nextTab.ariaSelected === 'true') return
-
-  tabButtons.value.forEach(button => {
-    button.setAttribute('aria-selected', 'false')
-    button.setAttribute('tabindex', '-1')
-  })
-
-  tabPanels.value.forEach(panel => panel.setAttribute('data-state', 'hidden'))
-
-  activePanel?.removeAttribute('data-state')
-
-  nextTab.setAttribute('aria-selected', 'true')
-  nextTab.setAttribute('tabindex', '0')
-  nextTab.focus()
-
-  moveFocus(prevTab!, nextTab)
 }
 
 function handleResize(): void {
