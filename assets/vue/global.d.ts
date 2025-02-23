@@ -50,3 +50,5 @@ interface Status {
 type SortOption = 'Most Upvotes' | 'Least Upvotes' | 'Most Comments' | 'Least Comments'
 
 type CategoryOption = 'All' | 'UI' | 'UX' | 'Enhancement' | 'Bug' | 'Feature'
+
+type SeverityOption = 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast'

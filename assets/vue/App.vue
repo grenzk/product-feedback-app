@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router'
+import Toast from 'primevue/toast'
 
 import SiteHeader from '@/components/SiteHeader.vue'
 
@@ -9,6 +10,7 @@ const isRestrictedPage = computed(() => route.name === 'home' || route.name === 
 </script>
 
 <template>
+  <Toast position="bottom-center" />
   <SiteHeader v-if="isRestrictedPage" />
 
   <RouterView />

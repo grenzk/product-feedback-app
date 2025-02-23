@@ -2,9 +2,11 @@ import { router } from '@/router'
 import { defineStore } from 'pinia'
 import { http } from '@/utils/api'
 import { useAuthStore } from './auth'
+import { useNotifications } from '@/utils/notifications'
 
 export const useContentStore = defineStore('content', () => {
   const authStore = useAuthStore()
+  const notifications = useNotifications()
 
   const allFeedback = ref<Feedback[]>([])
   const allFeedbackCopy = ref<Feedback[]>([])
@@ -30,7 +32,7 @@ export const useContentStore = defineStore('content', () => {
         status.count = filterFeedbackByStatus(status.title).length
       }
     } catch (error) {
-      authStore.showErrorMessage(error)
+      notifications.showToast(error)
     }
   }
 
@@ -46,8 +48,10 @@ export const useContentStore = defineStore('content', () => {
       await loadAllFeedback()
 
       router.push(`/feedback/${data.id}`)
+
+      notifications.showToast('Feedback has been posted.')
     } catch (error) {
-      authStore.showErrorMessage(error)
+      notifications.showToast(error)
     }
   }
 
@@ -57,8 +61,10 @@ export const useContentStore = defineStore('content', () => {
       await loadAllFeedback()
 
       router.push(`/feedback/${feedback.value?.id}`)
+
+      notifications.showToast('Feedback has been updated.')
     } catch (error) {
-      authStore.showErrorMessage(error)
+      notifications.showToast(error)
     }
   }
 
@@ -68,8 +74,10 @@ export const useContentStore = defineStore('content', () => {
       await loadAllFeedback()
 
       router.push('/')
+
+      notifications.showToast('Feedback has been deleted.')
     } catch (error) {
-      authStore.showErrorMessage(error)
+      notifications.showToast(error)
     }
   }
 
@@ -96,7 +104,7 @@ export const useContentStore = defineStore('content', () => {
 
       loadAllFeedback()
     } catch (error) {
-      authStore.showErrorMessage(error)
+      notifications.showToast(error)
     }
   }
 
@@ -110,7 +118,7 @@ export const useContentStore = defineStore('content', () => {
 
       loadAllFeedback()
     } catch (error) {
-      authStore.showErrorMessage(error)
+      notifications.showToast(error)
     }
   }
 
