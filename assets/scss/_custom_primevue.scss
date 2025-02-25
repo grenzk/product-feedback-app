@@ -56,7 +56,6 @@
   .p-dropdown-item {
     background: transparent;
     font-family: var(--font-family-sans);
-    font-size: var(--font-size-m);
     margin: 0;
     padding: 0.75rem 1.5rem;
     border-bottom: 1px solid hsla(231, 33%, 34%, 0.15);
@@ -132,6 +131,12 @@
 
   .p-tag-value {
     font-weight: var(--font-weight-semi-bold);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .p-dropdown-panel .p-dropdown-item {
+    font-size: var(--font-size-xxs);
   }
 }
 
