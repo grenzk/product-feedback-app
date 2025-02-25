@@ -33,7 +33,8 @@ function addButton(el: Element | ComponentPublicInstance | null): void {
 }
 
 watchEffect(() => {
-  contentStore.feedbackCategory = localStorage.getItem('selectedCategoryOption') as CategoryOption
+  contentStore.feedbackCategory =
+    (localStorage.getItem('selectedCategoryOption') as CategoryOption) || 'All'
 
   if (buttons.value.length > 0) {
     const selectedButton = buttons.value.find(button => {
