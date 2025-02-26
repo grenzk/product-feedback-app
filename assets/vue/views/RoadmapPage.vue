@@ -116,11 +116,15 @@ onUnmounted(() => window.removeEventListener('resize', handleResize))
       </template>
 
       <template v-else>
-        <FeedbackCard
-          v-for="feedback of contentStore.filterFeedbackByStatus(status.title)"
-          :feedback="feedback"
-          :key="feedback.id"
-        />
+        <template v-if="status.count > 0">
+          <FeedbackCard
+            v-for="feedback of contentStore.filterFeedbackByStatus(status.title)"
+            :feedback="feedback"
+            :key="feedback.id"
+          />
+        </template>
+
+        <p v-else class="empty-message">No assigned feedback in this category.</p>
       </template>
     </div>
   </main>
@@ -223,6 +227,11 @@ div[role='tablist'] {
     &#tabpanel-3 .circle,
     &#tabpanel-3 .feedback::after {
       background-color: var(--color-secondary-blue-light);
+    }
+
+    .empty-message {
+      font-size: var(--font-size-m);
+      color: var(--color-neutral-gray);
     }
   }
 }

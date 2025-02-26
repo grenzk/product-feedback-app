@@ -83,6 +83,10 @@
   font-size: var(--font-size-xs);
 }
 
+.p-tooltip-text {
+  font-size: var(--font-size-xxs);
+}
+
 #app:has(.home) ~ .p-dropdown-panel {
   width: 15.938rem;
 }

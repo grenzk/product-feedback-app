@@ -11,6 +11,10 @@ import Skeleton from 'primevue/skeleton'
 const contentStore = useContentStore()
 const buttons = ref<HTMLButtonElement[]>([])
 
+const isRoadmapEmpty = computed(() => {
+  return contentStore.statuses.every(status => status.count === 0)
+})
+
 function handleClick(event: Event) {
   const currentButton = event.currentTarget as HTMLButtonElement
   const prevButton = buttons.value.find(button => button.hasAttribute('data-state'))
@@ -102,7 +106,15 @@ watchEffect(() => {
       <div class="row | l-flex">
         <h2>Roadmap</h2>
         <Skeleton v-if="contentStore.isLoading" width="3rem"></Skeleton>
-        <RouterLink v-else class="text-semi-bold" to="/roadmap">View</RouterLink>
+        <RouterLink
+          v-else
+          v-tooltip.top="isRoadmapEmpty ? 'No feedback in the roadmap to view.' : ''"
+          class="text-semi-bold"
+          :class="{ disabled: isRoadmapEmpty }"
+          :to="'/roadmap'"
+        >
+          View
+        </RouterLink>
       </div>
 
       <ul class="l-flex">
