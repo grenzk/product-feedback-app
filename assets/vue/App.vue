@@ -3,6 +3,7 @@ import { RouterView, useRoute } from 'vue-router'
 import Toast from 'primevue/toast'
 
 import SiteHeader from '@/components/SiteHeader.vue'
+import ScrollToTop from '@/components/ScrollToTop.vue'
 
 const route = useRoute()
 
@@ -12,6 +13,7 @@ const isRestrictedPage = computed(() => route.name === 'home' || route.name === 
 <template>
   <Toast position="bottom-center" />
   <SiteHeader v-if="isRestrictedPage" />
+  <ScrollToTop v-if="route.name === 'roadmap'" />
 
   <RouterView />
 </template>
@@ -119,6 +121,7 @@ const isRestrictedPage = computed(() => route.name === 'home' || route.name === 
     column-gap: 0.625rem;
     width: 43.063rem;
     padding-top: 3.5rem;
+    padding-bottom: 11.188rem;
 
     > header.roadmap-header {
       grid-area: 1 / 1 / 1 / 4;
