@@ -20,29 +20,31 @@ onUnmounted(() => {
   <SidebarMenu />
   <FeedbackControls />
 
-  <main class="home | l-flex">
-    <template v-if="contentStore.isLoading">
-      <Skeleton v-for="i of 4" :key="i" height="10rem" border-radius="0.625rem"></Skeleton>
-    </template>
+  <main class="home">
+    <div class="feedback-container">
+      <template v-if="contentStore.isLoading">
+        <Skeleton v-for="i of 4" :key="i" height="10rem" border-radius="0.625rem"></Skeleton>
+      </template>
 
-    <template v-else>
-      <ContentCard v-if="contentStore.allFeedback.length === 0" class="empty-state">
-        <img src="../../images/suggestions/illustration-empty.svg" alt="" aria-hidden="true" />
-        <h3>There is no feedback yet.</h3>
-        <p>
-          Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas
-          to improve our app.
-        </p>
-        <NewFeedbackLink />
-      </ContentCard>
+      <template v-else>
+        <ContentCard v-if="contentStore.allFeedback.length === 0" class="empty-state">
+          <img src="../../images/suggestions/illustration-empty.svg" alt="" aria-hidden="true" />
+          <h3>There is no feedback yet.</h3>
+          <p>
+            Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas
+            to improve our app.
+          </p>
+          <NewFeedbackLink />
+        </ContentCard>
 
-      <FeedbackCard
-        v-else
-        v-for="feedback of contentStore.allFeedback"
-        :feedback="feedback"
-        :key="feedback.id"
-      />
-    </template>
+        <FeedbackCard
+          v-else
+          v-for="feedback of contentStore.allFeedback"
+          :feedback="feedback"
+          :key="feedback.id"
+        />
+      </template>
+    </div>
   </main>
 
   <Transition name="fade">
@@ -52,8 +54,31 @@ onUnmounted(() => {
 
 <style lang="scss">
 .home {
-  flex-direction: column;
-  row-gap: 1rem;
+  .feedback-container {
+    height: calc(100vh - 8rem);
+    overflow-y: auto;
+    padding-top: 2rem;
+    scroll-padding-top: 1rem;
+    scroll-snap-type: y mandatory;
+
+    &:not(:hover) {
+      scrollbar-gutter: stable;
+    }
+
+    > * {
+      display: block;
+      margin-bottom: 1rem;
+      scroll-snap-align: start;
+
+      &:first-child {
+        scroll-snap-align: end;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 
   .empty-state {
     padding: 4.75rem 1.5rem;
@@ -99,6 +124,11 @@ onUnmounted(() => {
 
 @media screen and (min-width: 768px) {
   .home {
+    .feedback-container {
+      height: calc(100vh - 21.625rem);
+      padding-top: 1.5rem;
+    }
+
     .empty-state {
       padding: 6.938rem 0;
 
@@ -123,7 +153,14 @@ onUnmounted(() => {
 
 @media screen and (min-width: 1200px) {
   .home {
-    row-gap: 1.25rem;
+    .feedback-container {
+      height: calc(100vh - 10.375rem);
+      scroll-padding-top: 1.25rem;
+
+      > * {
+        margin-bottom: 1.25rem;
+      }
+    }
   }
 }
 </style>

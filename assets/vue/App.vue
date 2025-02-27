@@ -28,7 +28,11 @@ const isRestrictedPage = computed(() => route.name === 'home' || route.name === 
   grid-template-rows: 4.5rem 3.5rem;
 
   > .home {
-    padding: 2rem 1.5rem 3.438rem 1.5rem;
+    padding: 0 1.5rem;
+
+    > .feedback-container {
+      padding-bottom: 3.438rem;
+    }
 
     &:has(.empty-state) {
       padding-bottom: 2.938rem;
@@ -88,7 +92,11 @@ const isRestrictedPage = computed(() => route.name === 'home' || route.name === 
 
     > .home {
       grid-area: 4 / 1 / -1 / 4;
-      padding: 1.5rem 0 7.063rem 0;
+      padding: 0;
+
+      > .feedback-container {
+        padding-bottom: 7.063rem;
+      }
     }
   }
 
@@ -132,7 +140,7 @@ const isRestrictedPage = computed(() => route.name === 'home' || route.name === 
 
 @media screen and (min-width: 1200px) {
   #app:has(.home) {
-    grid-template: 6rem 2.563rem 11.875rem 12.625rem auto / 15.938rem 1fr;
+    grid-template: 4.5rem 4.063rem 11.875rem 12.625rem auto / 15.938rem 1fr;
     width: 69.375rem;
     padding-top: 5.875rem;
     column-gap: 1.875rem;
@@ -147,12 +155,14 @@ const isRestrictedPage = computed(() => route.name === 'home' || route.name === 
 
     > .suggestions {
       grid-area: 1 / 2 / 2 / 3;
-      align-self: start;
     }
 
     > .home {
       grid-area: 2 / 2 / -1 / 2;
-      padding: 0 0 8.063rem 0;
+
+      > .feedback-container {
+        padding-bottom: 8.063rem;
+      }
     }
   }
 
