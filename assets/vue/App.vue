@@ -73,7 +73,11 @@ const isRestrictedPage = computed(() => route.name === 'home' || route.name === 
   max-width: 69.375rem;
 
   > .roadmap-content {
-    padding: 1.5rem 1.5rem 6.125rem 1.5rem;
+    padding: 0 1.5rem;
+
+    > .feedback-container {
+      padding-bottom: 6.125rem;
+    }
   }
 }
 

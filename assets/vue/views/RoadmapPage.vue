@@ -93,7 +93,7 @@ onUnmounted(() => window.removeEventListener('resize', handleResize))
       :key="status.title"
       ref="tabPanels"
       :id="`tabpanel-${index + 1}`"
-      class="l-flex"
+      class="feedback-container | l-flex"
       role="tabpanel"
       :tabindex="index === 0 ? 0 : -1"
       :aria-labelledby="`tab-${index + 1}`"
@@ -237,8 +237,28 @@ div[role='tablist'] {
 }
 
 @media screen and (max-width: 767px) {
-  div[role='tabpanel'][data-state='hidden'] {
-    display: none;
+  div[role='tabpanel'] {
+    height: calc(100vh - 10.01rem);
+    overflow-y: auto;
+    padding-top: 1.5rem;
+    scroll-padding-top: 1rem;
+    scroll-snap-type: y mandatory;
+
+    &:not(:hover) {
+      scrollbar-gutter: stable;
+    }
+
+    > * {
+      scroll-snap-align: start;
+
+      &:first-child {
+        scroll-snap-align: end;
+      }
+    }
+
+    &[data-state='hidden'] {
+      display: none;
+    }
   }
 }
 
