@@ -138,6 +138,17 @@
   }
 }
 
+.p-toast {
+  width: calc(100% - 3rem);
+  max-width: 25rem;
+  margin: 0 auto;
+
+  .p-toast-message {
+    margin: 0;
+    border-radius: var(--border-radius-m);
+  }
+}
+
 @media screen and (max-width: 767px) {
   .p-dropdown-panel .p-dropdown-item {
     font-size: var(--font-size-xxs);
