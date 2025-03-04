@@ -61,6 +61,10 @@ onUnmounted(() => {
     scroll-padding-top: 1rem;
     scroll-snap-type: y mandatory;
 
+    &:has(.empty-state) {
+      display: contents;
+     }
+
     &:not(:hover) {
       scrollbar-gutter: stable;
     }

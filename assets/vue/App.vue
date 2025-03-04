@@ -37,7 +37,8 @@ const isRestrictedPage = computed(() => route.name === 'home' || route.name === 
     }
 
     &:has(.empty-state) {
-      padding-bottom: 2.938rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
     }
   }
 }
@@ -102,6 +103,10 @@ const isRestrictedPage = computed(() => route.name === 'home' || route.name === 
 
       > .feedback-container {
         padding-bottom: 7.063rem;
+      }
+
+      &:has(.empty-state) {
+        padding-top: 1.5rem;
       }
     }
   }
