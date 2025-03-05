@@ -23,8 +23,8 @@ final class Version20241220084303 extends AbstractMigration
         $this->addSql('CREATE TABLE upvote (id SERIAL NOT NULL, feedback_id INT NOT NULL, owned_by_id INT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_68AB8766D249A887 ON upvote (feedback_id)');
         $this->addSql('CREATE INDEX IDX_68AB87665E70BCD7 ON upvote (owned_by_id)');
-        $this->addSql('ALTER TABLE upvote ADD CONSTRAINT FK_68AB8766D249A887 FOREIGN KEY (feedback_id) REFERENCES feedback (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE upvote ADD CONSTRAINT FK_68AB87665E70BCD7 FOREIGN KEY (owned_by_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE upvote ADD CONSTRAINT FK_68AB8766D249A887 FOREIGN KEY (feedback_id) REFERENCES feedback (id)');
+        $this->addSql('ALTER TABLE upvote ADD CONSTRAINT FK_68AB87665E70BCD7 FOREIGN KEY (owned_by_id) REFERENCES "user" (id)');
     }
 
     public function down(Schema $schema): void

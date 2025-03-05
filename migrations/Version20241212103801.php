@@ -24,7 +24,7 @@ final class Version20241212103801 extends AbstractMigration
         $this->addSql('ALTER TABLE comment DROP author');
         $this->addSql('ALTER TABLE comment DROP author_handle');
         $this->addSql('ALTER TABLE comment DROP published_at');
-        $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C5E70BCD7 FOREIGN KEY (owned_by_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C5E70BCD7 FOREIGN KEY (owned_by_id) REFERENCES "user" (id)');
         $this->addSql('CREATE INDEX IDX_9474526C5E70BCD7 ON comment (owned_by_id)');
     }
 
