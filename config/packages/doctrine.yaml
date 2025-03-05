@@ -39,8 +39,6 @@ when@prod:
             url: '%env(resolve:DATABASE_URL)%'
             driver: pdo_pgsql
             server_version: '16'
-            platform_service: LapayGroup\DoctrineCockroach\Platforms\CockroachPlatform
-            driver_class: LapayGroup\DoctrineCockroach\Driver\CockroachDriver
             sslrootcert: '/etc/secrets/root.crt'
         orm:
             auto_generate_proxy_classes: false
