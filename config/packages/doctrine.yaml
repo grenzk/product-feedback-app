@@ -38,7 +38,7 @@ when@prod:
         dbal:
             url: '%env(resolve:DATABASE_URL)%'
             driver: pdo_pgsql
-            sslrootcert: './etc/secrets/root.crt'
+            sslrootcert: '/etc/secrets/root.crt'
         orm:
             auto_generate_proxy_classes: false
             proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
