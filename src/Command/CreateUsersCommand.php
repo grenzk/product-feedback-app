@@ -8,6 +8,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
     name: 'app:create-users',
@@ -43,7 +44,8 @@ class CreateUsersCommand extends Command
     ];
 
     public function __construct(
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
+        private UserPasswordHasherInterface $passwordHasher
     ) {
         parent::__construct();
     }
@@ -55,7 +57,7 @@ class CreateUsersCommand extends Command
             $user->setEmail($userData['email']);
             $user->setFullName($userData['fullName']);
             $user->setUsername($userData['username']);
-            $user->setPlainPassword($userData['password']);
+            $user->setPassword($this->passwordHasher->hashPassword($user, $userData['password']));
 
             $this->entityManager->persist($user);
             $output->writeln(sprintf('Creating user: %s', $userData['username']));
