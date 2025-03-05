@@ -52,20 +52,30 @@ class CreateUsersCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        foreach (self::USERS as $userData) {
-            $user = new User();
-            $user->setEmail($userData['email']);
-            $user->setFullName($userData['fullName']);
-            $user->setUsername($userData['username']);
-            $user->setPassword($this->passwordHasher->hashPassword($user, $userData['password']));
+        try {
+            // Start transaction
+            $this->entityManager->beginTransaction();
 
-            $this->entityManager->persist($user);
-            $output->writeln(sprintf('Creating user: %s', $userData['username']));
+            foreach (self::USERS as $userData) {
+                $user = new User();
+                $user->setEmail($userData['email']);
+                $user->setFullName($userData['fullName']);
+                $user->setUsername($userData['username']);
+                $user->setPassword($this->passwordHasher->hashPassword($user, $userData['password']));
+
+                $this->entityManager->persist($user);
+                $output->writeln(sprintf('Creating user: %s', $userData['username']));
+            }
+
+            $this->entityManager->flush();
+            $this->entityManager->commit();
+
+            $output->writeln('All users have been created successfully!');
+            return Command::SUCCESS;
+
+        } catch (\Exception $e) {
+            $this->entityManager->rollback();
+            throw $e;
         }
-
-        $this->entityManager->flush();
-        $output->writeln('All users have been created successfully!');
-
-        return Command::SUCCESS;
     }
 }
