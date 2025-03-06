@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping\OrderBy;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
+use DoctrineCockroachDB\ORM\Id\SerialGenerator;
 
 #[ORM\Entity(repositoryClass: FeedbackRepository::class)]
 #[ApiResource(
@@ -40,7 +41,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Feedback
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: SerialGenerator::class)]
     #[ORM\Column]
     #[Groups('user:read')]
     private ?int $id = null;

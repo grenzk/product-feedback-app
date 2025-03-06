@@ -4,11 +4,11 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
-use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
 use App\Repository\UpvoteRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use DoctrineCockroachDB\ORM\Id\SerialGenerator;
 
 #[ApiResource(
     security: 'is_granted("ROLE_USER")',
@@ -25,7 +25,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Upvote
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: SerialGenerator::class)]
     #[ORM\Column]
     #[Groups('user:read')]
     private ?int $id = null;

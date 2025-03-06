@@ -67,10 +67,12 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "DoctrineCockroachDB\\Composer\\PatchDoctrine::overrideBasicEntityPersister"
         ],
         "post-update-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "DoctrineCockroachDB\\Composer\\PatchDoctrine::overrideBasicEntityPersister"
         ]
     },
     "conflict": {

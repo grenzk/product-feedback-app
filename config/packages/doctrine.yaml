@@ -37,7 +37,7 @@ when@prod:
     doctrine:
         dbal:
             url: '%env(resolve:DATABASE_URL)%'
-            sslrootcert: '/etc/secrets/root.crt'
+            sslrootcert: '%env(SSL_ROOT_CERT)%'
             driver: pdo_pgsql
             driver_class: DoctrineCockroachDB\Driver\CockroachDBDriver
         orm:

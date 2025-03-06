@@ -13,6 +13,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use DoctrineCockroachDB\ORM\Id\SerialGenerator;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 #[ApiResource(
@@ -32,7 +33,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Comment
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: SerialGenerator::class)]
     #[ORM\Column]
     #[Groups('feedback:read')]
     private ?int $id = null;
