@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9354f1964b058de94dd72309f09998f",
+    "content-hash": "f8e8716ad062bf7ec546a5453f13cb28",
     "packages": [
         {
             "name": "api-platform/doctrine-common",
@@ -2425,6 +2425,70 @@
                 "source": "https://github.com/doctrine/sql-formatter/tree/1.5.1"
             },
             "time": "2024-10-21T18:21:57+00:00"
+        },
+        {
+            "name": "fwolfsjaeger/doctrine-cockroachdb",
+            "version": "0.8.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fwolfsjaeger/doctrine-cockroachdb.git",
+                "reference": "6d94b362b3cc3309c83c7b635b369c877b154934"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fwolfsjaeger/doctrine-cockroachdb/zipball/6d94b362b3cc3309c83c7b635b369c877b154934",
+                "reference": "6d94b362b3cc3309c83c7b635b369c877b154934",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^3.8",
+                "ext-pdo": "*",
+                "ext-pdo_pgsql": "*",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "doctrine/orm": "^2.17",
+                "friendsofphp/php-cs-fixer": "^3.41",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan-phpunit": "1.3",
+                "phpstan/phpstan-strict-rules": "^1.5",
+                "phpstan/phpstan-symfony": "^1.3",
+                "phpunit/phpunit": "^10.1",
+                "roave/security-advisories": "dev-latest",
+                "squizlabs/php_codesniffer": "^3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DoctrineCockroachDB\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Florian Wolfsjaeger",
+                    "email": "florian@wolfsjaeger.at"
+                }
+            ],
+            "description": "Doctrine DBAL CockroachDB Driver",
+            "homepage": "https://github.com/fwolfsjaeger/doctrine-cockroachdb",
+            "keywords": [
+                "cockroach",
+                "cockroachdb",
+                "doctrine",
+                "doctrine-cockroachdb",
+                "pdo",
+                "pdo_pgsql"
+            ],
+            "support": {
+                "issues": "https://github.com/fwolfsjaeger/doctrine-cockroachdb/issues",
+                "source": "https://github.com/fwolfsjaeger/doctrine-cockroachdb/tree/v0.8.6"
+            },
+            "time": "2024-12-19T11:24:21+00:00"
         },
         {
             "name": "nelmio/cors-bundle",

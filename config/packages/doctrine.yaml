@@ -36,10 +36,15 @@ when@test:
 when@prod:
     doctrine:
         dbal:
-            url: '%env(resolve:DATABASE_URL)%'
-            driver: pdo_pgsql
-            server_version: '16'
+            user: '%env(resolve:DATABASE_USER)%'
+            host: '%env(resolve:DATABASE_HOST)%'
+            dbname: '%env(resolve:DATABASE_NAME)%'
+            port: '%env(resolve:DATABASE_PORT)%'
+            sslmode: verify-full
             sslrootcert: '/etc/secrets/root.crt'
+            driver: pdo_pgsql
+            driver_class: DoctrineCockroachDB\Driver\CockroachDBDriver
+            server_version: '16'
         orm:
             auto_generate_proxy_classes: false
             proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
