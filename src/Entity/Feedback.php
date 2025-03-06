@@ -43,8 +43,8 @@ class Feedback
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: SerialGenerator::class)]
-    #[ORM\Column]
-    #[Groups('user:read')]
+    #[ORM\Column(name: 'id', type: Types::INTEGER, options: ['unsigned' => true])]
+    #[Groups(['feedback:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]

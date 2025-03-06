@@ -35,8 +35,8 @@ class Comment
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: SerialGenerator::class)]
-    #[ORM\Column]
-    #[Groups('feedback:read')]
+    #[ORM\Column(name: 'id', type: Types::INTEGER, options: ['unsigned' => true])]
+    #[Groups(['feedback:read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
