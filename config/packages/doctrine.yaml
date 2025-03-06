@@ -37,6 +37,7 @@ when@prod:
     doctrine:
         dbal:
             user: '%env(resolve:DATABASE_USER)%'
+            password: '%env(resolve:DATABASE_PASSWORD)%'
             host: '%env(resolve:DATABASE_HOST)%'
             dbname: '%env(resolve:DATABASE_NAME)%'
             port: '%env(resolve:DATABASE_PORT)%'
