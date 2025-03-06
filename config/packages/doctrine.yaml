@@ -36,16 +36,16 @@ when@test:
 when@prod:
     doctrine:
         dbal:
-            user: '%env(resolve:DATABASE_USER)%'
-            password: '%env(resolve:DATABASE_PASSWORD)%'
-            host: '%env(resolve:DATABASE_HOST)%'
-            dbname: '%env(resolve:DATABASE_NAME)%'
-            port: '%env(resolve:DATABASE_PORT)%'
+            url: null
+            user: grenzk
+            password: '%env(DATABASE_PASSWORD)%'
+            host: '%env(DATABASE_HOST)%'
+            dbname: product-feedback-app-db
+            port: 26257
             sslmode: verify-full
             sslrootcert: '/etc/secrets/root.crt'
             driver: pdo_pgsql
             driver_class: DoctrineCockroachDB\Driver\CockroachDBDriver
-            server_version: '16'
         orm:
             auto_generate_proxy_classes: false
             proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
