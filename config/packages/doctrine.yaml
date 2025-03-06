@@ -36,13 +36,7 @@ when@test:
 when@prod:
     doctrine:
         dbal:
-            url: null
-            user: grenzk
-            password: '%env(DATABASE_PASSWORD)%'
-            host: '%env(DATABASE_HOST)%'
-            dbname: product-feedback-app-db
-            port: 26257
-            sslmode: verify-full
+            url: '%env(resolve:DATABASE_URL)%'
             sslrootcert: '/etc/secrets/root.crt'
             driver: pdo_pgsql
             driver_class: DoctrineCockroachDB\Driver\CockroachDBDriver
