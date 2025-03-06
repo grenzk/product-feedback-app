@@ -53,9 +53,6 @@ class CreateUsersCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
-            // Start transaction
-            $this->entityManager->beginTransaction();
-
             foreach (self::USERS as $userData) {
                 $user = new User();
                 $user->setEmail($userData['email']);
@@ -68,14 +65,12 @@ class CreateUsersCommand extends Command
             }
 
             $this->entityManager->flush();
-            $this->entityManager->commit();
 
             $output->writeln('All users have been created successfully!');
             return Command::SUCCESS;
-
         } catch (\Exception $e) {
-            $this->entityManager->rollback();
-            throw $e;
+            $output->writeln('Error creating users: ' . $e->getMessage());
+            return Command::FAILURE;
         }
     }
 }
