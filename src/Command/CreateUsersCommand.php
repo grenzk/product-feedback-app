@@ -61,10 +61,10 @@ class CreateUsersCommand extends Command
                 $user->setPassword($this->passwordHasher->hashPassword($user, $userData['password']));
 
                 $this->entityManager->persist($user);
+                $this->entityManager->flush();
+
                 $output->writeln(sprintf('Creating user: %s', $userData['username']));
             }
-
-            $this->entityManager->flush();
 
             $output->writeln('All users have been created successfully!');
             return Command::SUCCESS;
