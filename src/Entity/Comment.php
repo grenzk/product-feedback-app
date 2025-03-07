@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Comment
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['feedback:read'])]
     private ?int $id = null;

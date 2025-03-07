@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Upvote
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups('user:read')]
     private ?int $id = null;
