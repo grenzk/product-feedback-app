@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/auth'
 import { useContentStore } from '@/stores/content'
 
 import CustomDropdown from './CustomDropdown.vue'
 import NewFeedbackLink from './NewFeedbackLink.vue'
 import Skeleton from 'primevue/skeleton'
+import Button from 'primevue/button'
+import Avatar from 'primevue/avatar'
 
+const authStore = useAuthStore()
 const contentStore = useContentStore()
 
 const sortOptions = ref<SortOption[]>([
@@ -13,10 +17,17 @@ const sortOptions = ref<SortOption[]>([
   'Most Comments',
   'Least Comments'
 ])
+const isMenuToggled = ref(false)
+
+const firstName = computed(() => authStore.user?.fullName.split(' ')[0])
 
 const suggestionLabel = computed(() => {
   return contentStore.allFeedback.length === 1 ? 'Suggestion' : 'Suggestions'
 })
+
+function toggleMenu(): void {
+  isMenuToggled.value = !isMenuToggled.value
+}
 
 onMounted(() => {
   const savedOption = localStorage.getItem('selectedSortOption')
@@ -48,7 +59,13 @@ watch(
       <CustomDropdown v-else v-model="contentStore.feedbackSort" :options="sortOptions" />
     </div>
 
-    <NewFeedbackLink />
+    <div class="column | l-flex">
+      <NewFeedbackLink />
+
+      <Button text @click="toggleMenu">
+        <Avatar :image="`/user-images/image-${firstName}.jpg`" shape="circle" />
+      </Button>
+    </div>
   </section>
 </template>
 
@@ -70,13 +87,33 @@ watch(
     }
   }
 
-  a {
+  .column:last-child {
     margin-left: auto;
+    column-gap: 0.5rem;
+
+    > .p-button-text {
+      padding: 0;
+
+      &:hover {
+        background: transparent;
+        opacity: 75%;
+      }
+
+      > span {
+        display: none;
+      }
+    }
   }
 }
 
 @media screen and (max-width: 350px) {
-  .column:nth-child(2) > .p-dropdown > .p-dropdown-label > .dropdown-value {
+  .suggestions {
+    padding: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 400px) {
+  .suggestions > .column:nth-child(2) > .p-dropdown > .p-dropdown-label > .dropdown-value {
     flex-direction: column;
     text-align: center;
   }
@@ -94,6 +131,10 @@ watch(
       h2 {
         padding-bottom: 2px;
       }
+    }
+
+    .column:last-child {
+      column-gap: 1rem;
     }
   }
 }

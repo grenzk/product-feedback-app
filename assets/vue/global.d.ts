@@ -6,6 +6,7 @@ interface Upvote {
 interface User {
   email: string
   password: string
+  fullName: string
   upvotes: Upvote[]
 }
 
