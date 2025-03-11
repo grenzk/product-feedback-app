@@ -149,6 +149,10 @@
   }
 }
 
+.p-menu, .p-menuitem-icon {
+  font: inherit;
+}
+
 @media screen and (max-width: 767px) {
   .p-dropdown-panel .p-dropdown-item {
     font-size: var(--font-size-xxs);
@@ -162,7 +166,8 @@
 @media screen and (min-width: 768px) {
   .p-inputtext.p-variant-filled,
   .p-dropdown.p-variant-filled,
-  .p-inputtextarea.p-variant-filled {
+  .p-inputtextarea.p-variant-filled,
+  .p-menu {
     font-size: var(--font-size-m);
   }
 

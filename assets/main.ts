@@ -8,6 +8,7 @@ import App from '@/App.vue'
 import { router } from '@/router'
 
 import './scss/styles.scss'
+import 'primeicons/primeicons.css'
 import 'primevue/resources/themes/aura-light-indigo/theme.css'
 
 const app = createApp(App)

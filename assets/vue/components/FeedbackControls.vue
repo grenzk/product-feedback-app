@@ -7,6 +7,7 @@ import NewFeedbackLink from './NewFeedbackLink.vue'
 import Skeleton from 'primevue/skeleton'
 import Button from 'primevue/button'
 import Avatar from 'primevue/avatar'
+import Menu from 'primevue/menu'
 
 const authStore = useAuthStore()
 const contentStore = useContentStore()
@@ -17,7 +18,20 @@ const sortOptions = ref<SortOption[]>([
   'Most Comments',
   'Least Comments'
 ])
-const isMenuToggled = ref(false)
+const menu = ref<InstanceType<typeof Menu> | null>(null)
+const menuItems = ref([
+  {
+    label: authStore.user?.fullName,
+    disabled: true,
+    icon: 'pi pi-user',
+  },
+  { separator: true },
+  {
+    label: 'Sign out',
+    icon: 'pi pi-sign-out',
+    command: () => authStore.logout()
+  }
+])
 
 const firstName = computed(() => authStore.user?.fullName.split(' ')[0])
 
@@ -25,8 +39,8 @@ const suggestionLabel = computed(() => {
   return contentStore.allFeedback.length === 1 ? 'Suggestion' : 'Suggestions'
 })
 
-function toggleMenu(): void {
-  isMenuToggled.value = !isMenuToggled.value
+function toggleMenu(event: Event) {
+  menu.value?.toggle(event)
 }
 
 onMounted(() => {
@@ -62,9 +76,10 @@ watch(
     <div class="column | l-flex">
       <NewFeedbackLink />
 
-      <Button text @click="toggleMenu">
+      <Button text @click="toggleMenu" aria-haspopup="true" aria-controls="overlay-menu">
         <Avatar :image="`/user-images/image-${firstName}.jpg`" shape="circle" />
       </Button>
+      <Menu ref="menu" id="overlay-menu" :model="menuItems" :popup="true" />
     </div>
   </section>
 </template>
