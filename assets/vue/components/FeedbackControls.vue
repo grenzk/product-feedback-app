@@ -23,7 +23,7 @@ const menuItems = ref([
   {
     label: authStore.user?.fullName,
     disabled: true,
-    icon: 'pi pi-user',
+    icon: 'pi pi-user'
   },
   { separator: true },
   {

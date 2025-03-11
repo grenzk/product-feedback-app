@@ -11,9 +11,15 @@ import Skeleton from 'primevue/skeleton'
 
 const contentStore = useContentStore()
 
-onUnmounted(() => {
-  contentStore.$reset()
+const feedbackContainer = ref<HTMLDivElement | null>(null)
+
+onUpdated(() => {
+  setTimeout(() => {
+    if (feedbackContainer.value) feedbackContainer.value.scrollTo({ top: 0, behavior: 'smooth' })
+  }, 500)
 })
+
+onUnmounted(() => contentStore.$reset())
 </script>
 
 <template>
@@ -21,7 +27,7 @@ onUnmounted(() => {
   <FeedbackControls />
 
   <main class="home">
-    <div class="feedback-container">
+    <div ref="feedbackContainer" class="feedback-container">
       <template v-if="contentStore.isLoading">
         <Skeleton v-for="i of 4" :key="i" height="10rem" border-radius="0.625rem"></Skeleton>
       </template>
@@ -63,7 +69,7 @@ onUnmounted(() => {
 
     &:has(.empty-state) {
       display: contents;
-     }
+    }
 
     &:not(:hover) {
       scrollbar-gutter: stable;
