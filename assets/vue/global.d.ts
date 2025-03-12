@@ -4,6 +4,7 @@ interface Upvote {
 }
 
 interface User {
+  id: number
   email: string
   password: string
   fullName: string
@@ -19,6 +20,7 @@ interface UserComment {
   body: string
   replies: UserComment[]
   ownedBy: {
+    id: number
     username: string
     fullName: string
   }
@@ -33,6 +35,11 @@ interface Feedback {
   upvotes: number
   comments: UserComment[]
   commentCount: number
+  ownedBy: {
+    id: number
+    username: string
+    fullName: string
+  }
 }
 
 interface FeedbackForm {
