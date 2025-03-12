@@ -2,6 +2,7 @@
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import { storeToRefs } from 'pinia'
+import { useAuthStore } from '@/stores/auth'
 import { useContentStore } from '@/stores/content'
 
 import Button from 'primevue/button'
@@ -15,10 +16,12 @@ const props = defineProps<{
   id: string
 }>()
 
+const authStore = useAuthStore()
 const contentStore = useContentStore()
 const { feedback } = storeToRefs(contentStore)
 
 const commentLabel = computed(() => (feedback.value?.commentCount === 1 ? 'Comment' : 'Comments'))
+const canEditFeedback = computed(() => authStore.user?.id === feedback.value?.ownedBy.id)
 
 const schema = { comment: yup.string().max(250).label('Add Comment') }
 
@@ -44,7 +47,7 @@ watchEffect(() => contentStore.findandSetFeedback(props.id))
     <div class="row | l-flex">
       <BackLink />
 
-      <RouterLink :to="`/feedback/${id}/edit`">
+      <RouterLink v-if="canEditFeedback" :to="`/feedback/${id}/edit`">
         <Button label="Edit Feedback" />
       </RouterLink>
     </div>
