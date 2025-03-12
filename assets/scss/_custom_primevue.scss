@@ -85,6 +85,7 @@
 
 .p-tooltip-text {
   font-size: var(--font-size-xxs);
+  background-color: var(--color-primary-indigo-dark-1);
 }
 
 #app:has(.home) ~ .p-dropdown-panel {
@@ -149,7 +150,8 @@
   }
 }
 
-.p-menu, .p-menuitem-icon {
+.p-menu,
+.p-menuitem-icon {
   font: inherit;
 }
 
