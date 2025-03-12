@@ -19,7 +19,10 @@ onUpdated(() => {
   }, 500)
 })
 
-onUnmounted(() => contentStore.$reset())
+onUnmounted(() => {
+  contentStore.$reset()
+  uiStore.isSidebarActive = false
+})
 </script>
 
 <template>
@@ -158,6 +161,10 @@ onUnmounted(() => contentStore.$reset())
         font-size: var(--font-size-m);
       }
     }
+  }
+
+  .dimmed-layer {
+    display: none;
   }
 }
 
