@@ -23,12 +23,7 @@ class AppFixtures extends Fixture
             ]);
         }
 
-        $user1 = UserFactory::createOne([
-            'email' => 'john.doe@example.com',
-            'fullName' => 'John Doe',
-            'username' => 'johndoe'
-        ]);
-
+        $user1 = UserFactory::repository()->findOneBy(['email' => 'george.partridge@example.com' ]);
         $user2 = UserFactory::repository()->findOneBy(['email' => 'elijah.moss@example.com']);
         $user3 = UserFactory::repository()->findOneBy(['email' => 'james.skinner@example.com']);
         $user4 = UserFactory::repository()->findOneBy(['email' => 'anne.valentine@example.com']);
