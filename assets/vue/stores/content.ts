@@ -103,6 +103,7 @@ export const useContentStore = defineStore('content', () => {
       }
 
       loadAllFeedback()
+      sortFeedback()
     } catch (error) {
       notifications.showToast(error)
     }
@@ -124,22 +125,26 @@ export const useContentStore = defineStore('content', () => {
 
   function $reset(): void {
     allFeedback.value = allFeedbackCopy.value
-    sortFeedback(feedbackSort.value)
+    sortFeedback()
   }
 
   function filterFeedbackByStatus(status: string): Feedback[] {
     return allFeedback.value.filter((feedback: Feedback) => feedback.status === status)
   }
 
-  function filterFeedbackByCategory(category: CategoryOption): void {
-    if (category === 'All') return
+  function filterFeedbackByCategory(category?: CategoryOption): void {
+    const filterBy = category ?? feedbackCategory.value
+
+    if (filterBy === 'All') return
 
     allFeedback.value = allFeedback.value.filter((feedback: Feedback) => {
-      return feedback.category === category
+      return feedback.category === filterBy
     })
   }
 
-  function sortFeedback(option: SortOption): void {
+  function sortFeedback(option?: SortOption): void {
+    const sortBy = option ?? feedbackSort.value
+
     const sortOptions = {
       'Most Upvotes': (f1: Feedback, f2: Feedback) => f2.upvotes - f1.upvotes,
       'Least Upvotes': (f1: Feedback, f2: Feedback) => f1.upvotes - f2.upvotes,
@@ -147,7 +152,7 @@ export const useContentStore = defineStore('content', () => {
       'Least Comments': (f1: Feedback, f2: Feedback) => f1.commentCount - f2.commentCount
     }
 
-    allFeedback.value.sort(sortOptions[option])
+    allFeedback.value.sort(sortOptions[sortBy])
   }
 
   watchEffect(async () => {
@@ -156,8 +161,8 @@ export const useContentStore = defineStore('content', () => {
       try {
         await loadAllFeedback()
 
-        sortFeedback(feedbackSort.value)
-        filterFeedbackByCategory(feedbackCategory.value)
+        sortFeedback()
+        filterFeedbackByCategory()
       } finally {
         isLoading.value = false
       }
