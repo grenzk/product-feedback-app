@@ -103,8 +103,9 @@ export const useContentStore = defineStore('content', () => {
       }
 
       await loadAllFeedback()
-      
+
       sortFeedback()
+      filterFeedbackByCategory()
     } catch (error) {
       notifications.showToast(error)
     }
