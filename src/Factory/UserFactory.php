@@ -15,7 +15,8 @@ final class UserFactory extends PersistentProxyObjectFactory
         ['email' => 'elijah.moss@example.com', 'fullName' => 'Elijah Moss', 'username' => 'hexagon.bestagon',],
         ['email' => 'james.skinner@example.com', 'fullName' => 'James Skinner', 'username' => 'hummingbird1'],
         ['email' => 'anne.valentine@example.com', 'fullName' => 'Anne Valentine', 'username' => 'annev1990'],
-        ['email' => 'ryan.welles@example.com', 'fullName' => 'Ryan Welles', 'username' => 'voyager.344']
+        ['email' => 'ryan.welles@example.com', 'fullName' => 'Ryan Welles', 'username' => 'voyager.344'],
+        ['email' => 'george.partridge@example.com', 'fullName' => 'George Partridge', 'username' => 'soccerviewer8']
     ];
 
     /**
