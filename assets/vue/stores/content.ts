@@ -102,7 +102,8 @@ export const useContentStore = defineStore('content', () => {
         authStore.user.upvotes[authStore.user.upvotes.length - 1] = { ...newUpvote, id: data.id }
       }
 
-      loadAllFeedback()
+      await loadAllFeedback()
+      
       sortFeedback()
     } catch (error) {
       notifications.showToast(error)
