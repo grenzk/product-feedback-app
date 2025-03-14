@@ -33,7 +33,7 @@ const menuItems = ref([
   }
 ])
 
-const firstName = computed(() => authStore.user?.fullName.split(' ')[0])
+const firstName = computed(() => authStore.user?.fullName.toLowerCase().split(' ')[0])
 
 const suggestionLabel = computed(() => {
   return contentStore.allFeedback.length === 1 ? 'Suggestion' : 'Suggestions'
