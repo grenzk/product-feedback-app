@@ -84,6 +84,9 @@ export const useContentStore = defineStore('content', () => {
   async function toggleUpvote(id: number, upvote: Upvote | undefined): Promise<void> {
     if (!authStore.user) throw new Error('User is not defined.')
 
+    const feedback = allFeedback.value.find((feedback: Feedback) => feedback.id === id)
+    if (!feedback) throw new Error('Feedback is not found.')
+
     const newUpvote = { feedback: { id: id } }
 
     try {
@@ -91,21 +94,18 @@ export const useContentStore = defineStore('content', () => {
         const upvotePosition = authStore.user.upvotes.indexOf(upvote)
 
         authStore.user.upvotes.splice(upvotePosition, 1)
+        feedback.upvotes--
 
         await http.delete(`/api/upvotes/${upvote.id}`)
       } else {
         authStore.user.upvotes.push(newUpvote)
+        feedback.upvotes++
 
         const response = await http.post(`/api/upvotes`, { feedback: `/api/feedback/${id}` })
         const data = await response.json()
 
         authStore.user.upvotes[authStore.user.upvotes.length - 1] = { ...newUpvote, id: data.id }
       }
-
-      await loadAllFeedback()
-
-      sortFeedback()
-      filterFeedbackByCategory()
     } catch (error) {
       notifications.showToast(error)
     }
