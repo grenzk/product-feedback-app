@@ -19,12 +19,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class CreateUpvotesCommand extends Command
 {
     private const UPVOTES = [
-        'Add tags for solutions' => 112,
-        'Add a dark theme option' => 99,
-        'Q&A within the challenge hubs' => 65,
-        'Add image/video upload to feedback' => 51,
-        'Ability to follow others' => 42,
-        'Preview images not loading' => 3
+        'Add tags for solutions' => 6,
+        'Add a dark theme option' => 5,
+        'Q&A within the challenge hubs' => 4,
+        'Add image/video upload to feedback' => 3,
+        'Ability to follow others' => 2,
+        'Preview images not loading' => 1
     ];
 
     public function __construct(
