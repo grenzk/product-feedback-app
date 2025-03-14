@@ -137,9 +137,9 @@ class CreateCommentsCommand extends Command
                 }
 
                 $this->entityManager->persist($comment);
+                $this->entityManager->flush();
             }
 
-            $this->entityManager->flush();
 
             $output->writeln('All comments have been created successfully!');
             return Command::SUCCESS;
