@@ -15,4 +15,3 @@ echo "Loading sample data..."
 php bin/console app:create-users
 php bin/console app:create-feedback
 php bin/console app:create-comments
-php bin/console app:create-upvotes
