@@ -135,12 +135,11 @@ export const useContentStore = defineStore('content', () => {
   }
 
   function filterFeedbackByCategory(category?: CategoryOption): void {
-    const filterBy = category ?? feedbackCategory.value
-
-    if (filterBy === 'All') return
+    if (category) feedbackCategory.value = category
+    if (feedbackCategory.value === 'All') return
 
     allFeedback.value = allFeedback.value.filter((feedback: Feedback) => {
-      return feedback.category === filterBy
+      return feedback.category === feedbackCategory.value
     })
   }
 
