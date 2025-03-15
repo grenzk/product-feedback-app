@@ -11,7 +11,7 @@ const isRestrictedPage = computed(() => route.name === 'home' || route.name === 
 </script>
 
 <template>
-  <Toast position="bottom-center" />
+  <Toast position="top-center" />
   <SiteHeader v-if="isRestrictedPage" />
   <ScrollToTop v-if="route.name === 'roadmap'" />
 

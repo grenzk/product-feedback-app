@@ -20,7 +20,7 @@ export function useNotifications() {
       severity: type,
       summary: type === 'error' ? 'Error' : 'Success',
       detail: message,
-      life: 3000,
+      life: 5000,
       closable: false
     })
   }
