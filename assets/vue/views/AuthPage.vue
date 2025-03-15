@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
+import { useContentStore } from '@/stores/content'
 import { useAuthStore } from '@/stores/auth'
 
 import Card from 'primevue/card'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 import Message from 'primevue/message'
+
+const authStore = useAuthStore()
+const contentStore = useContentStore()
 
 const schema = {
   email: yup
@@ -17,25 +21,24 @@ const schema = {
   password: yup.string().required('Please enter your password').label('Password')
 }
 
-const { defineField, handleSubmit, resetForm, errors } = useForm<User>({ validationSchema: schema })
+const { defineField, handleSubmit, errors } = useForm<User>({ validationSchema: schema })
 
 const [email] = defineField('email')
 const [password] = defineField('password')
 
 const onSubmit = handleSubmit((values): void => {
-  useAuthStore().authenticateUser(values.email, values.password)
-  resetForm()
+  authStore.authenticateUser(values.email, values.password)
 })
 </script>
 
 <template>
   <Transition name="fade">
     <Message
-      v-if="useAuthStore().errorMessage.length > 0"
+      v-if="authStore.errorMessage.length > 0"
       severity="error"
-      @close="useAuthStore().errorMessage = ''"
+      @close="authStore.errorMessage = ''"
     >
-      {{ useAuthStore().errorMessage }}
+      {{ authStore.errorMessage }}
     </Message>
   </Transition>
 
@@ -68,7 +71,10 @@ const onSubmit = handleSubmit((values): void => {
         </template>
 
         <template #footer>
-          <Button label="Sign in" type="submit" />
+          <Button type="submit" :loading="contentStore.isLoading">
+            <i v-if="contentStore.isLoading" class="pi pi-spin pi-spinner"></i>
+            <span class="text-bold">Sign in</span>
+          </Button>
         </template>
       </Card>
     </form>
@@ -105,6 +111,8 @@ const onSubmit = handleSubmit((values): void => {
       width: 100%;
       font-size: var(--font-size-m);
       border-radius: var(--border-radius-s);
+      justify-content: center;
+      column-gap: 0.5rem;
     }
   }
 }

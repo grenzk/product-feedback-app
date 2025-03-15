@@ -34,8 +34,8 @@ const { defineField, handleSubmit, resetForm } = useForm<{ comment: string }>({
 
 const [comment] = defineField('comment')
 
-const onSubmit = handleSubmit((values): void => {
-  contentStore.postComment(values.comment)
+const onSubmit = handleSubmit(async (values): Promise<void> => {
+  await contentStore.postComment(values.comment)
   resetForm()
 })
 
@@ -71,7 +71,7 @@ watchEffect(() => contentStore.findandSetFeedback(props.id))
 
         <div class="row | l-flex">
           <span>{{ 250 - comment.length }} Characters left</span>
-          <Button type="submit" label="Post Comment" />
+          <Button type="submit" label="Post Comment" :loading="contentStore.isLoading" />
         </div>
       </form>
     </ContentCard>
@@ -121,7 +121,7 @@ watchEffect(() => contentStore.findandSetFeedback(props.id))
     }
 
     .p-button {
-      width: 7.438rem;
+      min-width: 7.438rem;
       height: 2.5rem;
     }
 
@@ -147,7 +147,7 @@ watchEffect(() => contentStore.findandSetFeedback(props.id))
 
     > article:last-child {
       .p-button {
-        width: 8.875rem;
+        min-width: 8.875rem;
         height: 2.75rem;
       }
     }

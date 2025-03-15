@@ -41,6 +41,7 @@ export const useContentStore = defineStore('content', () => {
   }
 
   async function postFeedback(formData: FeedbackForm): Promise<void> {
+    isLoading.value = true
     try {
       const response = await http.post('/api/feedback', { ...formData })
       const data = await response.json()
@@ -52,10 +53,13 @@ export const useContentStore = defineStore('content', () => {
       notifications.showToast('Feedback has been posted.')
     } catch (error) {
       notifications.showToast(error)
+    } finally {
+      isLoading.value = false
     }
   }
 
   async function editFeedback(formData: FeedbackForm): Promise<void> {
+    isLoading.value = true
     try {
       await http.patch(`/api/feedback/${feedback.value?.id}`, { ...formData })
       await loadAllFeedback()
@@ -65,10 +69,13 @@ export const useContentStore = defineStore('content', () => {
       notifications.showToast('Feedback has been updated.')
     } catch (error) {
       notifications.showToast(error)
+    } finally {
+      isLoading.value = false
     }
   }
 
   async function removeFeedback(): Promise<void> {
+    isLoading.value = true
     try {
       await http.delete(`/api/feedback/${feedback.value?.id}`)
       await loadAllFeedback()
@@ -78,6 +85,8 @@ export const useContentStore = defineStore('content', () => {
       notifications.showToast('Feedback has been deleted.')
     } catch (error) {
       notifications.showToast(error)
+    } finally {
+      isLoading.value = false
     }
   }
 
@@ -112,6 +121,7 @@ export const useContentStore = defineStore('content', () => {
   }
 
   async function postComment(comment: string, parentCommentId?: number): Promise<void> {
+    isLoading.value = true
     try {
       await http.post('/api/comments', {
         feedback: `/api/feedback/${feedback.value?.id}`,
@@ -122,6 +132,8 @@ export const useContentStore = defineStore('content', () => {
       loadAllFeedback()
     } catch (error) {
       notifications.showToast(error)
+    } finally {
+      isLoading.value = false
     }
   }
 

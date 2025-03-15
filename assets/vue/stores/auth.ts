@@ -1,14 +1,18 @@
 import { defineStore } from 'pinia'
 import { http } from '@/utils/api'
 import { router } from '@/router'
+import { useContentStore } from './content'
 
 export const useAuthStore = defineStore('auth', () => {
+  const contentStore = useContentStore()
+
   const user = ref<User | null>(window.user)
   const errorMessage = ref('')
 
   const isLoggedIn = computed(() => !!user.value)
 
   async function authenticateUser(email: string, password: string): Promise<void> {
+    contentStore.isLoading = true
     try {
       const response = await http.post('/login', { email, password })
       const userIri = response.headers.get('Location')
@@ -20,6 +24,8 @@ export const useAuthStore = defineStore('auth', () => {
       login(userIri)
     } catch (error) {
       showErrorMessage(error)
+    } finally {
+      contentStore.isLoading = false
     }
   }
 

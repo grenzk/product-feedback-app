@@ -17,6 +17,9 @@ const props = defineProps<{
 const contentStore = useContentStore()
 const route = useRoute()
 
+const isSubmitting = ref(false)
+const isDeleting = ref(false)
+
 const isEditing = computed(() => route.name === 'edit feedback')
 const formTitle = computed(() => {
   return isEditing.value ? `Editing '${contentStore.feedback?.title}'` : 'Create New Feedback'
@@ -47,10 +50,22 @@ const [category] = defineField('category')
 const [status] = defineField('status')
 const [detail] = defineField('detail')
 
-const onSubmit = handleSubmit((values): void => {
-  isEditing.value ? contentStore.editFeedback(values) : contentStore.postFeedback(values)
-  resetForm()
+const onSubmit = handleSubmit(async (values): Promise<void> => {
+  isSubmitting.value = true
+  if (isEditing.value) {
+    await contentStore.editFeedback(values)
+  } else {
+    await contentStore.postFeedback(values)
+    resetForm()
+  }
+  isSubmitting.value = false
 })
+
+async function handleRemoveFeedback() {
+  isDeleting.value = true
+  await contentStore.removeFeedback()
+  isDeleting.value = false
+}
 
 watchEffect(() => {
   if (isEditing.value && props.id) {
@@ -118,16 +133,24 @@ watchEffect(() => {
       </div>
 
       <div class="form-buttons l-flex">
-        <Button type="submit" :label="formButtonLabel" />
-        <RouterLink :to="prevRoute">
-          <Button label="Cancel" />
+        <Button type="submit" :loading="contentStore.isLoading">
+          <i v-if="isSubmitting" class="pi pi-spin pi-spinner"></i>
+          <span class="text-bold">{{ formButtonLabel }}</span>
+        </Button>
+
+        <RouterLink :to="prevRoute" :data-state="contentStore.isLoading ? 'disabled-link' : null">
+          <Button :disabled="contentStore.isLoading" label="Cancel" />
         </RouterLink>
+
         <Button
           v-if="isEditing"
-          label="Delete"
           severity="danger"
-          @click="contentStore.removeFeedback"
-        />
+          :loading="contentStore.isLoading"
+          @click="handleRemoveFeedback"
+        >
+          <i v-if="isDeleting" class="pi pi-spin pi-spinner"></i>
+          <span class="text-bold">Delete</span>
+        </Button>
       </div>
     </form>
   </main>
@@ -183,6 +206,8 @@ watchEffect(() => {
       .p-button {
         width: 100%;
         height: 2.5rem;
+        justify-content: center;
+        column-gap: 0.5rem;
       }
 
       a > .p-button {
@@ -190,6 +215,9 @@ watchEffect(() => {
       }
       a > .p-button:hover {
         background-color: var(--color-hover-indigo-dark);
+      }
+      a[data-state='disabled-link'] {
+        pointer-events: none;
       }
 
       > .p-button:last-child {
@@ -242,7 +270,7 @@ watchEffect(() => {
         }
 
         > .p-button:first-child {
-          width: 9rem;
+          width: 9.3rem;
         }
 
         .p-button:last-child {

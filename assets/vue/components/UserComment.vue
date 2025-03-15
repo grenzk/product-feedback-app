@@ -32,7 +32,7 @@ function handleReply(id: number): void {
 
 const schema = { reply: yup.string().min(1).max(250) }
 
-const { defineField, handleSubmit, resetForm } = useForm<{ reply: string }>({
+const { defineField, handleSubmit } = useForm<{ reply: string }>({
   validationSchema: schema,
   initialValues: {
     reply: ''
@@ -41,12 +41,10 @@ const { defineField, handleSubmit, resetForm } = useForm<{ reply: string }>({
 
 const [reply] = defineField('reply')
 
-const onSubmit = handleSubmit((values): void => {
-  contentStore.postComment(values.reply, commentId.value)
+const onSubmit = handleSubmit(async (values): Promise<void> => {
+  await contentStore.postComment(values.reply, commentId.value)
 
   userWantsToReply.value = false
-
-  resetForm()
 })
 </script>
 
@@ -77,7 +75,7 @@ const onSubmit = handleSubmit((values): void => {
           maxlength="250"
         />
 
-        <Button type="submit" label="Post Reply" />
+        <Button type="submit" label="Post Reply" :loading="contentStore.isLoading" />
       </form>
     </div>
 
@@ -91,7 +89,7 @@ const onSubmit = handleSubmit((values): void => {
       />
     </template>
   </div>
-  <hr />
+  <hr v-if="!isReply" />
 </template>
 
 <style lang="scss">
@@ -236,7 +234,7 @@ hr {
 
     form > .p-button {
       align-self: flex-start;
-      min-width: 7.313rem;
+      min-width: 8rem;
       height: 2.75rem;
     }
 
