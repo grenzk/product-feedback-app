@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
-import { useContentStore } from '@/stores/content'
 import { useAuthStore } from '@/stores/auth'
 
 import Card from 'primevue/card'
 import InputText from 'primevue/inputtext'
-import Button from 'primevue/button'
 import Message from 'primevue/message'
+import LoadingButton from '@/components/LoadingButton.vue'
 
 const authStore = useAuthStore()
-const contentStore = useContentStore()
 
 const schema = {
   email: yup
@@ -71,10 +69,7 @@ const onSubmit = handleSubmit((values): void => {
         </template>
 
         <template #footer>
-          <Button type="submit" :loading="contentStore.isLoading">
-            <i v-if="contentStore.isLoading" class="pi pi-spin pi-spinner"></i>
-            <span class="text-bold">Sign in</span>
-          </Button>
+          <LoadingButton has-spinner type="submit" label="Sign in" />
         </template>
       </Card>
     </form>
@@ -102,6 +97,7 @@ const onSubmit = handleSubmit((values): void => {
 
     .p-inputtext {
       margin-top: 0.5rem;
+      font-size: var(--font-size-m);
       height: 2.5rem;
       padding-left: 1rem;
       padding-right: 1rem;
@@ -111,8 +107,6 @@ const onSubmit = handleSubmit((values): void => {
       width: 100%;
       font-size: var(--font-size-m);
       border-radius: var(--border-radius-s);
-      justify-content: center;
-      column-gap: 0.5rem;
     }
   }
 }

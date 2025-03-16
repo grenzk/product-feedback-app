@@ -9,6 +9,7 @@ import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
 import BackLink from '@/components/BackLink.vue'
 import CustomDropdown from '@/components/CustomDropdown.vue'
+import LoadingButton from '@/components/LoadingButton.vue'
 
 const props = defineProps<{
   id?: string
@@ -133,24 +134,18 @@ watchEffect(() => {
       </div>
 
       <div class="form-buttons l-flex">
-        <Button type="submit" :loading="contentStore.isLoading">
-          <i v-if="isSubmitting" class="pi pi-spin pi-spinner"></i>
-          <span class="text-bold">{{ formButtonLabel }}</span>
-        </Button>
+        <LoadingButton type="submit" :has-spinner="isSubmitting" :label="formButtonLabel" />
 
         <RouterLink :to="prevRoute" :data-state="contentStore.isLoading ? 'disabled-link' : null">
           <Button :disabled="contentStore.isLoading" label="Cancel" />
         </RouterLink>
 
-        <Button
-          v-if="isEditing"
+        <LoadingButton
           severity="danger"
-          :loading="contentStore.isLoading"
+          :has-spinner="isDeleting"
+          label="Delete"
           @click="handleRemoveFeedback"
-        >
-          <i v-if="isDeleting" class="pi pi-spin pi-spinner"></i>
-          <span class="text-bold">Delete</span>
-        </Button>
+        />
       </div>
     </form>
   </main>
@@ -206,8 +201,6 @@ watchEffect(() => {
       .p-button {
         width: 100%;
         height: 2.5rem;
-        justify-content: center;
-        column-gap: 0.5rem;
       }
 
       a > .p-button {
