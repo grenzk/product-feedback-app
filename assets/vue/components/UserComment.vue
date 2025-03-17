@@ -30,9 +30,9 @@ function handleReply(id: number): void {
   commentId.value = id
 }
 
-const schema = { reply: yup.string().min(1).max(250) }
+const schema = { reply: yup.string().trim().min(1).max(250) }
 
-const { defineField, handleSubmit } = useForm<{ reply: string }>({
+const { defineField, handleSubmit, resetForm } = useForm<{ reply: string }>({
   validationSchema: schema,
   initialValues: {
     reply: ''
@@ -45,6 +45,8 @@ const onSubmit = handleSubmit(async (values): Promise<void> => {
   await contentStore.postComment(values.reply, commentId.value)
 
   userWantsToReply.value = false
+
+  resetForm()
 })
 </script>
 

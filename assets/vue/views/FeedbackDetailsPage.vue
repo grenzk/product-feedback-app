@@ -23,7 +23,7 @@ const { feedback } = storeToRefs(contentStore)
 const commentLabel = computed(() => (feedback.value?.commentCount === 1 ? 'Comment' : 'Comments'))
 const canEditFeedback = computed(() => authStore.user?.id === feedback.value?.ownedBy.id)
 
-const schema = { comment: yup.string().max(250).label('Add Comment') }
+const schema = { comment: yup.string().trim().min(1).max(250).label('Add Comment') }
 
 const { defineField, handleSubmit, resetForm } = useForm<{ comment: string }>({
   validationSchema: schema,
