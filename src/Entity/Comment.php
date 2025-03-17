@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             security: 'object.getOwnedBy() === user',
             securityPostDenormalize: 'object.getOwnedBy() === user'
         )
-    ],
+    ]
 )]
 class Comment
 {
@@ -54,6 +54,7 @@ class Comment
      */
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parentComment')]
     #[Groups('feedback:read')]
+    #[ORM\OrderBy(['publishedAt' => 'ASC'])]
     private Collection $replies;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
@@ -61,8 +62,13 @@ class Comment
     #[Groups('feedback:read')]
     private ?User $ownedBy = null;
 
+    #[ORM\Column]
+    #[Groups('feedback:read')]
+    private ?\DateTimeImmutable $publishedAt = null;
+
     public function __construct()
     {
+        $this->publishedAt = new \DateTimeImmutable();
         $this->replies = new ArrayCollection();
     }
 
@@ -145,6 +151,18 @@ class Comment
     public function setOwnedBy(?User $ownedBy): static
     {
         $this->ownedBy = $ownedBy;
+
+        return $this;
+    }
+
+    public function getPublishedAt(): ?\DateTimeImmutable
+    {
+        return $this->publishedAt;
+    }
+
+    public function setPublishedAt(\DateTimeImmutable $publishedAt): static
+    {
+        $this->publishedAt = $publishedAt;
 
         return $this;
     }

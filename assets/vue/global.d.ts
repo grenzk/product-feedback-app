@@ -24,6 +24,7 @@ interface UserComment {
     username: string
     fullName: string
   }
+  publishedAt: string
 }
 
 interface Feedback {
