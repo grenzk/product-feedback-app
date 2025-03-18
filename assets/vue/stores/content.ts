@@ -167,15 +167,6 @@ export const useContentStore = defineStore('content', () => {
     allFeedback.value = allFeedbackCopy.value
   }
 
-  function $reset(): void {
-    allFeedback.value = []
-    allFeedbackCopy.value = []
-    feedback.value = undefined
-    feedbackSort.value = 'Most Upvotes'
-    feedbackCategory.value = 'All'
-    statuses.value.forEach(status => (status.count = 0))
-  }
-
   watchEffect(async () => {
     if (authStore.isLoggedIn) {
       isLoading.value = true
@@ -208,7 +199,6 @@ export const useContentStore = defineStore('content', () => {
     filterFeedbackByStatus,
     filterFeedbackByCategory,
     sortFeedback,
-    resetFeedbackList,
-    $reset,
+    resetFeedbackList
   }
 })
