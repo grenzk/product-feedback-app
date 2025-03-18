@@ -38,7 +38,7 @@ const schema = {
   detail: yup.string().required("Can't be empty").label('Feedback Detail')
 }
 
-const { defineField, handleSubmit, resetForm, errors } = useForm<FeedbackForm>({
+const { defineField, handleSubmit, errors } = useForm<FeedbackForm>({
   validationSchema: schema,
   initialValues: {
     category: 'Feature',
@@ -57,7 +57,6 @@ const onSubmit = handleSubmit(async (values): Promise<void> => {
     await contentStore.editFeedback(values)
   } else {
     await contentStore.postFeedback(values)
-    resetForm()
   }
   isSubmitting.value = false
 })
