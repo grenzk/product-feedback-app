@@ -11,6 +11,7 @@ import FeedbackCard from '@/components/FeedbackCard.vue'
 import BackLink from '@/components/BackLink.vue'
 import ContentCard from '@/components/ContentCard.vue'
 import UserComment from '@/components/UserComment.vue'
+import LoadingButton from '@/components/LoadingButton.vue'
 
 const props = defineProps<{
   id: string
@@ -19,6 +20,8 @@ const props = defineProps<{
 const authStore = useAuthStore()
 const contentStore = useContentStore()
 const { feedback } = storeToRefs(contentStore)
+
+const isCommenting = ref(false)
 
 const commentLabel = computed(() => (feedback.value?.commentCount === 1 ? 'Comment' : 'Comments'))
 const canEditFeedback = computed(() => authStore.user?.id === feedback.value?.ownedBy.id)
@@ -35,7 +38,10 @@ const { defineField, handleSubmit, resetForm } = useForm<{ comment: string }>({
 const [comment] = defineField('comment')
 
 const onSubmit = handleSubmit(async (values): Promise<void> => {
+  isCommenting.value = true
   await contentStore.postComment(values.comment)
+  isCommenting.value = false
+
   resetForm()
 })
 
@@ -71,7 +77,7 @@ watchEffect(() => contentStore.findandSetFeedback(props.id))
 
         <div class="row | l-flex">
           <span>{{ 250 - comment.length }} Characters left</span>
-          <Button type="submit" label="Post Comment" :loading="contentStore.isLoading" />
+          <LoadingButton :has-spinner="isCommenting" type="submit" label="Post Comment" />
         </div>
       </form>
     </ContentCard>

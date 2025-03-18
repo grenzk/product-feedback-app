@@ -5,6 +5,7 @@ import { useContentStore } from '@/stores/content'
 
 import Button from 'primevue/button'
 import Textarea from 'primevue/textarea'
+import LoadingButton from './LoadingButton.vue'
 
 const props = defineProps<{
   comment: UserComment
@@ -16,6 +17,7 @@ const contentStore = useContentStore()
 
 const userWantsToReply = ref(false)
 const commentId = ref(0)
+const isReplying = ref(false)
 
 const rootUsernameForReply = computed(() => {
   return props.isReply && props.rootUsername ? `@${props.rootUsername}` : ''
@@ -42,7 +44,9 @@ const { defineField, handleSubmit, resetForm } = useForm<{ reply: string }>({
 const [reply] = defineField('reply')
 
 const onSubmit = handleSubmit(async (values): Promise<void> => {
+  isReplying.value = true
   await contentStore.postComment(values.reply, commentId.value)
+  isReplying.value = false
 
   userWantsToReply.value = false
 
@@ -76,8 +80,7 @@ const onSubmit = handleSubmit(async (values): Promise<void> => {
           placeholder="Type your comment here"
           maxlength="250"
         />
-
-        <Button type="submit" label="Post Reply" :loading="contentStore.isLoading" />
+        <LoadingButton :has-spinner="isReplying" type="submit" label="Post Reply" />
       </form>
     </div>
 
