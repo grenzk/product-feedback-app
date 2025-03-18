@@ -25,7 +25,7 @@ function handleClick(event: Event) {
 
   localStorage.setItem('selectedCategoryOption', selectedCategory)
 
-  contentStore.$reset()
+  contentStore.resetFeedbackList()
   contentStore.filterFeedbackByCategory(selectedCategory)
 }
 

@@ -167,6 +167,10 @@ export const useContentStore = defineStore('content', () => {
     allFeedback.value.sort(sortOptions[sortBy])
   }
 
+  function resetFeedbackList(): void {
+    allFeedback.value = allFeedbackCopy.value
+  }
+
   watchEffect(async () => {
     if (authStore.isLoggedIn) {
       isLoading.value = true
@@ -199,6 +203,7 @@ export const useContentStore = defineStore('content', () => {
     $reset,
     filterFeedbackByStatus,
     filterFeedbackByCategory,
-    sortFeedback
+    sortFeedback,
+    resetFeedbackList,
   }
 })

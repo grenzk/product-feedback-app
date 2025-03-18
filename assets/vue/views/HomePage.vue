@@ -25,7 +25,7 @@ watch([() => contentStore.feedbackSort, () => contentStore.feedbackCategory], ()
 })
 
 onUnmounted(() => {
-  contentStore.$reset()
+  contentStore.resetFeedbackList()
   uiStore.isSidebarActive = false
 })
 </script>
