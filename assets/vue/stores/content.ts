@@ -137,10 +137,6 @@ export const useContentStore = defineStore('content', () => {
     }
   }
 
-  function $reset(): void {
-    allFeedback.value = allFeedbackCopy.value
-  }
-
   function filterFeedbackByStatus(status: string): Feedback[] {
     return allFeedback.value.filter((feedback: Feedback) => feedback.status === status)
   }
@@ -169,6 +165,15 @@ export const useContentStore = defineStore('content', () => {
 
   function resetFeedbackList(): void {
     allFeedback.value = allFeedbackCopy.value
+  }
+
+  function $reset(): void {
+    allFeedback.value = []
+    allFeedbackCopy.value = []
+    feedback.value = undefined
+    feedbackSort.value = 'Most Upvotes'
+    feedbackCategory.value = 'All'
+    statuses.value.forEach(status => (status.count = 0))
   }
 
   watchEffect(async () => {
@@ -200,10 +205,10 @@ export const useContentStore = defineStore('content', () => {
     removeFeedback,
     toggleUpvote,
     postComment,
-    $reset,
     filterFeedbackByStatus,
     filterFeedbackByCategory,
     sortFeedback,
     resetFeedbackList,
+    $reset,
   }
 })

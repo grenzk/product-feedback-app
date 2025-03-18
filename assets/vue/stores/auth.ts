@@ -42,7 +42,9 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  function logout() {
+  function logout(): void {
+    contentStore.$reset()
+    localStorage.clear()
     window.location.href = '/logout'
   }
 
