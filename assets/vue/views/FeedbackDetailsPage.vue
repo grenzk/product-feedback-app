@@ -45,6 +45,8 @@ const onSubmit = handleSubmit(async (values): Promise<void> => {
   resetForm()
 })
 
+onMounted(() => window.scrollTo({ top: 0, behavior: 'smooth' }))
+
 watchEffect(() => contentStore.findandSetFeedback(props.id))
 </script>
 
