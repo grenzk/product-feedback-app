@@ -139,7 +139,6 @@ export const useContentStore = defineStore('content', () => {
 
   function $reset(): void {
     allFeedback.value = allFeedbackCopy.value
-    sortFeedback()
   }
 
   function filterFeedbackByStatus(status: string): Feedback[] {

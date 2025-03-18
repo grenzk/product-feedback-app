@@ -13,6 +13,11 @@ const contentStore = useContentStore()
 
 const feedbackContainer = ref<HTMLDivElement | null>(null)
 
+onMounted(() => {
+  contentStore.sortFeedback()
+  contentStore.filterFeedbackByCategory()
+})
+
 watch([() => contentStore.feedbackSort, () => contentStore.feedbackCategory], () => {
   setTimeout(() => {
     if (feedbackContainer.value) feedbackContainer.value.scrollTo({ top: 0, behavior: 'smooth' })
